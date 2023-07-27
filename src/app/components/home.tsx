@@ -4,7 +4,7 @@ import { AiOutlineSearch, AiOutlineStar, AiOutlineOrderedList } from 'react-icon
 import { CiSettings } from 'react-icons/ci'
 import { BsFillPaletteFill, BsFillPlayFill } from 'react-icons/bs'
 import { FaEllipsisV } from 'react-icons/fa'
-import  HomeProps  from './types'
+import { HomeProps } from './types'
 
 
 const Home = ({setView} : HomeProps) => {
