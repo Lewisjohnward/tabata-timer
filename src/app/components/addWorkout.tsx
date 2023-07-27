@@ -6,6 +6,7 @@ import { HomeProps } from './types'
 const AddWorkout = ({setView} : HomeProps) => {
     const [title, setTitle] = useState("")
     const [prepare, setPrepare] = useState<number|null>(null)
+    const [work, setWork] = useState<number|null>(null)
 
     const handleReturnHome = () => {
         setView("home")
@@ -54,11 +55,12 @@ const AddWorkout = ({setView} : HomeProps) => {
                             />
                         </button>
                         <input 
-                            className="w-[80px] text-center bg-transparent focus:outline-none text-3xl" type="number" 
+                            className="w-[250px] text-center bg-transparent focus:outline-none text-3xl" type="number" 
                             placeholder="10"
                             value={prepare == null ? "" : prepare}
                             onChange={e => setPrepare(Number(e.target.value))}
                         />
+
                         <button>
                             <AiFillPlusCircle className="text-5xl"/>
                         </button>
@@ -72,8 +74,10 @@ const AddWorkout = ({setView} : HomeProps) => {
                             <AiFillMinusCircle className="text-5xl"/>
                         </button>
                         <input 
-                            className="w-[80px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" 
+                            className="w-[250px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="number" 
                             placeholder="25"
+                            value={work == null ? "" : work}
+                            onChange={e => setWork(Number(e.target.value))}
                         />
                         <button>
                             <AiFillPlusCircle className="text-5xl"/>
@@ -88,7 +92,7 @@ const AddWorkout = ({setView} : HomeProps) => {
                             <AiFillMinusCircle className="text-5xl"/>
                         </button>
                         <input 
-                            className="w-[80px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" 
+                            className="w-[250px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" 
                             placeholder=""
                         />
                         <button>
@@ -103,7 +107,7 @@ const AddWorkout = ({setView} : HomeProps) => {
                         <button>
                             <AiFillMinusCircle className="text-5xl"/>
                         </button>
-                        <input className="w-[80px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" />
+                        <input className="w-[250px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" />
                         <button>
                             <AiFillPlusCircle className="text-5xl"/>
                         </button>
@@ -116,7 +120,7 @@ const AddWorkout = ({setView} : HomeProps) => {
                         <button>
                             <AiFillMinusCircle className="text-5xl"/>
                         </button>
-                        <input className="w-[80px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" />
+                        <input className="w-[250px] text-center focus:outline-none placeholder:text-3xl" type="text" />
                         <button>
                             <AiFillPlusCircle className="text-5xl"/>
                         </button>
@@ -129,7 +133,7 @@ const AddWorkout = ({setView} : HomeProps) => {
                         <button>
                             <AiFillMinusCircle className="text-5xl"/>
                         </button>
-                        <input className="w-[80px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" />
+                        <input className="w-[250px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" />
                         <button>
                             <AiFillPlusCircle className="text-5xl"/>
                         </button>
