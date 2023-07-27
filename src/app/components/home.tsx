@@ -82,7 +82,7 @@ const AddSequence = ({setView} : HomeProps) => {
     const [open, setOpen] = useState(false)
     return (
         <div 
-            className={clsx("absolute right-0 bottom-0 h-full w-full text-white font-bold")}
+            className={clsx("h-full w-full text-white font-bold")}
         >
             {open &&
             <div 
