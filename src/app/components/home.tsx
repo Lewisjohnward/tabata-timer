@@ -52,16 +52,17 @@ const IconArr = [
     <AiOutlineSearch />,
     <CiSettings />,
 ]
+
 const Header = () => {
     return (
         <div className="flex justify-between gap-4 bg-gray-400 p-4 text-white font-bold">
             <div className="space-y-4">
-                <p>
+                <h1 className="text-4xl">
                     Workouts: 52
-                </p>
-                <p>
+                </h1>
+                <h2 className='text-2xl'>
                     all
-                </p>
+                </h2>
             </div>
             <div className="grid grid-cols-2 gap-4 text-2xl">
                 {IconArr.map(d => (
