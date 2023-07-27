@@ -5,14 +5,14 @@ import Home from './components/home'
 
 
 export default function Page() {
-    const [view, setView] = useState("addworkout") 
+    const [view, setView] = useState("home") 
 
     return (
         <main className="relative min-h-screen">
             { 
-                view == "home" ?
-                    <Home setView={setView}/> :
-                    <AddWorkout setView={setView}/>
+                view == "home" ? <Home setView={setView}/> :
+                view == "addworkout" ? <AddWorkout setView={setView}/> :
+                null
             }
         </main>
     )
