@@ -66,7 +66,7 @@ const Header = () => {
                     All
                 </h2>
             </div>
-            <div className="grid grid-cols-2 gap-4 text-2xl">
+            <div className="grid grid-cols-2 gap-4 text-3xl">
                 {IconArr.map(d => (
                     <button>
                         {d}
