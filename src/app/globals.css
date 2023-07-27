@@ -22,6 +22,7 @@ body {
     color: rgb(var(--foreground-rgb));
     background: var(--background-start-rgb);
 }
+
 button,
 textarea,
 input,
@@ -35,4 +36,12 @@ a{
     -ms-user-select: none;
     user-select: none;
 
+}
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
