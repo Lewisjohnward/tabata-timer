@@ -1,6 +1,7 @@
 import { AiFillMinusCircle, AiFillPlusCircle, AiOutlineClose } from 'react-icons/ai'
+import { HomeProps } from './types'
 
-const AddWorkout = ({setView}) => {
+const AddWorkout = ({setView} : HomeProps) => {
     const handleReturnHome = () => {
         setView("home")
     }
