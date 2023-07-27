@@ -8,7 +8,7 @@ export default function Page() {
     const [view, setView] = useState("home") 
 
     return (
-        <main className="relative min-h-screen">
+        <main className="relative min-h-[100vh]">
             { 
                 view == "home" ? <Home setView={setView}/> :
                 view == "addworkout" ? <AddWorkout setView={setView}/> :
