@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { clsx } from 'clsx'
 import { AiOutlineSearch, AiOutlineStar, AiOutlineOrderedList } from 'react-icons/ai'
 import { CiSettings } from 'react-icons/ci'
@@ -12,6 +12,19 @@ const Home = ({setView} : HomeProps) => {
         <>
             <Header />
             <div className="py-2 space-y-2">
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
+                <Workout />
                 <Workout />
             </div>
             <AddSequence setView={setView}/>
@@ -80,19 +93,28 @@ const Header = () => {
 
 const AddSequence = ({setView} : HomeProps) => {
     const [open, setOpen] = useState(false)
+
+    useEffect(() => {
+        open ? 
+            document.body.style.overflow = 'hidden'
+            :
+            document.body.style.overflow = 'scroll'
+
+    }, [open])
+
     return (
         <div 
-            className={clsx("h-full w-full text-white font-bold")}
+            className={clsx("absolute h-[90vh] top-0 w-full text-white font-bold")}
         >
             {open &&
             <div 
-                className={clsx("h-full bg-white/40")} 
+                className={clsx("h-[2000px] bg-white/40")} 
                 onClick={() => setOpen(false)}
             />
             }
-            <div className="absolute right-0 bottom-2 space-y-2">
+            <div className="fixed right-0 bottom-2 space-y-2">
                 { open &&
-                <div className="flex justify-end items-center gap-4 pr-4 [&>*]:active:bg-white [&>*]:active:transition-colors [&>*]:active:duration-200">
+                <div className="flex justify-end items-center gap-4 pr-8 [&>*]:active:bg-white [&>*]:active:transition-colors [&>*]:active:duration-200">
                     <button className={clsx("py-1 px-4 bg-red-500 rounded-full shadow-[1px_2px_2px_0px_rgba(0,0,0,0.2)] animate-entrance")}>
                         New Sequence
                     </button>
@@ -113,7 +135,7 @@ const AddSequence = ({setView} : HomeProps) => {
                     </button>
                     }
                     <button 
-                        className={clsx("flex justify-center items-center w-14 h-14 bg-red-500 rounded-full text-4xl shadow-[1px_2px_2px_0px_rgba(0,0,0,0.2)]")}
+                        className={clsx("flex justify-center items-center w-20 h-20 bg-red-500 rounded-full text-4xl shadow-[1px_2px_2px_0px_rgba(0,0,0,0.2)]")}
                         onClick={() => { open ? setView("addworkout") : setOpen(true) }}
                     >
                         +
