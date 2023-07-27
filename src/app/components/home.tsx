@@ -26,14 +26,14 @@ const Workout = () => {
     return (
         <div className="flex space-between p-4 bg-red-500 text-white shadow-[4px_2px_2px_0px_rgba(0,0,0,0.2)]">
             <div>
-                <p className="font-bold">
+                <h3 className="font-bold text-xl">
                     {name}
-                </p>
-                <p>
+                </h3>
+                <p className="text-lg">
                     {time} {intervals} intervals
                 </p>
             </div>
-            <div className="flex-grow flex justify-end gap-4 text-2xl">
+            <div className="flex-grow flex justify-end gap-4 text-2xl [&>button]:text-4xl">
                 <button>
                     <BsFillPlayFill />
                 </button>
@@ -55,13 +55,15 @@ const IconArr = [
 
 const Header = () => {
     return (
-        <div className="flex justify-between gap-4 bg-gray-400 p-4 text-white font-bold">
+        <div 
+            className="flex justify-between gap-4 bg-gray-400 p-4 text-white font-bold shadow-[4px_2px_2px_0px_rgba(0,0,0,0.2)]"
+        >
             <div className="space-y-4">
-                <h1 className="text-4xl">
+                <h1 className="text-4xl drop-shadow-lg">
                     Workouts: 52
                 </h1>
-                <h2 className='text-2xl'>
-                    all
+                <h2 className='text-2xl drop-shadow-lg'>
+                    All
                 </h2>
             </div>
             <div className="grid grid-cols-2 gap-4 text-2xl">
