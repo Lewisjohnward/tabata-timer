@@ -6,6 +6,7 @@ import Home from './components/home'
 
 export default function Page() {
     const [view, setView] = useState("addworkout") 
+
     return (
         <main className="relative min-h-screen">
             { 
@@ -16,13 +17,3 @@ export default function Page() {
         </main>
     )
 }
-
-//{
-//    view == "home" ? 
-//        <Home />
-//        :
-//        view == "addworkout"  ?
-//            <AddWorkout />
-//        : null
-//}
-

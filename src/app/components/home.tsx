@@ -5,7 +5,12 @@ import { CiSettings } from 'react-icons/ci'
 import { BsFillPaletteFill, BsFillPlayFill } from 'react-icons/bs'
 import { FaEllipsisV } from 'react-icons/fa'
 
-const Home = ({setView}) => {
+
+type HomeProps = {
+    setView: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Home = ({setView} : HomeProps) => {
     return (
         <>
             <Header />
@@ -73,7 +78,7 @@ const Header = () => {
     )
 }
 
-const AddSequence = ({setView}) => {
+const AddSequence = ({setView} : HomeProps) => {
     const [open, setOpen] = useState(false)
     return (
         <div 
