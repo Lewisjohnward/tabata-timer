@@ -27,7 +27,7 @@ const AddWorkout = ({setView} : HomeProps) => {
     return (
         <div className="text-sky-900 pb-4">
             <div className="bg-orange-600 py-4 text-white font-bold">
-                <div className="space-y-4 drop-shadow-lg">
+                <div className="space-y-4">
                     <div className="flex justify-between items-center gap-4">
                         <div className="flex gap-4">
                             <button
