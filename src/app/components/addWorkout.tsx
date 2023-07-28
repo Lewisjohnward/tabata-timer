@@ -10,8 +10,6 @@ import { TiTick } from 'react-icons/ti'
 import { HomeProps } from './types'
 import Input from './input'
 
-
-
 const AddWorkout = ({setView} : HomeProps) => {
     const [title, setTitle] = useState("")
     const [prepare, setPrepare] = useState("")
@@ -68,7 +66,6 @@ const AddWorkout = ({setView} : HomeProps) => {
                 <Input inputType={"number"} icon={<BsFillStopwatchFill />} label={"Sets"} placeholder={"1"} value={sets} setValue={setSets} />
                 <Input inputType={"number"} icon={<RxSpaceBetweenHorizontally />} label={"Rest between sets"} placeholder={"0"} value={restBetweenSets} setValue={setRestBetweenSets} />
                 <Input inputType={"number"} icon={<BsSnow />} label={"Cool down"} placeholder={"0"} value={cooldown} setValue={setCooldown} />
-
             </div>
         </div>
     )
