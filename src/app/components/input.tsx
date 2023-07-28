@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import {ReactNode} from 'react'
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 
@@ -25,7 +26,7 @@ const Input = ({inputType, icon, label, placeholder, value, setValue} : InputPro
                     </button>
                     }
                     <input 
-                        className="w-full text-center bg-transparent focus:outline-none text-3xl" type={inputType} 
+                        className={clsx("w-full text-center bg-transparent focus:outline-none text-3xl", inputType == "text" && "pb-4")} type={inputType} 
                         placeholder={placeholder}
                         value={value}
                         onChange={e =>  setValue(e.target.value)}
