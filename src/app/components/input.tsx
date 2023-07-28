@@ -25,7 +25,7 @@ const Input = ({inputType, icon, label, placeholder, value, setValue} : InputPro
                     </button>
                     }
                     <input 
-                        className="w-full text-center bg-transparent focus:outline-none text-3xl" type="number" 
+                        className="w-full text-center bg-transparent focus:outline-none text-3xl" type={inputType} 
                         placeholder={placeholder}
                         value={value}
                         onChange={e =>  setValue(e.target.value)}
