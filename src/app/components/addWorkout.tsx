@@ -24,22 +24,23 @@ const AddWorkout = ({setView} : HomeProps) => {
         setView("home")
     }
 
+
     return (
-        <div className="text-sky-900 pb-4">
-            <div className="bg-orange-600 py-4 text-white font-bold">
+        <div className="relative text-sky-900 pb-4">
+            <div className="bg-orange-600 p-6 text-white font-bold">
                 <div className="space-y-4">
                     <div className="flex justify-between items-center gap-4">
                         <div className="flex gap-4">
                             <button
                                 onClick={handleReturnHome}
                             >
-                                <AiOutlineClose className="text-2xl"/>
+                                <AiOutlineClose className="text-4xl"/>
                             </button>
-                            <h1 className="text-3xl">
+                            <h1 className="text-2xl">
                                 Add workout
                             </h1>
                         </div>
-                        <div className="flex items-center gap-4 text-2xl">
+                        <div className="flex items-center gap-6 text-3xl">
                             <button>
                                 <AiFillEye />
                             </button>
@@ -66,6 +67,11 @@ const AddWorkout = ({setView} : HomeProps) => {
                 <Input inputType={"number"} icon={<BsFillStopwatchFill />} label={"Sets"} placeholder={"1"} value={sets} setValue={setSets} />
                 <Input inputType={"number"} icon={<RxSpaceBetweenHorizontally />} label={"Rest between sets"} placeholder={"0"} value={restBetweenSets} setValue={setRestBetweenSets} />
                 <Input inputType={"number"} icon={<BsSnow />} label={"Cool down"} placeholder={"0"} value={cooldown} setValue={setCooldown} />
+            </div>
+            <div className="fixed bottom-0 flex justify-center w-full py-2 px-4 bg-white">
+                <button className="uppercase w-96 p-4 bg-sky-900 text-white text-2xl font-bold rounded-lg">
+                    Customise intervals
+                </button>
             </div>
         </div>
     )
