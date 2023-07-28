@@ -1,12 +1,14 @@
 'use client'
 import { useState } from 'react'
-import { AiFillMinusCircle, AiFillPlusCircle, AiOutlineClose } from 'react-icons/ai'
+import { AiFillMinusCircle, AiFillPlusCircle, AiOutlineClose, AiFillEye } from 'react-icons/ai'
+import { BsFillPaletteFill } from 'react-icons/bs'
+import { TiTick } from 'react-icons/ti'
 import { HomeProps } from './types'
 
 const AddWorkout = ({setView} : HomeProps) => {
     const [title, setTitle] = useState("")
-    const [prepare, setPrepare] = useState<number|null>(null)
-    const [work, setWork] = useState<number|null>(null)
+    const [prepare, setPrepare] = useState("")
+    const [work, setWork] = useState("")
 
     const handleReturnHome = () => {
         setView("home")
@@ -15,17 +17,30 @@ const AddWorkout = ({setView} : HomeProps) => {
     return (
         <div>
 
-            <div className="bg-orange-600 p-4 text-white font-bold">
+            <div className="bg-orange-600 py-4 text-white font-bold">
                 <div className="space-y-4 drop-shadow-lg">
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={handleReturnHome}
-                        >
-                            <AiOutlineClose className="text-4xl"/>
-                        </button>
-                        <h1 className="text-4xl">
-                            Add workout
-                        </h1>
+                    <div className="flex justify-between items-center gap-4">
+                        <div className="flex gap-4">
+                            <button
+                                onClick={handleReturnHome}
+                            >
+                                <AiOutlineClose className="text-2xl"/>
+                            </button>
+                            <h1 className="text-3xl">
+                                Add workout
+                            </h1>
+                        </div>
+                        <div className="flex items-center gap-4 text-2xl">
+                            <button>
+                                <AiFillEye />
+                            </button>
+                            <button>
+                                <BsFillPaletteFill />
+                            </button>
+                            <button>
+                                <TiTick />
+                            </button>
+                        </div>
                     </div>
                     <p className="text-center text-2xl">
                         {"04:00"} . {`${"16"} intervals`}
@@ -57,8 +72,8 @@ const AddWorkout = ({setView} : HomeProps) => {
                         <input 
                             className="w-[250px] text-center bg-transparent focus:outline-none text-3xl" type="number" 
                             placeholder="10"
-                            value={prepare == null ? "" : prepare}
-                            onChange={e => setPrepare(Number(e.target.value))}
+                            value={prepare}
+                            onChange={e =>  setPrepare(e.target.value)}
                         />
 
                         <button>
@@ -76,8 +91,8 @@ const AddWorkout = ({setView} : HomeProps) => {
                         <input 
                             className="w-[250px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="number" 
                             placeholder="25"
-                            value={work == null ? "" : work}
-                            onChange={e => setWork(Number(e.target.value))}
+                            value={work}
+                            onChange={e => setWork(e.target.value)}
                         />
                         <button>
                             <AiFillPlusCircle className="text-5xl"/>
