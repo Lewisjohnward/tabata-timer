@@ -8,28 +8,45 @@ import { RxSpaceBetweenHorizontally } from 'react-icons/rx'
 import { MdTitle } from 'react-icons/md'
 import { TiTick } from 'react-icons/ti'
 import { HomeProps } from './types'
-import Input from './input'
+import Input, {TextInput} from './input'
 
 const AddWorkout = ({setView} : HomeProps) => {
     const [title, setTitle] = useState("Bicep curls")
-    const [prepare, setPrepare] = useState("10")
-    const [work, setWork] = useState("25")
-    const [rest, setRest] = useState("10")
-    const [cycles, setCycles] = useState("1")
-    const [sets, setSets] = useState("1")
-    const [restBetweenSets, setRestBetweenSets] = useState("0")
-    const [cooldown, setCooldown] = useState("")
-    const [totalTime, setTotalTime] = useState()
+    const [prepare, setPrepare] = useState(10)
+    const [work, setWork] = useState(25)
+    const [rest, setRest] = useState(10)
+    const [cycles, setCycles] = useState(1)
+    const [sets, setSets] = useState(1)
+    const [restBetweenSets, setRestBetweenSets] = useState(0)
+    const [cooldown, setCooldown] = useState(0)
+    //const [totalTime, setTotalTime] = useState(0)
+    const [intervals, setIntervals] = useState(0)
+
+    //const formatTime = (time : number) => {
+
+    //}
 
     const handleReturnHome = () => {
         setView("home")
     }
+    //{`${formatTime(totalTime)}. ${intervals} intervals`}
+
+    const calculateIntervalCount = () => {
+        let totalIntervals = 0
+        if (Number(prepare) > 0) totalIntervals ++
+
+        if (Number(work) > 0) totalIntervals ++
+        if (Number(rest) > 0) totalIntervals ++
+
+        if (Number(cooldown) > 0) totalIntervals ++
+        return totalIntervals
+    }
 
     useEffect(() => {
+        const totalIntervals = calculateIntervalCount()
+        setIntervals(totalIntervals)
 
     }, [prepare, work, rest, cycles, sets, rest, cooldown])
-
-
 
     return (
         <div className="relative text-sky-900 pb-4">
@@ -59,20 +76,20 @@ const AddWorkout = ({setView} : HomeProps) => {
                         </div>
                     </div>
                     <p className="text-center text-2xl">
-                        {"04:00"} . {`${"16"} intervals`}
+                        {`3:00. ${intervals} intervals`}
                     </p>
                 </div>
             </div>
 
             <div className="pr-4 pt-4 space-y-4 text-2xl">
-                <Input inputType={"text"} icon={<MdTitle />} label={"Title"} placeholder={"Bicep curls"} value={title} setValue={setTitle} />
-                <Input inputType={"number"} icon={<FaWalking />} label={"Prepare"} placeholder={"10"} value={prepare} setValue={setPrepare} />
-                <Input inputType={"number"} icon={<GiWeightLiftingUp />} label={"Work"} placeholder={"25"} value={work} setValue={setWork} />
-                <Input inputType={"number"} icon={<GiSofa />} label={"Rest"} placeholder={"10"} value={rest} setValue={setRest} />
-                <Input inputType={"number"} icon={<BsArrowRepeat />} label={"Cycles"} placeholder={"1"} value={cycles} setValue={setCycles} />
-                <Input inputType={"number"} icon={<BsFillStopwatchFill />} label={"Sets"} placeholder={"1"} value={sets} setValue={setSets} />
-                <Input inputType={"number"} icon={<RxSpaceBetweenHorizontally />} label={"Rest between sets"} placeholder={"0"} value={restBetweenSets} setValue={setRestBetweenSets} />
-                <Input inputType={"number"} icon={<BsSnow />} label={"Cool down"} placeholder={"0"} value={cooldown} setValue={setCooldown} />
+                <TextInput inputType={"text"} icon={<MdTitle />} label={"Title"} value={title} setValue={setTitle} />
+                <Input inputType={"number"} icon={<FaWalking />} label={"Prepare"} value={prepare} setValue={setPrepare} />
+                <Input inputType={"number"} icon={<GiWeightLiftingUp />} label={"Work"} value={work} setValue={setWork} />
+                <Input inputType={"number"} icon={<GiSofa />} label={"Rest"} value={rest} setValue={setRest} />
+                <Input inputType={"number"} icon={<BsArrowRepeat />} label={"Cycles"} value={cycles} setValue={setCycles} />
+                <Input inputType={"number"} icon={<BsFillStopwatchFill />} label={"Sets"} value={sets} setValue={setSets} />
+                <Input inputType={"number"} icon={<RxSpaceBetweenHorizontally />} label={"Rest between sets"} value={restBetweenSets} setValue={setRestBetweenSets} />
+                <Input inputType={"number"} icon={<BsSnow />} label={"Cool down"} value={cooldown} setValue={setCooldown} />
             </div>
         </div>
     )
