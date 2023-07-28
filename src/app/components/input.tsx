@@ -26,7 +26,7 @@ const Input = ({inputType, icon, label, placeholder, value, setValue} : InputPro
                     </button>
                     }
                     <input 
-                        className={clsx("w-full text-center bg-transparent focus:outline-none text-3xl", inputType == "text" && "pb-4")} type={inputType} 
+                        className={clsx("w-full text-center bg-transparent focus:outline-none text-2xl", inputType == "text" && "pb-4")} type={inputType} 
                         placeholder={placeholder}
                         value={value}
                         onChange={e =>  setValue(e.target.value)}
