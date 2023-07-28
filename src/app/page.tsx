@@ -5,7 +5,7 @@ import Home from './components/home'
 
 
 export default function Page() {
-    const [view, setView] = useState("home") 
+    const [view, setView] = useState("addworkout") 
 
     return (
         <main className="relative min-h-full">

@@ -1,22 +1,32 @@
 'use client'
-import { useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { AiFillMinusCircle, AiFillPlusCircle, AiOutlineClose, AiFillEye } from 'react-icons/ai'
-import { BsFillPaletteFill } from 'react-icons/bs'
+import { BsFillPaletteFill, BsArrowRepeat, BsFillStopwatchFill, BsSnow } from 'react-icons/bs'
+import { FaWalking } from 'react-icons/fa'
+import { GiWeightLiftingUp, GiSofa } from 'react-icons/gi'
+import { RxSpaceBetweenHorizontally } from 'react-icons/rx'
+import { MdTitle } from 'react-icons/md'
 import { TiTick } from 'react-icons/ti'
 import { HomeProps } from './types'
+
+
 
 const AddWorkout = ({setView} : HomeProps) => {
     const [title, setTitle] = useState("")
     const [prepare, setPrepare] = useState("")
     const [work, setWork] = useState("")
+    const [rest, setRest] = useState("")
+    const [cycles, setCycles] = useState("")
+    const [sets, setSets] = useState("")
+    const [restBetweenSets, setRestBetweenSets] = useState("")
+    const [cooldown, setCooldown] = useState("")
 
     const handleReturnHome = () => {
         setView("home")
     }
 
     return (
-        <div>
-
+        <div className="text-sky-900 pb-4">
             <div className="bg-orange-600 py-4 text-white font-bold">
                 <div className="space-y-4 drop-shadow-lg">
                     <div className="flex justify-between items-center gap-4">
@@ -48,114 +58,15 @@ const AddWorkout = ({setView} : HomeProps) => {
                 </div>
             </div>
 
-            <div className="px-8 pt-4 space-y-4 text-2xl">
-
-                <div className="space-y-2 text-center border-b-[1px] border-black pb-2">
-                    <label className="block font-bold">Title</label>
-                    <input 
-                        className="w-1/2 bg-transparent text-center placeholder-gray-600/40 text-3xl focus:outline-none" 
-                        type="text" 
-                        value={title}
-                        placeholder="Bicep curls"
-                        onChange={e => setTitle(e.target.value)}
-                    />
-                </div>
-
-                <div className="space-y-2 text-center border-b-[1px] border-black pb-2">
-                    <label className="block font-bold">Prepare</label>
-                    <div className="flex justify-between items-center">
-                        <button>
-                            <AiFillMinusCircle 
-                                className="text-5xl"
-                            />
-                        </button>
-                        <input 
-                            className="w-[250px] text-center bg-transparent focus:outline-none text-3xl" type="number" 
-                            placeholder="10"
-                            value={prepare}
-                            onChange={e =>  setPrepare(e.target.value)}
-                        />
-
-                        <button>
-                            <AiFillPlusCircle className="text-5xl"/>
-                        </button>
-                    </div>
-                </div>
-
-                <div className="space-y-2 text-center border-b-[1px] border-black pb-2">
-                    <label className="block font-bold">Work</label>
-                    <div className="flex justify-between items-center">
-                        <button>
-                            <AiFillMinusCircle className="text-5xl"/>
-                        </button>
-                        <input 
-                            className="w-[250px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="number" 
-                            placeholder="25"
-                            value={work}
-                            onChange={e => setWork(e.target.value)}
-                        />
-                        <button>
-                            <AiFillPlusCircle className="text-5xl"/>
-                        </button>
-                    </div>
-                </div>
-
-                <div className="space-y-2 text-center border-b-[1px] border-black pb-2">
-                    <label className="block font-bold">Rest</label>
-                    <div className="flex justify-between items-center">
-                        <button>
-                            <AiFillMinusCircle className="text-5xl"/>
-                        </button>
-                        <input 
-                            className="w-[250px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" 
-                            placeholder=""
-                        />
-                        <button>
-                            <AiFillPlusCircle className="text-5xl"/>
-                        </button>
-                    </div>
-                </div>
-
-                <div className="space-y-2 text-center border-b-[1px] border-black pb-2">
-                    <label className="block font-bold">Rest</label>
-                    <div className="flex justify-between items-center">
-                        <button>
-                            <AiFillMinusCircle className="text-5xl"/>
-                        </button>
-                        <input className="w-[250px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" />
-                        <button>
-                            <AiFillPlusCircle className="text-5xl"/>
-                        </button>
-                    </div>
-                </div>
-
-                <div className="space-y-2 text-center border-b-[1px] border-black pb-2">
-                    <label className="block font-bold">Cycles</label>
-                    <div className="flex justify-between items-center">
-                        <button>
-                            <AiFillMinusCircle className="text-5xl"/>
-                        </button>
-                        <input className="w-[250px] text-center focus:outline-none placeholder:text-3xl" type="text" />
-                        <button>
-                            <AiFillPlusCircle className="text-5xl"/>
-                        </button>
-                    </div>
-                </div>
-
-                <div className="space-y-2 text-center border-b-[1px] border-black pb-2">
-                    <label className="block font-bold">Cycles</label>
-                    <div className="flex justify-between items-center">
-                        <button>
-                            <AiFillMinusCircle className="text-5xl"/>
-                        </button>
-                        <input className="w-[250px] text-center bg-transparent focus:outline-none placeholder:text-3xl" type="text" />
-                        <button>
-                            <AiFillPlusCircle className="text-5xl"/>
-                        </button>
-                    </div>
-                </div>
-
-
+            <div className="pr-4 pt-4 space-y-4 text-2xl">
+                <Input inputType={"text"} icon={<MdTitle />} label={"Title"} placeholder={"Bicep curls"} value={title} setValue={setTitle} />
+                <Input inputType={"number"} icon={<FaWalking />} label={"Prepare"} placeholder={"10"} value={prepare} setValue={setPrepare} />
+                <Input inputType={"number"} icon={<GiWeightLiftingUp />} label={"Work"} placeholder={"25"} value={work} setValue={setWork} />
+                <Input inputType={"number"} icon={<GiSofa />} label={"Rest"} placeholder={"10"} value={rest} setValue={setRest} />
+                <Input inputType={"number"} icon={<BsArrowRepeat />} label={"Cycles"} placeholder={"1"} value={cycles} setValue={setCycles} />
+                <Input inputType={"number"} icon={<BsFillStopwatchFill />} label={"Sets"} placeholder={"1"} value={sets} setValue={setSets} />
+                <Input inputType={"number"} icon={<RxSpaceBetweenHorizontally />} label={"Rest between sets"} placeholder={"0"} value={restBetweenSets} setValue={setRestBetweenSets} />
+                <Input inputType={"number"} icon={<BsSnow />} label={"Cool down"} placeholder={"0"} value={cooldown} setValue={setCooldown} />
 
             </div>
         </div>
@@ -163,3 +74,45 @@ const AddWorkout = ({setView} : HomeProps) => {
 }
 
 export default AddWorkout
+
+type InputProps = {
+    inputType: string,
+    icon: ReactElement,
+    label: string,
+    placeholder: string,
+    value: string,
+    setValue: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Input = ({inputType, icon, label, placeholder, value, setValue} : InputProps) => {
+    return (
+        <div className="flex">
+            <div className="flex justify-center items-center text-6xl pl-2">
+                {icon}
+            </div>
+            <div className="flex-grow ml-4 space-y-2 text-center border-b-[1px] border-black pb-2">
+                <label className="block font-bold">{label}</label>
+                {inputType == "number" && 
+                <div className="flex justify-between items-center">
+                    <button>
+                        <AiFillMinusCircle className="text-5xl" />
+                    </button>
+                    <input 
+                        className="w-[150px] text-center bg-transparent focus:outline-none text-3xl" type="number" 
+                        placeholder={placeholder}
+                        value={value}
+                        onChange={e =>  setValue(e.target.value)}
+                    />
+
+                    {inputType == "number" && 
+                    <button>
+                        <AiFillPlusCircle className="text-5xl"/>
+                    </button>
+                    }
+                </div>
+                }
+
+            </div>
+        </div>
+    )
+}
