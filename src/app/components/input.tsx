@@ -18,13 +18,14 @@ const Input = ({inputType, icon, label, placeholder, value, setValue} : InputPro
             </div>
             <div className="flex-grow ml-4 space-y-2 text-center border-b-[1px] border-black pb-2">
                 <label className="block font-bold">{label}</label>
-                {inputType == "number" && 
                 <div className="flex justify-between items-center">
+                    {inputType == "number" && 
                     <button>
                         <AiFillMinusCircle className="text-5xl" />
                     </button>
+                    }
                     <input 
-                        className="w-[150px] text-center bg-transparent focus:outline-none text-3xl" type="number" 
+                        className="w-full text-center bg-transparent focus:outline-none text-3xl" type="number" 
                         placeholder={placeholder}
                         value={value}
                         onChange={e =>  setValue(e.target.value)}
@@ -36,7 +37,6 @@ const Input = ({inputType, icon, label, placeholder, value, setValue} : InputPro
                     </button>
                     }
                 </div>
-                }
 
             </div>
         </div>
