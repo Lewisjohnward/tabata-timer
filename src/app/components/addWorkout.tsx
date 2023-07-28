@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AiOutlineClose, AiFillEye } from 'react-icons/ai'
 import { BsFillPaletteFill, BsArrowRepeat, BsFillStopwatchFill, BsSnow } from 'react-icons/bs'
 import { FaWalking } from 'react-icons/fa'
@@ -11,23 +11,29 @@ import { HomeProps } from './types'
 import Input from './input'
 
 const AddWorkout = ({setView} : HomeProps) => {
-    const [title, setTitle] = useState("")
-    const [prepare, setPrepare] = useState("")
-    const [work, setWork] = useState("")
-    const [rest, setRest] = useState("")
-    const [cycles, setCycles] = useState("")
-    const [sets, setSets] = useState("")
-    const [restBetweenSets, setRestBetweenSets] = useState("")
+    const [title, setTitle] = useState("Bicep curls")
+    const [prepare, setPrepare] = useState("10")
+    const [work, setWork] = useState("25")
+    const [rest, setRest] = useState("10")
+    const [cycles, setCycles] = useState("1")
+    const [sets, setSets] = useState("1")
+    const [restBetweenSets, setRestBetweenSets] = useState("0")
     const [cooldown, setCooldown] = useState("")
+    const [totalTime, setTotalTime] = useState()
 
     const handleReturnHome = () => {
         setView("home")
     }
 
+    useEffect(() => {
+
+    }, [prepare, work, rest, cycles, sets, rest, cooldown])
+
+
 
     return (
         <div className="relative text-sky-900 pb-4">
-            <div className="bg-orange-600 p-6 text-white font-bold">
+            <div className="bg-orange-600 px-6 py-4 text-white font-bold">
                 <div className="space-y-4">
                     <div className="flex justify-between items-center gap-4">
                         <div className="flex gap-4">
@@ -67,11 +73,6 @@ const AddWorkout = ({setView} : HomeProps) => {
                 <Input inputType={"number"} icon={<BsFillStopwatchFill />} label={"Sets"} placeholder={"1"} value={sets} setValue={setSets} />
                 <Input inputType={"number"} icon={<RxSpaceBetweenHorizontally />} label={"Rest between sets"} placeholder={"0"} value={restBetweenSets} setValue={setRestBetweenSets} />
                 <Input inputType={"number"} icon={<BsSnow />} label={"Cool down"} placeholder={"0"} value={cooldown} setValue={setCooldown} />
-            </div>
-            <div className="fixed bottom-0 flex justify-center w-full py-2 px-4 bg-white">
-                <button className="uppercase w-96 p-4 bg-sky-900 text-white text-2xl font-bold rounded-lg">
-                    Customise intervals
-                </button>
             </div>
         </div>
     )
