@@ -10,10 +10,15 @@ const Modal = ({children} : Props) => {
 
     useEffect(() => {
         document.body.style.overflow = "hidden"
-    //document.body.style.overflow = "hidden";
+        //document.body.style.overflow = "hidden";
     }, [])
 
-    return createPortal(children, document.body)
+    return createPortal(
+        <>
+            {/*Put x button here */}
+            children
+        </>
+        , document.body)
 }
 
 export default Modal
