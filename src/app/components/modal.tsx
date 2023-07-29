@@ -1,24 +1,26 @@
-import {ReactNode, useEffect} from "react"
-import {createPortal} from "react-dom"
+import { ReactNode, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 type Props = {
-    children: ReactNode
-}
+  children: ReactNode;
+  closePortal: Function;
+};
 
+const Modal = ({ children, closePortal }: Props) => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    //document.body.style.overflow = "hidden";
+  }, []);
 
-const Modal = ({children} : Props) => {
+  return createPortal(
+    <div
+      className="absolute top-0 w-full h-screen flex justify-center items-center bg-black/20"
+      onClick={() => closePortal()}
+    >
+      {children}
+    </div>,
+    document.body
+  );
+};
 
-    useEffect(() => {
-        document.body.style.overflow = "hidden"
-        //document.body.style.overflow = "hidden";
-    }, [])
-
-    return createPortal(
-        <>
-            {/*Put x button here */}
-            children
-        </>
-        , document.body)
-}
-
-export default Modal
+export default Modal;
