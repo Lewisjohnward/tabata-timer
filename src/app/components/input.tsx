@@ -41,7 +41,9 @@ const NumberInput = ({
           />
 
           {inputType == "number" && (
-            <button>
+            <button 
+                onClick={() => setValue(prev => prev + 1)}
+            >
               <AiFillPlusCircle className="text-5xl" />
             </button>
           )}
