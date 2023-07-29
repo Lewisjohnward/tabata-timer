@@ -37,14 +37,18 @@ const AddWorkout = ({ setView }: HomeProps) => {
   //{`${formatTime(totalTime)}. ${intervals} intervals`}
 
   const calculateIntervalCount = () => {
-    let totalIntervals = 0;
-    if (Number(prepare) > 0) totalIntervals++;
+    let intervalsPerCycle = 0;
 
-    if (Number(work) > 0) totalIntervals++;
-    if (Number(rest) > 0) totalIntervals++;
+    if (work > 0) intervalsPerCycle++;
+    if (rest > 0) intervalsPerCycle++;
+      intervalsPerCycle *= cycles
+      intervalsPerCycle--
 
-    if (Number(cooldown) > 0) totalIntervals++;
-    return totalIntervals;
+    if (prepare > 0) intervalsPerCycle++;
+    //if (cooldown > 0) intervalsPerCycle++;
+
+      return intervalsPerCycle
+
   };
 
   useEffect(() => {
