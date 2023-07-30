@@ -29,6 +29,21 @@ const AddWorkout = ({setView}: HomeProps) => {
     const [intervals, setIntervals] = useState(0);
     const [summaryVisible, setSummaryVisible] = useState(false);
     const [paletteVisible, setPaletteVisible] = useState(false);
+    //const [summary, setSummary] = [
+    //    {
+    //        prepare: 10,
+    //        work: 25,
+    //        rest: 10
+    //    },
+    //    {
+    //        work: 25,
+    //        rest: 10
+    //    },
+    //    {
+    //        work: 25
+    //    }
+
+    //]
 
     //const formatTime = (time : number) => {
 
@@ -45,12 +60,12 @@ const AddWorkout = ({setView}: HomeProps) => {
     //{`${formatTime(totalTime)}. ${intervals} intervals`}
 
     const calculateIntervalCount = () => {
-        let intervalsPerCycle = 0;
+        /* work cannot be 0 */
+        let intervalsPerCycle = 1;
 
-        if (work > 0) intervalsPerCycle++;
         if (rest > 0) intervalsPerCycle++;
         intervalsPerCycle *= cycles;
-        intervalsPerCycle--;
+        intervalsPerCycle -= (cycles - 1) * intervalsPerCycle;
 
         if (prepare > 0) intervalsPerCycle++;
         //if (cooldown > 0) intervalsPerCycle++;
