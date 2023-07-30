@@ -16,12 +16,32 @@ import {HomeProps} from "./types";
 import Input, {TextInput} from "./input";
 import Modal from "./modal";
 
+
+//const _calculateIntervals = (prepare: number, work: number, rest: number, cooldown: number, cycles: number, sets: number, restBetweenSets: number): number => {
+//    let total = 1
+//    if (rest > 0) total++
+//    total = (total * cycles)
+//    if (cycles > 1) total--
+//
+//    if (prepare > 0) total++
+//    if (cooldown > 0) total++
+//
+//    /* sets */
+//    /* rest between sets */
+//
+//
+//    return total
+//}
+
+
+
+
 const AddWorkout = ({setView}: HomeProps) => {
     const [title, setTitle] = useState("Bicep curls");
     const [prepare, setPrepare] = useState(10);
     const [work, setWork] = useState(25);
-    const [rest, setRest] = useState(10);
-    const [cycles, setCycles] = useState(1);
+    const [rest, setRest] = useState(0);
+    const [cycles, setCycles] = useState(2);
     const [sets, setSets] = useState(1);
     const [restBetweenSets, setRestBetweenSets] = useState(0);
     const [cooldown, setCooldown] = useState(0);
@@ -61,16 +81,7 @@ const AddWorkout = ({setView}: HomeProps) => {
 
     const calculateIntervalCount = () => {
         /* work cannot be 0 */
-        let intervalsPerCycle = 1;
-
-        if (rest > 0) intervalsPerCycle++;
-        intervalsPerCycle *= cycles;
-        intervalsPerCycle -= (cycles - 1) * intervalsPerCycle;
-
-        if (prepare > 0) intervalsPerCycle++;
-        //if (cooldown > 0) intervalsPerCycle++;
-
-        return intervalsPerCycle;
+        return 69//_calculateIntervals(prepare, work, rest, cooldown, cycles, sets, restBetweenSets)
     };
 
     useEffect(() => {
