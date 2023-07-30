@@ -2,8 +2,6 @@
 import { useState, useEffect } from "react";
 import { HomeProps } from "./types";
 import {
-  AiOutlineSearch,
-  AiOutlineStar,
   AiOutlineOrderedList,
 } from "react-icons/ai";
 import clsx from "clsx";
