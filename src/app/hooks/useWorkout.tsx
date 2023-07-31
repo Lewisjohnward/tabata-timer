@@ -16,20 +16,6 @@ const useCreateWorkout = () => {
   //const [totalTime, setTotalTime] = useState(0)
   const [intervals, setIntervals] = useState(0);
   const [summary, setSummary] = useState<SummaryType[]>([]);
-  //    {
-  //        prepare: 10,
-  //        work: 25,
-  //        rest: 10
-  //    },
-  //    {
-  //        work: 25,
-  //        rest: 10
-  //    },
-  //    {
-  //        work: 25
-  //    }
-
-  //]
 
   useEffect(() => {
     const totalIntervals = calculateIntervals(
@@ -58,6 +44,10 @@ const useCreateWorkout = () => {
     console.log(summary);
   }, [summary]);
 
+  const generateArray = () => {
+    console.log(summary);
+  };
+
   return {
     title,
     setTitle,
@@ -76,6 +66,7 @@ const useCreateWorkout = () => {
     cooldown,
     setCooldown,
     intervals,
+    generateArray,
   };
 };
 
