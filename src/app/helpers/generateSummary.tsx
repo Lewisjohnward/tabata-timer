@@ -15,7 +15,7 @@ const generateSummary = (
   rest: number,
   cycles: number,
   sets: number,
-  restBetweenSets: number,
+  //restBetweenSets: number,
   cooldown: number
 ) => {
   const arr: SummaryType[] = [];
