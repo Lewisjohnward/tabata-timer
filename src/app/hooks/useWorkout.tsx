@@ -46,7 +46,7 @@ const useCreateWorkout = () => {
         rest,
         cycles,
         sets,
-        restBetweenSets,
+        //restBetweenSets,
         cooldown
       )
     );
