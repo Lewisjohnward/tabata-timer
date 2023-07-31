@@ -26,6 +26,10 @@ const Workout = ({ setView }: Props) => {
   const time = "05:59";
   const intervals = 8;
 
+  const openMenu = () => {
+    console.log("open menu");
+  };
+
   return (
     <div className="flex space-between p-4 bg-red-500 text-white shadow-[4px_2px_2px_0px_rgba(0,0,0,0.2)]">
       <div>
@@ -39,7 +43,7 @@ const Workout = ({ setView }: Props) => {
           <BsFillPlayFill onClick={() => setView("workout")} />
         </button>
         <button>
-          <FaEllipsisV />
+          <FaEllipsisV onClick={openMenu} />
         </button>
       </div>
     </div>
