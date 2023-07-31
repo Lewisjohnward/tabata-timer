@@ -3,36 +3,29 @@ import { FaEllipsisV } from "react-icons/fa";
 import { HomeProps } from "./types";
 import AddIcon from "./addIcon";
 import Header from "./header";
+import { SetStateAction } from "react";
 
 const Home = ({ setView }: HomeProps) => {
   return (
     <>
       <Header />
       <div className="py-2 space-y-2">
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
-        <Workout />
+        <Workout setView={setView} />
       </div>
       <AddIcon setView={setView} />
     </>
   );
 };
 
-const Workout = () => {
+type Props = {
+  setView: React.Dispatch<SetStateAction<string>>;
+};
+
+const Workout = ({ setView }: Props) => {
   const name = "Pigeon";
   const time = "05:59";
   const intervals = 8;
+
   return (
     <div className="flex space-between p-4 bg-red-500 text-white shadow-[4px_2px_2px_0px_rgba(0,0,0,0.2)]">
       <div>
@@ -43,7 +36,7 @@ const Workout = () => {
       </div>
       <div className="flex-grow flex justify-end gap-4 text-2xl [&>button]:text-4xl">
         <button>
-          <BsFillPlayFill />
+          <BsFillPlayFill onClick={() => setView("workout")} />
         </button>
         <button>
           <FaEllipsisV />
