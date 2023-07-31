@@ -3,6 +3,8 @@ import clsx from "clsx";
 import { useState } from "react";
 import AddWorkout from "./components/addWorkout";
 import Home from "./components/home";
+import { AiFillLock, AiFillUnlock } from "react-icons/ai";
+import { BsFillPlayFill } from "react-icons/bs";
 
 export default function Page() {
   const [view, setView] = useState("home");
@@ -19,9 +21,6 @@ export default function Page() {
     </main>
   );
 }
-
-import { AiFillLock, AiFillUnlock } from "react-icons/ai";
-import { BsFillPlayFill } from "react-icons/bs";
 
 const Workout = () => {
   const [locked, setLocked] = useState(false);
