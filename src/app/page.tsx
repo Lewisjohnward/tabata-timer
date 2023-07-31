@@ -33,7 +33,9 @@ const Workout = () => {
           {locked ? <AiFillLock /> : <AiFillUnlock />}
         </button>
         <h1 className="">Prepare</h1>
-        <BsFillPlayFill />
+        <button>
+          <BsFillPlayFill />
+        </button>
       </div>
     </div>
   );
