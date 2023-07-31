@@ -14,7 +14,7 @@ export default function Page() {
       ) : view == "addworkout" ? (
         <AddWorkout setView={setView} />
       ) : view == "workout" ? (
-        <Workout />
+        <Workout setView={setView} />
       ) : null}
     </main>
   );
