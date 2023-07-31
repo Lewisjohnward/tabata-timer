@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import { AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { BsFillPlayFill } from "react-icons/bs";
-import { HomeProps } from "./types";
+import { HomeProps } from "../components/types";
 
 type Workout = {
   prepare?: number;
@@ -36,7 +36,7 @@ const Workout = ({ setView }: HomeProps) => {
   const bg = "green";
   return (
     <div
-      className="relativeh-screen p-4 text-white pt-4 space-y-4"
+      className="relative h-screen p-4 text-white pt-4 space-y-4"
       style={{ backgroundColor: `${bg}` }}
     >
       <div className="space-y-10">

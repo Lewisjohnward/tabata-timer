@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import AddWorkout from "./components/addWorkout";
-import Home from "./components/home";
-import Workout from "./components/workout";
+import AddWorkout from "./pages/addWorkout";
+import Home from "./pages/home";
+import Workout from "./pages/workout";
 
 export default function Page() {
   const [view, setView] = useState("home");

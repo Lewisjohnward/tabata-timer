@@ -1,8 +1,8 @@
 import { BsFillPlayFill } from "react-icons/bs";
 import { FaEllipsisV } from "react-icons/fa";
-import { HomeProps } from "./types";
-import AddIcon from "./addIcon";
-import Header from "./header";
+import { HomeProps } from "../components/types";
+import AddIcon from "../components/addIcon";
+import Header from "../components/header";
 import { SetStateAction } from "react";
 
 const Home = ({ setView }: HomeProps) => {

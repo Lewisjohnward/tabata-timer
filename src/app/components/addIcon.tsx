@@ -1,9 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { HomeProps } from "./types";
-import {
-  AiOutlineOrderedList,
-} from "react-icons/ai";
+import { AiOutlineOrderedList } from "react-icons/ai";
 import clsx from "clsx";
 
 const AddIcon = ({ setView }: HomeProps) => {

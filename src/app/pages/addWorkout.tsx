@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { AiOutlineClose, AiFillEye } from "react-icons/ai";
 import {
   BsFillPaletteFill,
@@ -12,9 +12,9 @@ import { GiWeightLiftingUp, GiSofa } from "react-icons/gi";
 import { RxSpaceBetweenHorizontally } from "react-icons/rx";
 import { MdTitle } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
-import { HomeProps } from "./types";
-import Input, { TextInput } from "./input";
-import Modal from "./modal";
+import { HomeProps } from "../components/types";
+import Input, { TextInput } from "../components/input";
+import Modal from "../components/modal";
 import useCreateWorkout from "../hooks/useWorkout";
 
 const AddWorkout = ({ setView }: HomeProps) => {
