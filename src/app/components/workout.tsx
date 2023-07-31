@@ -9,7 +9,7 @@ const Workout = () => {
   const bg = "green";
   return (
     <div className={clsx("h-screen text-white", `bg-[${bg}]`)}>
-      <div className="flex justify-center items-center gap-8 text-6xl font-bold">
+      <div className="flex justify-center items-center gap-8 text-8xl font-bold">
         <button onClick={() => setLocked((prev) => !prev)}>
           {locked ? <AiFillLock /> : <AiFillUnlock />}
         </button>
