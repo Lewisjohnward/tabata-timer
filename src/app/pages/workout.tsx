@@ -1,8 +1,8 @@
 "use client";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillLock, AiFillUnlock } from "react-icons/ai";
-import { BsFillPlayFill } from "react-icons/bs";
+import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { HomeProps } from "../components/types";
 
 type Workout = {
@@ -31,8 +31,23 @@ const workout: Workout = [
   { cooldown: 5 },
 ];
 
+const getIntervalDetails = (interval: {
+  prepare?: number;
+  work?: number;
+  rest?: number;
+  cooldown?: number;
+}) => {
+  const key = Object.keys(interval)[0];
+  return { time: interval[key as keyof typeof interval], intervalType: key };
+};
+
 const Workout = ({ setView }: HomeProps) => {
   const [locked, setLocked] = useState(false);
+  const [running, setRunning] = useState(false);
+  const [currentInterval, setCurrentInterval] = useState(
+    getIntervalDetails(workout[0])
+  );
+
   const bg = "green";
   return (
     <div
@@ -44,18 +59,17 @@ const Workout = ({ setView }: HomeProps) => {
           <button onClick={() => setLocked((prev) => !prev)}>
             {locked ? <AiFillLock /> : <AiFillUnlock />}
           </button>
-          <h1 className="">Prepare</h1>
-          <button>
-            <BsFillPlayFill />
+          <h1 className="">{currentInterval.intervalType}</h1>
+          <button onClick={() => setRunning((prev) => !prev)}>
+            {running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
-        <div className="text-center text-[15rem]">10</div>
+        <div className="text-center text-[15rem]">{currentInterval.time}</div>
       </div>
 
       <div className="h-[400px] overflow-scroll">
         {workout.map((d, i) => {
-          const key = Object.keys(d)[0];
-          const value = d[key as keyof typeof d];
+          const { intervalType, time } = getIntervalDetails(d);
           return (
             <div
               className={clsx(
@@ -64,7 +78,7 @@ const Workout = ({ setView }: HomeProps) => {
               )}
             >
               <button className="py-2 w-full rounded hover:bg-black/30">
-                {i + 1}. {key}: {value}
+                {i + 1}. {intervalType}: {time}
               </button>
             </div>
           );
