@@ -107,12 +107,12 @@ const Workout = ({ setView }: HomeProps) => {
             {running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
-        <div className="text-center text-[25rem] leading-none">
+        <div className="text-center text-[20rem] leading-none">
           {currentInterval.time}
         </div>
       </div>
 
-      <div className="h-[400px] overflow-scroll">
+      <div className="h-[280px] md:h-[400px] overflow-scroll">
         {workout.map((d, i) => {
           const { intervalType, time } = getIntervalDetails(d);
           return (
