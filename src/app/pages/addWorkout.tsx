@@ -16,6 +16,7 @@ import Input, {TextInput} from "../components/input";
 import Modal from "../components/modal";
 import useCreateWorkout from "../hooks/useWorkout";
 import {Workout} from "../types/Workout";
+import convertTime from "../helpers/convertTime";
 
 type Props = {
     setView: React.Dispatch<SetStateAction<string>>;
@@ -97,7 +98,7 @@ const AddWorkout = ({setView, setWorkouts}: Props) => {
                             </div>
                         </div>
                         <p className="text-center text-2xl">
-                            {`${totalTime}. ${intervals} intervals`}
+                            {`${convertTime(totalTime)}. ${intervals} intervals`}
                         </p>
                     </div>
                 </div>
