@@ -1,20 +1,27 @@
 "use client";
 import { useState } from "react";
+import ActiveWorkout from "./pages/activeWorkout";
 import AddWorkout from "./pages/addWorkout";
 import Home from "./pages/home";
-import Workout from "./pages/workout";
+import { Workout } from "./types/Workout";
 
 export default function Page() {
   const [view, setView] = useState("home");
+  const [workouts, setWorkouts] = useState<never | Workout[]>([]);
+  const [activeWorkout, setActiveWorkout] = useState<Workout>();
 
   return (
     <main className="relative min-h-full">
       {view == "home" ? (
-        <Home setView={setView} />
+        <Home
+          setView={setView}
+          workouts={workouts}
+          setActiveWorkout={setActiveWorkout}
+        />
       ) : view == "addworkout" ? (
-        <AddWorkout setView={setView} />
+        <AddWorkout setView={setView} setWorkouts={setWorkouts} />
       ) : view == "workout" ? (
-        <Workout setView={setView} />
+        <ActiveWorkout setView={setView} activeWorkout={activeWorkout} />
       ) : null}
     </main>
   );

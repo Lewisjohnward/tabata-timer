@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import generateSummary from "../helpers/generateSummary";
 import calculateIntervals from "../helpers/calculateIntervals";
 import { SummaryType } from "../components/types";
+import calculateTotalTime from "../helpers/calculateTotalTime";
+import generateArray from "../helpers/generateArray";
 
 const useCreateWorkout = () => {
   const [title, setTitle] = useState("Bicep curls");
@@ -13,18 +15,21 @@ const useCreateWorkout = () => {
   const [sets, setSets] = useState(1);
   const [restBetweenSets, setRestBetweenSets] = useState(0);
   const [cooldown, setCooldown] = useState(0);
-  //const [totalTime, setTotalTime] = useState(0)
+  const [totalTime, setTotalTime] = useState<number>();
   const [intervals, setIntervals] = useState(0);
   const [summary, setSummary] = useState<SummaryType[]>([]);
 
   useEffect(() => {
-    const totalIntervals = calculateIntervals(
+    const arr = generateArray(
       prepare,
+      work,
       rest,
-      cooldown,
       cycles,
-      sets
+      sets,
+      restBetweenSets,
+      cooldown
     );
+    setIntervals(calculateIntervals(arr));
     setSummary(
       generateSummary(
         prepare,
@@ -36,17 +41,12 @@ const useCreateWorkout = () => {
         cooldown
       )
     );
-
-    setIntervals(totalIntervals);
-  }, [prepare, work, rest, cycles, sets, rest, cooldown]);
+    setTotalTime(calculateTotalTime(arr));
+  }, [prepare, work, rest, cycles, sets, rest, cooldown, restBetweenSets]);
 
   useEffect(() => {
     console.log(summary);
   }, [summary]);
-
-  const generateArray = () => {
-    console.log(summary);
-  };
 
   return {
     title,
@@ -66,7 +66,8 @@ const useCreateWorkout = () => {
     cooldown,
     setCooldown,
     intervals,
-    generateArray,
+    totalTime,
+    summary,
   };
 };
 

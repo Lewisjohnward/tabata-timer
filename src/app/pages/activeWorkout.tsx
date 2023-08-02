@@ -1,35 +1,15 @@
 "use client";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
-import { HomeProps } from "../components/types";
+import generateArray from "../helpers/generateArray";
+import { Workout } from "../types/Workout";
 
-type Workout = {
-  prepare?: number;
-  work?: number;
-  rest?: number;
-  cooldown?: number;
-}[];
-
-const workout: Workout = [
-  { prepare: 10 },
-  { work: 25 },
-  { rest: 60 },
-  { work: 60 },
-  { rest: 25 },
-  { work: 60 },
-  { rest: 25 },
-  { work: 60 },
-  { rest: 25 },
-  { work: 60 },
-  { rest: 25 },
-  { work: 60 },
-  { rest: 25 },
-  { work: 60 },
-  { rest: 25 },
-  { cooldown: 5 },
-];
+type Props = {
+  setView: React.Dispatch<SetStateAction<string>>;
+  activeWorkout: Workout;
+};
 
 const getIntervalDetails = (interval: {
   prepare?: number;
@@ -41,12 +21,23 @@ const getIntervalDetails = (interval: {
   return { time: interval[key as keyof typeof interval], intervalType: key };
 };
 
-const Workout = ({ setView }: HomeProps) => {
+const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
+  console.log(activeWorkout);
+  const intervalArray = generateArray(
+    activeWorkout.prepare,
+    activeWorkout.work,
+    activeWorkout.rest,
+    activeWorkout.cycles,
+    activeWorkout.sets,
+    activeWorkout.restBetweenSets,
+    activeWorkout.cooldown
+  );
+
   const [locked, setLocked] = useState(false);
   const [running, setRunning] = useState(false);
   const [intervalPosition, setIntervalPosition] = useState(0);
   const [currentInterval, setCurrentInterval] = useState(
-    getIntervalDetails(workout[intervalPosition])
+    getIntervalDetails(intervalArray[intervalPosition])
   );
 
   const stopTimer = () => {
@@ -60,18 +51,18 @@ const Workout = ({ setView }: HomeProps) => {
     if (time != 0) {
       return setCurrentInterval({ intervalType, time });
     }
-    if (intervalPosition + 1 == workout.length) {
+    if (intervalPosition + 1 == intervalArray.length) {
       setCurrentInterval({ intervalType, time });
       return stopTimer();
     } else {
       let newPosition = intervalPosition + 1;
-      setCurrentInterval(getIntervalDetails(workout[newPosition]));
+      setCurrentInterval(getIntervalDetails(intervalArray[newPosition]));
       setIntervalPosition(newPosition);
     }
   };
 
   const handleChangeInterval = (position: number) => {
-    setCurrentInterval(getIntervalDetails(workout[position]));
+    setCurrentInterval(getIntervalDetails(intervalArray[position]));
     setIntervalPosition(position);
   };
 
@@ -113,7 +104,7 @@ const Workout = ({ setView }: HomeProps) => {
       </div>
 
       <div className="h-[280px] md:h-[400px] overflow-scroll">
-        {workout.map((d, i) => {
+        {intervalArray.map((d, i) => {
           const { intervalType, time } = getIntervalDetails(d);
           return (
             <div
@@ -143,4 +134,4 @@ const Workout = ({ setView }: HomeProps) => {
   );
 };
 
-export default Workout;
+export default ActiveWorkout;

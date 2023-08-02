@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { AiOutlineClose, AiFillEye } from "react-icons/ai";
 import {
   BsFillPaletteFill,
@@ -12,12 +12,18 @@ import { GiWeightLiftingUp, GiSofa } from "react-icons/gi";
 import { RxSpaceBetweenHorizontally } from "react-icons/rx";
 import { MdTitle } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
-import { HomeProps } from "../components/types";
 import Input, { TextInput } from "../components/input";
 import Modal from "../components/modal";
 import useCreateWorkout from "../hooks/useWorkout";
+import { v4 as uuidv4 } from "uuid";
+import { Workout } from "../types/Workout";
 
-const AddWorkout = ({ setView }: HomeProps) => {
+type Props = {
+  setView: React.Dispatch<SetStateAction<string>>;
+  setWorkouts: React.Dispatch<SetStateAction<Workout[]>>;
+};
+
+const AddWorkout = ({ setView, setWorkouts }: Props) => {
   const {
     title,
     setTitle,
@@ -36,11 +42,28 @@ const AddWorkout = ({ setView }: HomeProps) => {
     cooldown,
     setCooldown,
     intervals,
+    totalTime,
   } = useCreateWorkout();
+
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
+
   const handleCreateWorkout = () => {
-    /* Need to add logic to add workout to global state */
+    const workoutObj = {
+      id: uuidv4(),
+      title,
+      color: "#f58142",
+      totalTime: totalTime == undefined ? 0 : totalTime,
+      intervals,
+      prepare,
+      work,
+      rest,
+      cycles,
+      sets,
+      restBetweenSets,
+      cooldown,
+    };
+    setWorkouts((prev) => [...prev, workoutObj]);
     setView("home");
   };
 
@@ -74,7 +97,7 @@ const AddWorkout = ({ setView }: HomeProps) => {
               </div>
             </div>
             <p className="text-center text-2xl">
-              {`3:0. ${intervals} intervals`}
+              {`${totalTime}. ${intervals} intervals`}
             </p>
           </div>
         </div>
