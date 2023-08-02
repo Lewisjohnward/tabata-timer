@@ -8,7 +8,7 @@ import {Workout} from "../types/Workout";
 
 type Props = {
     setView: React.Dispatch<SetStateAction<string>>;
-    activeWorkout: Workout;
+    activeWorkout: Workout | undefined;
 };
 
 const getIntervalDetails = (interval: {
@@ -22,7 +22,7 @@ const getIntervalDetails = (interval: {
 };
 
 const ActiveWorkout = ({setView, activeWorkout}: Props) => {
-    const intervalArray = generateArray(
+    const intervalArray = activeWorkout ? generateArray(
         activeWorkout.prepare,
         activeWorkout.work,
         activeWorkout.rest,
@@ -30,7 +30,8 @@ const ActiveWorkout = ({setView, activeWorkout}: Props) => {
         activeWorkout.sets,
         activeWorkout.restBetweenSets,
         activeWorkout.cooldown
-    );
+    ) : null;
+    if (!intervalArray) return null
 
     const [locked, setLocked] = useState(false);
     const [running, setRunning] = useState(false);
