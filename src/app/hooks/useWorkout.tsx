@@ -16,7 +16,7 @@ const useCreateWorkout = () => {
     const [sets, setSets] = useState(1);
     const [restBetweenSets, setRestBetweenSets] = useState(0);
     const [cooldown, setCooldown] = useState(0);
-    const [totalTime, setTotalTime] = useState<number>();
+    const [totalTime, setTotalTime] = useState<number>(0);
     const [intervals, setIntervals] = useState(0);
 
     useEffect(() => {
