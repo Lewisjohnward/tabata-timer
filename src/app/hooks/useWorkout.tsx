@@ -1,74 +1,59 @@
 "use client";
-import { useEffect, useState } from "react";
-import generateSummary from "../helpers/generateSummary";
+import {useEffect, useState} from "react";
 import calculateIntervals from "../helpers/calculateIntervals";
-import { SummaryType } from "../components/types";
 import calculateTotalTime from "../helpers/calculateTotalTime";
 import generateArray from "../helpers/generateArray";
+import {v4 as uuidv4} from "uuid";
 
 const useCreateWorkout = () => {
-  const [title, setTitle] = useState("Bicep curls");
-  const [prepare, setPrepare] = useState(10);
-  const [work, setWork] = useState(25);
-  const [rest, setRest] = useState(60);
-  const [cycles, setCycles] = useState(1);
-  const [sets, setSets] = useState(1);
-  const [restBetweenSets, setRestBetweenSets] = useState(0);
-  const [cooldown, setCooldown] = useState(0);
-  const [totalTime, setTotalTime] = useState<number>();
-  const [intervals, setIntervals] = useState(0);
-  const [summary, setSummary] = useState<SummaryType[]>([]);
+    const id = uuidv4()
+    const [title, setTitle] = useState("Bicep curls");
+    //const [color, setColor] = useState("")
+    const [prepare, setPrepare] = useState(10);
+    const [work, setWork] = useState(25);
+    const [rest, setRest] = useState(60);
+    const [cycles, setCycles] = useState(1);
+    const [sets, setSets] = useState(1);
+    const [restBetweenSets, setRestBetweenSets] = useState(0);
+    const [cooldown, setCooldown] = useState(0);
+    const [totalTime, setTotalTime] = useState<number>();
+    const [intervals, setIntervals] = useState(0);
 
-  useEffect(() => {
-    const arr = generateArray(
-      prepare,
-      work,
-      rest,
-      cycles,
-      sets,
-      restBetweenSets,
-      cooldown
-    );
-    setIntervals(calculateIntervals(arr));
-    setSummary(
-      generateSummary(
+    useEffect(() => {
+        const arr = generateArray(
+            prepare,
+            work,
+            rest,
+            cycles,
+            sets,
+            restBetweenSets,
+            cooldown
+        );
+        setIntervals(calculateIntervals(arr));
+        setTotalTime(calculateTotalTime(arr));
+    }, [prepare, work, rest, cycles, sets, rest, cooldown, restBetweenSets]);
+
+    return {
+        id,
+        title,
+        setTitle,
         prepare,
+        setPrepare,
         work,
+        setWork,
         rest,
+        setRest,
         cycles,
+        setCycles,
         sets,
-        //restBetweenSets,
-        cooldown
-      )
-    );
-    setTotalTime(calculateTotalTime(arr));
-  }, [prepare, work, rest, cycles, sets, rest, cooldown, restBetweenSets]);
-
-  useEffect(() => {
-    console.log(summary);
-  }, [summary]);
-
-  return {
-    title,
-    setTitle,
-    prepare,
-    setPrepare,
-    work,
-    setWork,
-    rest,
-    setRest,
-    cycles,
-    setCycles,
-    sets,
-    setSets,
-    restBetweenSets,
-    setRestBetweenSets,
-    cooldown,
-    setCooldown,
-    intervals,
-    totalTime,
-    summary,
-  };
+        setSets,
+        restBetweenSets,
+        setRestBetweenSets,
+        cooldown,
+        setCooldown,
+        intervals,
+        totalTime,
+    };
 };
 
 export default useCreateWorkout;
