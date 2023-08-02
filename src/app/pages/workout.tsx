@@ -59,7 +59,7 @@ const Workout = ({ setView }: HomeProps) => {
           <button onClick={() => setLocked((prev) => !prev)}>
             {locked ? <AiFillLock /> : <AiFillUnlock />}
           </button>
-          <h1 className="">{currentInterval.intervalType}</h1>
+          <h1>{currentInterval.intervalType}</h1>
           <button onClick={() => setRunning((prev) => !prev)}>
             {running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
