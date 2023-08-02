@@ -49,9 +49,10 @@ const Workout = ({ setView }: HomeProps) => {
             <BsFillPlayFill />
           </button>
         </div>
-        <div className="text-center text-[15rem] leading-none">10</div>
+        <div className="text-center text-[15rem]">10</div>
       </div>
-      <div>
+
+      <div className="h-[400px] overflow-scroll">
         {workout.map((d, i) => {
           const key = Object.keys(d)[0];
           const value = d[key as keyof typeof d];
@@ -62,13 +63,14 @@ const Workout = ({ setView }: HomeProps) => {
                 i == 0 && "bg-green-800 rounded"
               )}
             >
-              <button className="py-2 w-full rounded hover:bg-green-700">
+              <button className="py-2 w-full rounded hover:bg-black/30">
                 {i + 1}. {key}: {value}
               </button>
             </div>
           );
         })}
       </div>
+
       <button
         className="absolute top-0 right-10 w-14 h-14 bg-white text-black rounded-lg shadow hover:bg-gray-200"
         onClick={() => setView("home")}
