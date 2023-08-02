@@ -107,7 +107,9 @@ const Workout = ({ setView }: HomeProps) => {
             {running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
-        <div className="text-center text-[15rem]">{currentInterval.time}</div>
+        <div className="text-center text-[25rem] leading-none">
+          {currentInterval.time}
+        </div>
       </div>
 
       <div className="h-[400px] overflow-scroll">
