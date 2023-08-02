@@ -44,15 +44,58 @@ const getIntervalDetails = (interval: {
 const Workout = ({ setView }: HomeProps) => {
   const [locked, setLocked] = useState(false);
   const [running, setRunning] = useState(false);
+  const [intervalPosition, setIntervalPosition] = useState(0);
   const [currentInterval, setCurrentInterval] = useState(
-    getIntervalDetails(workout[0])
+    getIntervalDetails(workout[intervalPosition])
   );
 
-  const bg = "green";
+  const stopTimer = () => {
+    console.log("hello");
+    setRunning(false);
+  };
+
+  const decrementIntervalTime = () => {
+    let { time, intervalType } = currentInterval;
+    time!--;
+    if (time != 0) {
+      return setCurrentInterval({ intervalType, time });
+    }
+    if (intervalPosition + 1 == workout.length) {
+      setCurrentInterval({ intervalType, time });
+      return stopTimer();
+    } else {
+      let newPosition = intervalPosition + 1;
+      setCurrentInterval(getIntervalDetails(workout[newPosition]));
+      setIntervalPosition(newPosition);
+    }
+  };
+
+  const handleChangeInterval = (position: number) => {
+    setCurrentInterval(getIntervalDetails(workout[position]));
+    setIntervalPosition(position);
+  };
+
+  const getBackgroundColor = () => {
+    switch (currentInterval.intervalType) {
+      case "prepare":
+        return "green";
+      case "work":
+        return "red";
+      case "rest":
+        return "#4dc0e3";
+      case "cooldown":
+        return "#4de3de";
+    }
+  };
+
+  useEffect(() => {
+    running && setTimeout(decrementIntervalTime, 1000);
+  }, [running, currentInterval]);
+
   return (
     <div
       className="relative h-screen p-4 text-white pt-4 space-y-4"
-      style={{ backgroundColor: `${bg}` }}
+      style={{ backgroundColor: `${getBackgroundColor()}` }}
     >
       <div className="space-y-10">
         <div className="flex justify-center items-center gap-8 text-6xl font-bold">
@@ -74,10 +117,13 @@ const Workout = ({ setView }: HomeProps) => {
             <div
               className={clsx(
                 "border-b-[1px] border-white text-center text-4xl",
-                i == 0 && "bg-green-800 rounded"
+                i == intervalPosition && "bg-black/30 rounded"
               )}
             >
-              <button className="py-2 w-full rounded hover:bg-black/30">
+              <button
+                className="py-2 w-full rounded hover:bg-black/30"
+                onClick={() => handleChangeInterval(i)}
+              >
                 {i + 1}. {intervalType}: {time}
               </button>
             </div>
