@@ -9,11 +9,17 @@ const IconArr = [
   <CiSettings />,
 ];
 
-const Header = () => {
+type Props = {
+    workoutCount: number;
+}
+
+
+
+const Header = ({workoutCount} : Props) => {
   return (
     <div className="flex justify-between gap-4 bg-gray-400 p-4 text-white font-bold shadow-[4px_2px_2px_0px_rgba(0,0,0,0.2)]">
       <div className="space-y-4">
-        <h1 className="text-4xl">Workouts: 52</h1>
+        <h1 className="text-4xl">Workouts: {workoutCount}</h1>
         <h2 className="text-2xl">All</h2>
       </div>
       <div className="grid grid-cols-2 gap-4 text-3xl">

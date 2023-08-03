@@ -13,7 +13,7 @@ type HomeProps = {
 const Home = ({setView, workouts, setActiveWorkout}: HomeProps) => {
     return (
         <>
-            <Header />
+            <Header workoutCount={workouts.length}/>
             <div className="py-2 space-y-2">
                 {workouts.map((workout) => (
                     <Workout
