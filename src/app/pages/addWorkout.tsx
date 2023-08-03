@@ -191,8 +191,19 @@ type PaletteProps = {
 const Palette = ({setPaletteVisible}: PaletteProps) => {
     return (
         <Modal closePortal={() => setPaletteVisible(false)}>
-            <div className="bg-white h-[500px] w-[800px] rounded shadow">
-                palette here
+            <div className="grid grid-cols-3 gap-4 bg-white w-[400px] rounded shadow p-4">
+                <button className="w-28 h-28 rounded-full bg-red-500" />
+                <button className="w-28 h-28 rounded-full bg-blue-500" />
+                <button className="w-28 h-28 rounded-full bg-sky-500" />
+                <button className="w-28 h-28 rounded-full bg-stone-500" />
+                <button className="w-28 h-28 rounded-full bg-cyan-500" />
+                <button className="w-28 h-28 rounded-full bg-green-500" />
+                <button className="w-28 h-28 rounded-full bg-amber-500" />
+                <button className="w-28 h-28 rounded-full bg-lime-500" />
+                <button className="w-28 h-28 rounded-full bg-teal-500" />
+                <button className="w-28 h-28 rounded-full bg-indigo-500" />
+                <button className="w-28 h-28 rounded-full bg-rose-500" />
+                <button className="w-28 h-28 rounded-full bg-fuchsia-500" />
             </div>
         </Modal>
     );
