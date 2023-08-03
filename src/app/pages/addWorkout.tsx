@@ -74,7 +74,6 @@ const AddWorkout = ({setView, setWorkouts}: Props) => {
     const cancelAddWorkout = () => {
         setView("home");
     };
-    //{`${formatTime(totalTime)}. ${intervals} intervals`}
 
     return (
         <>
