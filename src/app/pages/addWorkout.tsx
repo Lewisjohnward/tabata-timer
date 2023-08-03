@@ -47,27 +47,15 @@ const AddWorkout = ({setView, setWorkouts}: Props) => {
         setCooldown,
         intervals,
         totalTime,
+        createWorkoutObject
     } = useCreateWorkout();
 
     const [summaryVisible, setSummaryVisible] = useState(false);
     const [paletteVisible, setPaletteVisible] = useState(false);
 
     const handleCreateWorkout = () => {
-        const workoutObj = {
-            id,
-            title,
-            color,
-            totalTime: totalTime == undefined ? 0 : totalTime,
-            intervals,
-            prepare,
-            work,
-            rest,
-            cycles,
-            sets,
-            restBetweenSets,
-            cooldown,
-        };
-        setWorkouts((prev) => [...prev, workoutObj]);
+        const workout = createWorkoutObject()
+        setWorkouts((prev) => [...prev, workout]);
         setView("home");
     };
 

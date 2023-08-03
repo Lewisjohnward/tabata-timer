@@ -38,6 +38,24 @@ const useCreateWorkout = () => {
         setTotalTime(calculateTotalTime(arr));
     }, [prepare, work, rest, cycles, sets, rest, cooldown, restBetweenSets]);
 
+    const createWorkoutObject = () => {
+     return {
+            id,
+            title,
+            color,
+            totalTime: totalTime == undefined ? 0 : totalTime,
+            intervals,
+            prepare,
+            work,
+            rest,
+            cycles,
+            sets,
+            restBetweenSets,
+            cooldown,
+        };
+
+    }
+
     return {
         id,
         title,
@@ -60,6 +78,7 @@ const useCreateWorkout = () => {
         setCooldown,
         intervals,
         totalTime,
+        createWorkoutObject
     };
 };
 
