@@ -57,7 +57,6 @@ const useCreateWorkout = () => {
     }
 
     return {
-        id,
         title,
         setTitle,
         color,

@@ -26,7 +26,6 @@ type Props = {
 
 const AddWorkout = ({setView, setWorkouts}: Props) => {
     const {
-        id,
         title,
         setTitle,
         color,
