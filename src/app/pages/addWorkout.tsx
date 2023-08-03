@@ -17,6 +17,7 @@ import Modal from "../components/modal";
 import useCreateWorkout from "../hooks/useWorkout";
 import {Workout} from "../types/Workout";
 import convertTime from "../helpers/convertTime";
+import {colors} from "../misc/colors";
 
 type Props = {
     setView: React.Dispatch<SetStateAction<string>>;
@@ -28,6 +29,8 @@ const AddWorkout = ({setView, setWorkouts}: Props) => {
         id,
         title,
         setTitle,
+        color,
+        setColor,
         prepare,
         setPrepare,
         work,
@@ -53,7 +56,7 @@ const AddWorkout = ({setView, setWorkouts}: Props) => {
         const workoutObj = {
             id,
             title,
-            color: "#f58142",
+            color,
             totalTime: totalTime == undefined ? 0 : totalTime,
             intervals,
             prepare,
@@ -76,7 +79,11 @@ const AddWorkout = ({setView, setWorkouts}: Props) => {
     return (
         <>
             <div className="relative text-sky-900 pb-4">
-                <div className="bg-orange-600 px-6 py-4 text-white font-bold">
+                <div 
+                    className="px-6 py-4 text-white font-bold"
+                    style={{backgroundColor: color}}
+
+                >
                     <div className="space-y-4">
                         <div className="flex justify-between items-center gap-4">
                             <div className="flex gap-4">
@@ -163,7 +170,7 @@ const AddWorkout = ({setView, setWorkouts}: Props) => {
                 </div>
             </div>
             {summaryVisible && <Summary setSummaryVisible={setSummaryVisible} />}
-            {paletteVisible && <Palette setPaletteVisible={setPaletteVisible} />}
+            {paletteVisible && <Palette setPaletteVisible={setPaletteVisible} setColor={setColor} selectedColor={color}/>}
         </>
     );
 };
@@ -186,24 +193,33 @@ const Summary = ({setSummaryVisible}: SummaryProps) => {
 
 type PaletteProps = {
     setPaletteVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    setColor: React.Dispatch<React.SetStateAction<string>>;
+    selectedColor: string;
+
 };
 
-const Palette = ({setPaletteVisible}: PaletteProps) => {
+
+const Palette = ({setPaletteVisible, setColor, selectedColor}: PaletteProps) => {
+
+    const handleColorSelect = (event : React.MouseEvent<HTMLElement>, color : string) => {
+        event.stopPropagation()
+        setColor(color)
+    }
+
     return (
         <Modal closePortal={() => setPaletteVisible(false)}>
-            <div className="grid grid-cols-3 gap-4 bg-white w-[400px] rounded shadow p-4">
-                <button className="w-28 h-28 rounded-full bg-red-500" />
-                <button className="w-28 h-28 rounded-full bg-blue-500" />
-                <button className="w-28 h-28 rounded-full bg-sky-500" />
-                <button className="w-28 h-28 rounded-full bg-stone-500" />
-                <button className="w-28 h-28 rounded-full bg-cyan-500" />
-                <button className="w-28 h-28 rounded-full bg-green-500" />
-                <button className="w-28 h-28 rounded-full bg-amber-500" />
-                <button className="w-28 h-28 rounded-full bg-lime-500" />
-                <button className="w-28 h-28 rounded-full bg-teal-500" />
-                <button className="w-28 h-28 rounded-full bg-indigo-500" />
-                <button className="w-28 h-28 rounded-full bg-rose-500" />
-                <button className="w-28 h-28 rounded-full bg-fuchsia-500" />
+            <div className="bg-white rounded shadow p-4 space-y-4">
+                <h2 className="text-xl font-bold">Select a color</h2>
+                <div className="grid grid-cols-5 justify-items-center gap-4">
+                    {colors.map(color => (
+                        <button 
+                            key={color} 
+                            className="w-28 h-28 rounded-full" 
+                            style={{backgroundColor: color}}
+                            onClick={(e) => handleColorSelect(e, color)}
+                        >{selectedColor == color && <TiTick className="m-auto text-6xl text-white bg-black/10 rounded-full"/>}</button>
+                    ))}
+                </div>
             </div>
         </Modal>
     );

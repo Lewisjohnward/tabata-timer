@@ -9,7 +9,6 @@ type Props = {
 const Modal = ({ children, closePortal }: Props) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    //document.body.style.overflow = "hidden";
   }, []);
 
   return createPortal(
