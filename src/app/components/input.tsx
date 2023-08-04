@@ -25,11 +25,9 @@ const NumberInput = ({
       <div className="flex-grow ml-4 space-y-2 text-center border-b-[1px] border-black pb-2">
         <label className="block font-bold">{label}</label>
         <div className="flex justify-between items-center">
-          {inputType == "number" && (
-            <button onClick={() => setValue((prev) => prev - 1)}>
-              <AiFillMinusCircle className="text-5xl" />
-            </button>
-          )}
+          <button onClick={() => setValue((prev) => prev - 1)}>
+            <AiFillMinusCircle className="text-5xl" />
+          </button>
           <input
             className={clsx(
               "w-full text-center bg-transparent focus:outline-none text-2xl",
@@ -40,11 +38,9 @@ const NumberInput = ({
             onChange={(e) => setValue(Number(e.target.value))}
           />
 
-          {inputType == "number" && (
-            <button onClick={() => setValue((prev) => prev + 1)}>
-              <AiFillPlusCircle className="text-5xl" />
-            </button>
-          )}
+          <button onClick={() => setValue((prev) => prev + 1)}>
+            <AiFillPlusCircle className="text-5xl" />
+          </button>
         </div>
       </div>
     </div>
