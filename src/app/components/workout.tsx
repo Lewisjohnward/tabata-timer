@@ -26,7 +26,7 @@ const Workout = ({ setView, workout, setActiveWorkout }: Props) => {
       style={{ backgroundColor: `${workout.color}` }}
     >
       <div className="space-y-4">
-        <h3 className="font-bold text-2xl">{workout.title}</h3>
+        <h3 className="font-bold text-xl">{workout.title}</h3>
         <p className="text-xl">
           {`Total: ${convertTime(workout.totalTime)} ${
             workout.intervals
