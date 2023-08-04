@@ -12,11 +12,12 @@ const generateArray = (
   for (let set = 1; set <= sets; set++) {
     for (let cycle = 1; cycle <= cycles; cycle++) {
       arr.push({ work });
-      if (cycle == cycles && set == sets && rest != 0) arr.push({ rest });
+      if (cycle != cycles && rest != 0) arr.push({ rest });
       if (restBetweenSets && set != sets) arr.push({ restBetweenSets });
     }
   }
   if (cooldown != 0) arr.push({ cooldown });
+  console.log(arr);
   return arr;
 };
 
