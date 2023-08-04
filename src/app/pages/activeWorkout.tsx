@@ -1,8 +1,9 @@
 "use client";
 import clsx from "clsx";
 import { SetStateAction, useEffect, useState } from "react";
-import { AiFillLock, AiFillUnlock } from "react-icons/ai";
+import { AiFillHome, AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
+import { FaStepBackward, FaStepForward } from "react-icons/fa";
 import generateArray from "../helpers/generateArray";
 import { Workout } from "../types/Workout";
 
@@ -126,12 +127,20 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
         })}
       </div>
 
-      <button
-        className="absolute top-0 right-10 w-14 h-14 bg-white text-black rounded-lg shadow hover:bg-gray-200"
-        onClick={() => setView("home")}
+      <div
+        className="absolute bottom-0 left-0 w-full flex justify-center gap-4 py-4 text-white text-4xl hover:bg-gray-200"
+        style={{ backgroundColor: `${getBackgroundColor()}` }}
       >
-        Home
-      </button>
+        <button>
+          <FaStepBackward />
+        </button>
+        <button onClick={() => setView("home")}>
+          <AiFillHome />
+        </button>
+        <button>
+          <FaStepForward />
+        </button>
+      </div>
     </div>
   );
 };
