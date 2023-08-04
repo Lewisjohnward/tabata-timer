@@ -17,7 +17,6 @@ const generateArray = (
     }
   }
   if (cooldown != 0) arr.push({ cooldown });
-  console.log(arr);
   return arr;
 };
 
