@@ -6,6 +6,7 @@ type NumberInputProps = {
   inputType: string;
   icon: ReactNode;
   label: string;
+  minValue: number;
   value: number;
   setValue: React.Dispatch<React.SetStateAction<number>>;
 };
@@ -14,9 +15,11 @@ const NumberInput = ({
   inputType,
   icon,
   label,
+  minValue,
   value,
   setValue,
 }: NumberInputProps) => {
+  const disabled = value == minValue;
   return (
     <div className="flex">
       <div className="flex justify-center items-center text-6xl pl-2">
@@ -25,7 +28,11 @@ const NumberInput = ({
       <div className="flex-grow ml-4 space-y-2 text-center border-b-[1px] border-black pb-2">
         <label className="block font-bold">{label}</label>
         <div className="flex justify-between items-center">
-          <button onClick={() => setValue((prev) => prev - 1)}>
+          <button
+            className="disabled:opacity-40"
+            disabled={disabled ? true : false}
+            onClick={() => setValue((prev) => (disabled ? prev : prev - 1))}
+          >
             <AiFillMinusCircle className="text-5xl" />
           </button>
           <input

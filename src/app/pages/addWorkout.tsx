@@ -108,6 +108,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
             icon={<FaWalking />}
             label={"Prepare"}
             value={prepare}
+            minValue={0}
             setValue={setPrepare}
           />
           <Input
@@ -115,6 +116,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
             icon={<GiWeightLiftingUp />}
             label={"Work"}
             value={work}
+            minValue={1}
             setValue={setWork}
           />
           <Input
@@ -122,6 +124,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
             icon={<GiSofa />}
             label={"Rest"}
             value={rest}
+            minValue={0}
             setValue={setRest}
           />
           <Input
@@ -129,6 +132,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
             icon={<BsArrowRepeat />}
             label={"Cycles"}
             value={cycles}
+            minValue={1}
             setValue={setCycles}
           />
           <Input
@@ -136,6 +140,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
             icon={<BsFillStopwatchFill />}
             label={"Sets"}
             value={sets}
+            minValue={1}
             setValue={setSets}
           />
           <Input
@@ -143,6 +148,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
             icon={<RxSpaceBetweenHorizontally />}
             label={"Rest between sets"}
             value={restBetweenSets}
+            minValue={0}
             setValue={setRestBetweenSets}
           />
           <Input
@@ -150,6 +156,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
             icon={<BsSnow />}
             label={"Cool down"}
             value={cooldown}
+            minValue={0}
             setValue={setCooldown}
           />
         </div>
