@@ -71,7 +71,7 @@ const AddIcon = ({ setView }: HomeProps) => {
           )}
           <button
             className={clsx(
-              "flex justify-center items-center w-20 h-20 bg-red-500 rounded-full text-4xl shadow-[1px_2px_2px_0px_rgba(0,0,0,0.2)]"
+              "flex justify-center items-center w-20 h-20 bg-red-500 rounded-full text-4xl shadow-[1px_1px_1px_0px_rgba(0,0,0,0.4)]"
             )}
             onClick={() => {
               open ? handleAddWorkout() : setOpen(true);
