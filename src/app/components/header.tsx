@@ -23,8 +23,8 @@ const Header = ({workoutCount} : Props) => {
         <h2 className="text-2xl">All</h2>
       </div>
       <div className="grid grid-cols-2 gap-4 text-3xl">
-        {IconArr.map((d) => (
-          <button>{d}</button>
+        {IconArr.map((d, i) => (
+          <button key={i}>{d}</button>
         ))}
       </div>
     </div>
