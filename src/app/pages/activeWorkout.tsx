@@ -35,7 +35,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
       )
     : null;
   if (!intervalArray) return null;
-  const whistleRef = useRef<any>(null);
+  const whistleRef = useRef<HTMLAudioElement>(null);
 
   const [locked, setLocked] = useState(false);
   const [running, setRunning] = useState(false);
