@@ -11,7 +11,7 @@ const Header = ({ workoutCount }: Props) => {
   return (
     <div className="flex justify-between gap-4 bg-gray-400 p-4 text-white font-bold">
       <div className="space-y-4">
-        <h1 className="text-4xl">Workouts: {workoutCount}</h1>
+        <h1 className="text-xl">Workouts: {workoutCount}</h1>
       </div>
       <div className="flex gap-4 text-3xl">
         {IconArr.map((d, i) => (
