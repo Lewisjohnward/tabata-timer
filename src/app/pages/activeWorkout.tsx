@@ -1,6 +1,6 @@
 "use client";
 import clsx from "clsx";
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import { AiFillHome, AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { FaStepBackward, FaStepForward } from "react-icons/fa";
@@ -35,6 +35,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
       )
     : null;
   if (!intervalArray) return null;
+  const whistleRef = useRef<any>(null);
 
   const [locked, setLocked] = useState(false);
   const [running, setRunning] = useState(false);
@@ -44,8 +45,11 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
   );
 
   const stopTimer = () => {
-    console.log("hello");
     setRunning(false);
+  };
+
+  const playWhistle = () => {
+    whistleRef?.current?.play();
   };
 
   const decrementIntervalTime = () => {
@@ -54,14 +58,15 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
     if (time != 0) {
       return setCurrentInterval({ intervalType, time });
     }
+
     if (intervalPosition + 1 == intervalArray.length) {
       setCurrentInterval({ intervalType, time });
       return stopTimer();
-    } else {
-      let newPosition = intervalPosition + 1;
-      setCurrentInterval(getIntervalDetails(intervalArray[newPosition]));
-      setIntervalPosition(newPosition);
     }
+
+    let newPosition = intervalPosition + 1;
+    setCurrentInterval(getIntervalDetails(intervalArray[newPosition]));
+    setIntervalPosition(newPosition);
   };
 
   const handleChangeInterval = (position: number) => {
@@ -105,7 +110,6 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
           {currentInterval.time}
         </div>
       </div>
-
       <div className="h-[280px] md:h-[400px] overflow-scroll">
         {intervalArray.map((d, i) => {
           const { intervalType, time } = getIntervalDetails(d);
@@ -126,6 +130,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
           );
         })}
       </div>
+      <audio src="/startWhistle.wav" ref={whistleRef} />
 
       <div
         className="absolute bottom-0 left-0 w-full flex justify-center gap-4 py-4 text-white text-4xl hover:bg-gray-200"
