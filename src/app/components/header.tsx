@@ -15,7 +15,7 @@ type Props = {
 
 const Header = ({ workoutCount }: Props) => {
   return (
-    <div className="flex justify-between gap-4 bg-gray-400 p-4 text-white font-bold shadow-[4px_2px_2px_0px_rgba(0,0,0,0.2)]">
+    <div className="flex justify-between gap-4 bg-gray-400 p-4 text-white font-bold">
       <div className="space-y-4">
         <h1 className="text-4xl">Workouts: {workoutCount}</h1>
         <h2 className="text-2xl">All</h2>

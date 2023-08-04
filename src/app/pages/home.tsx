@@ -14,7 +14,7 @@ const Home = ({ setView, workouts, setActiveWorkout }: HomeProps) => {
   return (
     <>
       <Header workoutCount={workouts.length} />
-      <div className="py-2 space-y-2">
+      <div className="p-1 space-y-1">
         {workouts.map((workout) => (
           <Workout
             key={workout.id}
