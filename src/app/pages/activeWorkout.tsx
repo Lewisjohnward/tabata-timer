@@ -5,138 +5,131 @@ import { AiFillHome, AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { FaStepBackward, FaStepForward } from "react-icons/fa";
 import generateArray from "../helpers/generateArray";
-import useTimer from "../hooks/useTimer";
+import useInterval from "../hooks/useTimer";
 import { Workout } from "../types/Workout";
 import getIntervalDetails from "../helpers/getIntervalDetails";
+import convertTime from "../helpers/convertTime";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   activeWorkout: Workout | undefined;
 };
 
+import { v4 as uuidv4 } from "uuid";
+
+const debugWorkout = {
+  id: uuidv4,
+  title: "biceps baby",
+  totalTime: 69,
+  intervals: 69,
+  color: "#ffffff",
+  prepare: 10,
+  workDescription: "test description",
+  work: 25,
+  restDescription: "rest description",
+  rest: 15,
+  cycles: 2,
+  sets: 1,
+  restBetweenSets: 0,
+  cooldown: 15,
+};
+
+const debugArray = [
+  {
+    id: uuidv4(),
+    intervalType: "prepare",
+    time: 5,
+  },
+  {
+    id: uuidv4(),
+    description: "test work description",
+    intervalType: "work",
+    time: 6,
+  },
+  {
+    id: uuidv4(),
+    description: "test rest description",
+    intervalType: "rest",
+    time: 3,
+  },
+  {
+    id: uuidv4(),
+    description: "test work description",
+    intervalType: "work",
+    time: 6,
+  },
+  {
+    id: uuidv4(),
+    intervalType: "cooldown",
+    time: 2,
+  },
+];
+
 const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
-  const intervalArray = activeWorkout
-    ? generateArray(
-        activeWorkout.prepare,
-        activeWorkout.work,
-        activeWorkout.rest,
-        activeWorkout.cycles,
-        activeWorkout.sets,
-        activeWorkout.restBetweenSets,
-        activeWorkout.cooldown
-      )
-    : null;
-  if (!intervalArray) return null;
-  const timer = useTimer();
-
   const whistleRef = useRef<HTMLAudioElement>(null);
-
-  const [currentInterval, setCurrentInterval] = useState(
-    getIntervalDetails(intervalArray[timer.intervalPosition])
-  );
-
-  const stopTimer = () => {
-    timer.setRunning(false);
-  };
-
-  const playWhistle = () => {
-    whistleRef?.current?.play();
-  };
-
-  const decrementIntervalTime = () => {
-    let { time, intervalType } = currentInterval;
-    time!--;
-    if (time != 0) {
-      return setCurrentInterval({ intervalType, time });
-    }
-
-    if (timer.intervalPosition + 1 == intervalArray.length) {
-      setCurrentInterval({ intervalType, time });
-      return stopTimer();
-    }
-
-    let newPosition = timer.intervalPosition + 1;
-    setCurrentInterval(getIntervalDetails(intervalArray[newPosition]));
-    timer.setIntervalPosition(newPosition);
-  };
-
-  const handleChangeInterval = (position: number) => {
-    setCurrentInterval(getIntervalDetails(intervalArray[position]));
-    timer.setIntervalPosition(position);
-  };
-
-  const getBackgroundColor = () => {
-    switch (currentInterval.intervalType) {
-      case "prepare":
-        return "green";
-      case "work":
-        return "red";
-      case "rest":
-        return "#4dc0e3";
-      case "cooldown":
-        return "#4de3de";
-    }
-  };
-
-  useEffect(() => {
-    timer.running && setTimeout(decrementIntervalTime, 1000);
-  }, [timer.running, currentInterval]);
+  const intervalManager = useInterval(debugArray, whistleRef);
 
   return (
     <div
       className="relative h-screen p-4 text-white pt-4 space-y-4"
-      style={{ backgroundColor: `${getBackgroundColor()}` }}
+      style={{ backgroundColor: intervalManager.color }}
     >
       <div className="space-y-10">
         <div className="flex justify-center items-center gap-8 text-6xl font-bold">
-          <button onClick={() => timer.setLocked((prev) => !prev)}>
-            {timer.locked ? <AiFillLock /> : <AiFillUnlock />}
+          <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
+            {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
           </button>
-          <h1>{currentInterval.intervalType}</h1>
-          <button onClick={() => timer.setRunning((prev) => !prev)}>
-            {timer.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
+          <h1>{convertTime(Math.ceil(intervalManager.remainingTime / 10))}</h1>
+          <button onClick={() => intervalManager.setRunning((prev) => !prev)}>
+            {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
         <div className="text-center text-[20rem] leading-none">
-          {currentInterval.time}
+          {Math.ceil(intervalManager.currentIntervalTime / 10)}
         </div>
       </div>
       <div className="h-[280px] md:h-[400px] overflow-scroll">
-        {intervalArray.map((d, i) => {
-          const { intervalType, time } = getIntervalDetails(d);
+        {debugArray.map((interval, i) => {
+          const { id, intervalType, time } = interval;
           return (
             <div
+              key={id}
               className={clsx(
                 "border-b-[1px] border-white text-center text-4xl",
-                i == timer.intervalPosition && "bg-black/30 rounded"
+                i == intervalManager.intervalPosition && "bg-black/30 rounded"
               )}
             >
               <button
                 className="py-2 w-full rounded hover:bg-black/30"
                 onClick={() => handleChangeInterval(i)}
               >
+                <p>{interval.description}</p>
                 {i + 1}. {intervalType}: {time}
               </button>
             </div>
           );
         })}
       </div>
-      <audio src="/startWhistle.wav" ref={whistleRef} />
-
-      <div
-        className="absolute bottom-0 left-0 w-full flex justify-center gap-4 py-4 text-white text-4xl hover:bg-gray-200"
-        style={{ backgroundColor: `${getBackgroundColor()}` }}
-      >
-        <button>
-          <FaStepBackward />
-        </button>
-        <button onClick={() => setView("home")}>
-          <AiFillHome />
-        </button>
-        <button>
-          <FaStepForward />
-        </button>
-      </div>
+      <audio preload="auto" src="/startWhistle.wav" ref={whistleRef} />
+    </div>
+  );
+};
+const NavigationButtons = ({
+  setView,
+}: {
+  setView: React.Dispatch<SetStateAction<string>>;
+}) => {
+  return (
+    <div className="absolute bottom-0 left-0 w-full flex justify-center gap-4 py-4 text-white text-4xl bg-red-200 hover:bg-gray-200">
+      <button>
+        <FaStepBackward />
+      </button>
+      <button onClick={() => setView("home")}>
+        <AiFillHome />
+      </button>
+      <button>
+        <FaStepForward />
+      </button>
     </div>
   );
 };
