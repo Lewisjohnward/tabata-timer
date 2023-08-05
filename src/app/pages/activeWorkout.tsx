@@ -7,20 +7,11 @@ import { FaStepBackward, FaStepForward } from "react-icons/fa";
 import generateArray from "../helpers/generateArray";
 import useTimer from "../hooks/useTimer";
 import { Workout } from "../types/Workout";
+import getIntervalDetails from "../helpers/getIntervalDetails";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   activeWorkout: Workout | undefined;
-};
-
-const getIntervalDetails = (interval: {
-  prepare?: number;
-  work?: number;
-  rest?: number;
-  cooldown?: number;
-}) => {
-  const key = Object.keys(interval)[0];
-  return { time: interval[key as keyof typeof interval], intervalType: key };
 };
 
 const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
