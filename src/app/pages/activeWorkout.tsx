@@ -5,6 +5,7 @@ import { AiFillHome, AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { FaStepBackward, FaStepForward } from "react-icons/fa";
 import generateArray from "../helpers/generateArray";
+import useTimer from "../hooks/useTimer";
 import { Workout } from "../types/Workout";
 
 type Props = {
@@ -35,17 +36,16 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
       )
     : null;
   if (!intervalArray) return null;
+  const timer = useTimer();
+
   const whistleRef = useRef<HTMLAudioElement>(null);
 
-  const [locked, setLocked] = useState(false);
-  const [running, setRunning] = useState(false);
-  const [intervalPosition, setIntervalPosition] = useState(0);
   const [currentInterval, setCurrentInterval] = useState(
-    getIntervalDetails(intervalArray[intervalPosition])
+    getIntervalDetails(intervalArray[timer.intervalPosition])
   );
 
   const stopTimer = () => {
-    setRunning(false);
+    timer.setRunning(false);
   };
 
   const playWhistle = () => {
@@ -59,19 +59,19 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
       return setCurrentInterval({ intervalType, time });
     }
 
-    if (intervalPosition + 1 == intervalArray.length) {
+    if (timer.intervalPosition + 1 == intervalArray.length) {
       setCurrentInterval({ intervalType, time });
       return stopTimer();
     }
 
-    let newPosition = intervalPosition + 1;
+    let newPosition = timer.intervalPosition + 1;
     setCurrentInterval(getIntervalDetails(intervalArray[newPosition]));
-    setIntervalPosition(newPosition);
+    timer.setIntervalPosition(newPosition);
   };
 
   const handleChangeInterval = (position: number) => {
     setCurrentInterval(getIntervalDetails(intervalArray[position]));
-    setIntervalPosition(position);
+    timer.setIntervalPosition(position);
   };
 
   const getBackgroundColor = () => {
@@ -88,8 +88,8 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
   };
 
   useEffect(() => {
-    running && setTimeout(decrementIntervalTime, 1000);
-  }, [running, currentInterval]);
+    timer.running && setTimeout(decrementIntervalTime, 1000);
+  }, [timer.running, currentInterval]);
 
   return (
     <div
@@ -98,12 +98,12 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
     >
       <div className="space-y-10">
         <div className="flex justify-center items-center gap-8 text-6xl font-bold">
-          <button onClick={() => setLocked((prev) => !prev)}>
-            {locked ? <AiFillLock /> : <AiFillUnlock />}
+          <button onClick={() => timer.setLocked((prev) => !prev)}>
+            {timer.locked ? <AiFillLock /> : <AiFillUnlock />}
           </button>
           <h1>{currentInterval.intervalType}</h1>
-          <button onClick={() => setRunning((prev) => !prev)}>
-            {running ? <BsFillPauseFill /> : <BsFillPlayFill />}
+          <button onClick={() => timer.setRunning((prev) => !prev)}>
+            {timer.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
         <div className="text-center text-[20rem] leading-none">
@@ -117,7 +117,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
             <div
               className={clsx(
                 "border-b-[1px] border-white text-center text-4xl",
-                i == intervalPosition && "bg-black/30 rounded"
+                i == timer.intervalPosition && "bg-black/30 rounded"
               )}
             >
               <button
