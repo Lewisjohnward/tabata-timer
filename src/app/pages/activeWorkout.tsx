@@ -71,7 +71,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
 
   return (
     <div
-      className="relative h-screen p-4 text-white pt-4 space-y-4"
+      className="relative h-screen p-4 text-white pt-4 space-y-4 overflow-hidden"
       style={{ backgroundColor: intervalManager.color }}
     >
       <div className="space-y-10">
@@ -88,7 +88,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
           {Math.ceil(intervalManager.currentIntervalTime / 10)}
         </div>
       </div>
-      <div className="h-[280px] md:h-[400px] overflow-scroll">
+      <div className="h-2/6 overflow-scroll">
         {debugArray.map((interval, i) => {
           const { id, intervalType, time } = interval;
           return (
