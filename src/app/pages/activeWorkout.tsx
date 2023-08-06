@@ -79,13 +79,13 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
           <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
             {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
           </button>
-          <h1>{convertTime(Math.ceil(intervalManager.remainingTime / 10))}</h1>
+          <h1>{intervalManager.getRemainingTime()}</h1>
           <button onClick={() => intervalManager.setRunning((prev) => !prev)}>
             {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
         <div className="text-center text-[20rem] leading-none">
-          {Math.ceil(intervalManager.currentIntervalTime / 10)}
+          {intervalManager.getCurrentIntervalRemainingTime()}
         </div>
       </div>
       <div className="h-2/6 overflow-scroll">

@@ -1,5 +1,6 @@
 "use client";
 import { RefObject, useEffect, useState } from "react";
+import convertTime from "../helpers/convertTime";
 
 type IntervalType = {
   id: string;
@@ -8,7 +9,7 @@ type IntervalType = {
   time: number;
 }[];
 
-const getTimeRemaining = (array: IntervalType) => {
+const calculateTotalTime = (array: IntervalType) => {
   let total = 0;
   array.forEach((interval) => (total += interval.time));
   return total;
@@ -34,7 +35,7 @@ const useInterval = (
   whistleRef: RefObject<HTMLAudioElement>
 ) => {
   const [remainingTime, setRemainingTime] = useState(
-    getTimeRemaining(intervalArray) * 10
+    calculateTotalTime(intervalArray) * 10
   );
   const [locked, setLocked] = useState(false);
   const [running, setRunning] = useState(false);
@@ -72,7 +73,7 @@ const useInterval = (
     setRunning(false);
     setIntervalPosition(0);
     setCurrentIntervalTime(intervalArray[0].time * 10);
-    setRemainingTime(getTimeRemaining(intervalArray) * 10);
+    setRemainingTime(calculateTotalTime(intervalArray) * 10);
   };
 
   const handleTimerRunning = () => {
@@ -87,6 +88,14 @@ const useInterval = (
       return setTimeout(nextInterval, 1000);
     }
     resetWorkout();
+  };
+
+  const getRemainingTime = () => {
+    return convertTime(Math.ceil(remainingTime / 10));
+  };
+
+  const getCurrentIntervalRemainingTime = () => {
+    return Math.ceil(currentIntervalTime / 10);
   };
 
   useEffect(() => {
@@ -104,9 +113,9 @@ const useInterval = (
     setRunning,
     intervalPosition,
     setIntervalPosition,
-    currentIntervalTime,
     color,
-    remainingTime,
+    getCurrentIntervalRemainingTime,
+    getRemainingTime,
   };
 };
 
