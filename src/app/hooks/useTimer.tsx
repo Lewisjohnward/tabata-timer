@@ -32,7 +32,10 @@ const getBackgroundColor = (type: string) => {
 
 const useInterval = (
   intervalArray: IntervalType,
-  whistleRef: RefObject<HTMLAudioElement>
+  startWhistleRef: RefObject<HTMLAudioElement>,
+  beepRef: RefObject<HTMLAudioElement>,
+  endWhistleRef: RefObject<HTMLAudioElement>,
+  endBellRef: RefObject<HTMLAudioElement>
 ) => {
   const [remainingTime, setRemainingTime] = useState(
     calculateTotalTime(intervalArray) * 10
@@ -54,19 +57,17 @@ const useInterval = (
     setRemainingTime((prev) => prev - 1);
   };
 
-  const startIntervalSound = () => {
-    decrementIntervalTime();
-    playWhistle();
-  };
-
-  const playWhistle = () => whistleRef?.current?.play();
-
   const nextInterval = () => {
     const newIntervalPosition = intervalPosition + 1;
     setNewInterval(true);
     setCurrentIntervalTime(intervalArray[newIntervalPosition].time * 10);
     setIntervalPosition(newIntervalPosition);
     setColor(intervalArray[newIntervalPosition].intervalType);
+  };
+
+  const gotoNextInterval = () => {
+    clearTimeout(timerRef.current);
+    nextInterval();
   };
 
   const resetWorkout = () => {
@@ -76,10 +77,25 @@ const useInterval = (
     setRemainingTime(calculateTotalTime(intervalArray) * 10);
   };
 
+  const playASound = () => {
+    currentIntervalTime == 30 && playBeep();
+    currentIntervalTime == 20 && playBeep();
+    currentIntervalTime == 10 && playBeep();
+
+    currentIntervalTime == 0 && playEndBell();
+    newInterval && playEndWhistle();
+  };
+
+  const playStartWhistle = () => startWhistleRef?.current?.play();
+  const playEndWhistle = () => endWhistleRef?.current?.play();
+  const playBeep = () => beepRef?.current?.play();
+  const playEndBell = () => endBellRef?.current?.play();
+
   const handleTimerRunning = () => {
+    playASound();
     if (newInterval) {
       setNewInterval(false);
-      return setTimeout(startIntervalSound, 500);
+      return setTimeout(decrementIntervalTime, 500);
     }
     if (currentIntervalTime != 0) {
       return setTimeout(decrementIntervalTime, 100);
@@ -98,20 +114,13 @@ const useInterval = (
     return Math.ceil(currentIntervalTime / 10);
   };
 
-  const gotoNextInterval = () => {
-    console.log("next interval");
-    console.log(timerRef.current);
-    clearTimeout(timerRef.current);
-    nextInterval();
-  };
-
   useEffect(() => {
     timerRef.current = running && handleTimerRunning();
   }, [running, currentIntervalTime]);
 
   useEffect(() => {
-    whistleRef?.current?.load();
-  }, [whistleRef]);
+    startWhistleRef?.current?.load();
+  }, [startWhistleRef]);
 
   return {
     locked,

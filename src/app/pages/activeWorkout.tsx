@@ -66,8 +66,18 @@ const debugArray = [
 ];
 
 const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
-  const whistleRef = useRef<HTMLAudioElement>(null);
-  const intervalManager = useInterval(debugArray, whistleRef);
+  const startWhistleRef = useRef<HTMLAudioElement>(null);
+  const beepRef = useRef<HTMLAudioElement>(null);
+  const endWhistleRef = useRef<HTMLAudioElement>(null);
+  const endBellRef = useRef<HTMLAudioElement>(null);
+
+  const intervalManager = useInterval(
+    debugArray,
+    startWhistleRef,
+    beepRef,
+    endWhistleRef,
+    endBellRef
+  );
 
   return (
     <div
@@ -114,7 +124,10 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
         setView={setView}
         gotoNextInterval={intervalManager.gotoNextInterval}
       />
-      <audio preload="auto" src="/startWhistle.wav" ref={whistleRef} />
+      <audio preload="auto" src="/startWhistle.wav" ref={startWhistleRef} />
+      <audio preload="auto" src="/beep.mp3" ref={beepRef} />
+      <audio preload="auto" src="/endWhistle.mp3" ref={endWhistleRef} />
+      <audio preload="auto" src="/endBell.mp3" ref={endBellRef} />
     </div>
   );
 };
