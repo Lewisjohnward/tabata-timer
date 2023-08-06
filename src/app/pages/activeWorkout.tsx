@@ -71,10 +71,10 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
 
   return (
     <div
-      className="relative flex flex-col h-screen text-white p-4 space-y-4 overflow-hidden"
+      className="relative flex flex-col h-screen text-white p-4 overflow-hidden"
       style={{ backgroundColor: intervalManager.color }}
     >
-      <div className="space-y-10">
+      <div>
         <div className="flex justify-center items-center gap-8 text-6xl font-bold">
           <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
             {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
@@ -110,24 +110,30 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
           );
         })}
       </div>
+      <NavigationButtons
+        setView={setView}
+        gotoNextInterval={intervalManager.gotoNextInterval}
+      />
       <audio preload="auto" src="/startWhistle.wav" ref={whistleRef} />
     </div>
   );
 };
 const NavigationButtons = ({
   setView,
+  gotoNextInterval,
 }: {
   setView: React.Dispatch<SetStateAction<string>>;
+  gotoNextInterval: () => void;
 }) => {
   return (
-    <div className="absolute bottom-0 left-0 w-full flex justify-center gap-4 py-4 text-white text-4xl bg-red-200 hover:bg-gray-200">
+    <div className="w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
       <button>
         <FaStepBackward />
       </button>
       <button onClick={() => setView("home")}>
         <AiFillHome />
       </button>
-      <button>
+      <button onClick={gotoNextInterval}>
         <FaStepForward />
       </button>
     </div>

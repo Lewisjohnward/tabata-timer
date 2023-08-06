@@ -1,5 +1,5 @@
 "use client";
-import { RefObject, useEffect, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import convertTime from "../helpers/convertTime";
 
 type IntervalType = {
@@ -44,10 +44,10 @@ const useInterval = (
   const [color, setColor] = useState(
     getBackgroundColor(intervalArray[0].intervalType)
   );
-
   const [currentIntervalTime, setCurrentIntervalTime] = useState(
     intervalArray[0].time * 10
   );
+  const timerRef = useRef();
 
   const decrementIntervalTime = () => {
     setCurrentIntervalTime((prev) => prev - 1);
@@ -98,8 +98,15 @@ const useInterval = (
     return Math.ceil(currentIntervalTime / 10);
   };
 
+  const gotoNextInterval = () => {
+    console.log("next interval");
+    console.log(timerRef.current);
+    clearTimeout(timerRef.current);
+    nextInterval();
+  };
+
   useEffect(() => {
-    running && handleTimerRunning();
+    timerRef.current = running && handleTimerRunning();
   }, [running, currentIntervalTime]);
 
   useEffect(() => {
@@ -116,6 +123,7 @@ const useInterval = (
     color,
     getCurrentIntervalRemainingTime,
     getRemainingTime,
+    gotoNextInterval,
   };
 };
 
