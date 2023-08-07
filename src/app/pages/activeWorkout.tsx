@@ -42,6 +42,30 @@ const debugArray = [
   },
   {
     id: uuidv4(),
+    description: "a very very long test work description",
+    intervalType: "work",
+    time: 6,
+  },
+  {
+    id: uuidv4(),
+    description: "test rest description",
+    intervalType: "rest",
+    time: 3,
+  },
+  {
+    id: uuidv4(),
+    description: "test work description",
+    intervalType: "work",
+    time: 6,
+  },
+  {
+    id: uuidv4(),
+    description: "test rest description",
+    intervalType: "rest",
+    time: 3,
+  },
+  {
+    id: uuidv4(),
     description: "test work description",
     intervalType: "work",
     time: 6,
@@ -81,11 +105,11 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
 
   return (
     <div
-      className="relative flex flex-col md:flex-row h-screen text-white p-4 overflow-hidden"
+      className="relative flex flex-col md:flex-row md:justify-center md:gap-20 h-screen text-white p-4"
       style={{ backgroundColor: intervalManager.color }}
     >
       <div>
-        <div className="flex justify-center items-center gap-8 text-6xl font-bold">
+        <div className="flex justify-center items-center gap-8 text-4xl md:text-6xl font-bold">
           <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
             {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
           </button>
@@ -94,18 +118,19 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
             {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
-        <div className="flex-grow text-center text-[20rem] md:text-[35rem] leading-none">
+        <div className="grow text-center text-[20rem] md:text-[40rem] leading-none overflow-hidden">
           {intervalManager.getCurrentIntervalRemainingTime()}
         </div>
       </div>
-      <div className="flex-grow overflow-scroll">
+
+      <div className="grow md:flex-grow-0 md:self-center md:h-5/6 overflow-scroll">
         {debugArray.map((interval, i) => {
           const { id, intervalType, time } = interval;
           return (
             <div
               key={id}
               className={clsx(
-                "border-b-[1px] border-white text-center text-4xl",
+                "border-b-[1px] border-white text-center text-2xl md:text-4xl",
                 i == intervalManager.intervalPosition && "bg-black/30 rounded"
               )}
             >
