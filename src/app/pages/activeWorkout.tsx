@@ -81,7 +81,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
 
   return (
     <div
-      className="relative flex flex-col h-screen text-white p-4 overflow-hidden"
+      className="relative flex flex-col md:flex-row h-screen text-white p-4 overflow-hidden"
       style={{ backgroundColor: intervalManager.color }}
     >
       <div>
@@ -94,7 +94,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
             {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
-        <div className="text-center text-[20rem] leading-none">
+        <div className="flex-grow text-center text-[20rem] md:text-[35rem] leading-none">
           {intervalManager.getCurrentIntervalRemainingTime()}
         </div>
       </div>
@@ -139,7 +139,7 @@ const NavigationButtons = ({
   gotoNextInterval: () => void;
 }) => {
   return (
-    <div className="w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
+    <div className="md:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
       <button>
         <FaStepBackward />
       </button>
