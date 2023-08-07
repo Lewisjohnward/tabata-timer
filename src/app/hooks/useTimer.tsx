@@ -106,7 +106,7 @@ const useInterval = (
     resetWorkout();
   };
 
-  const getRemainingTime = () => {
+  const getTotalRemainingTime = () => {
     return convertTime(Math.ceil(remainingTime / 10));
   };
 
@@ -135,7 +135,7 @@ const useInterval = (
     setIntervalPosition,
     color,
     getCurrentIntervalRemainingTime,
-    getRemainingTime,
+    getTotalRemainingTime,
     gotoNextInterval,
   };
 };
