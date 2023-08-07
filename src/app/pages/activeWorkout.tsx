@@ -118,7 +118,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
             {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
-        <div className="grow text-center text-[20rem] md:text-[40rem] leading-none overflow-hidden">
+        <div className="grow text-center text-[20rem] md:text-[30rem]">
           {intervalManager.getCurrentIntervalRemainingTime()}
         </div>
       </div>
