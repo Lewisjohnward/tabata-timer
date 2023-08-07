@@ -113,7 +113,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
           <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
             {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
           </button>
-          <h1>{intervalManager.getRemainingTime()}</h1>
+          <h1>{intervalManager.getTotalRemainingTime()}</h1>
           <button onClick={() => intervalManager.setRunning((prev) => !prev)}>
             {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
