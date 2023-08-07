@@ -38,7 +38,7 @@ const debugArray = [
   {
     id: uuidv4(),
     intervalType: "prepare",
-    time: 5,
+    time: 500,
   },
   {
     id: uuidv4(),
@@ -105,11 +105,11 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
 
   return (
     <div
-      className="relative flex flex-col md:flex-row md:justify-center md:gap-20 h-screen text-white p-4"
+      className="relative flex flex-col lg:flex-row lg:justify-center lg:gap-20 h-screen text-white p-4"
       style={{ backgroundColor: intervalManager.color }}
     >
-      <div>
-        <div className="flex justify-center items-center gap-8 text-4xl md:text-6xl font-bold">
+      <div className="flex flex-col">
+        <div className="flex justify-center items-center gap-8 text-4xl lg:text-6xl font-bold">
           <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
             {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
           </button>
@@ -118,24 +118,24 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
             {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
-        <div className="grow text-center text-[20rem] md:text-[30rem]">
+        <div className="text-[10rem] text-center lg:grow lg:flex lg:items-center lg:text-[20rem]">
           {intervalManager.getCurrentIntervalRemainingTime()}
         </div>
       </div>
 
-      <div className="grow md:flex-grow-0 md:self-center md:h-5/6 overflow-scroll">
+      <div className="lg:flex-grow-0 lg:self-center lg:h-5/6 overflow-scroll">
         {debugArray.map((interval, i) => {
           const { id, intervalType, time } = interval;
           return (
             <div
               key={id}
               className={clsx(
-                "border-b-[1px] border-white text-center text-2xl md:text-4xl",
+                "border-b-[1px] border-white text-center text-2xl lg:text-4xl",
                 i == intervalManager.intervalPosition && "bg-black/30 rounded"
               )}
             >
               <button
-                className="py-2 w-full rounded hover:bg-black/30"
+                className="py-2 w-full rounded px-4 hover:bg-black/30"
                 onClick={() => handleChangeInterval(i)}
               >
                 <p>{interval.description}</p>
@@ -164,7 +164,7 @@ const NavigationButtons = ({
   gotoNextInterval: () => void;
 }) => {
   return (
-    <div className="md:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
+    <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
       <button>
         <FaStepBackward />
       </button>
