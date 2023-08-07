@@ -44,7 +44,7 @@ const debugArray = [
     id: uuidv4(),
     description: "a very very long test work description",
     intervalType: "work",
-    time: 600,
+    time: 60,
   },
   {
     id: uuidv4(),
@@ -121,7 +121,7 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
           </button>
         </div>
 
-        <div className="text-center text-[10rem] lg:text-[20rem]">
+        <div className="text-center lg:w-[550px] text-[10rem] lg:text-[20rem]">
           {intervalManager.getCurrentIntervalRemainingTime()}
         </div>
       </div>
