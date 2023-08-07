@@ -15,8 +15,8 @@ const calculateTotalTime = (array: IntervalType) => {
   return total;
 };
 
-const getBackgroundColor = (type: string) => {
-  switch (type) {
+const getBackgroundColor = (intervalType: string) => {
+  switch (intervalType) {
     case "prepare":
       return "green";
     case "work":
@@ -45,7 +45,7 @@ const useInterval = (
   const [intervalPosition, setIntervalPosition] = useState(0);
   const [newInterval, setNewInterval] = useState(false);
   const [color, setColor] = useState(
-    getBackgroundColor(intervalArray[0].intervalType)
+    getBackgroundColor(intervalArray[intervalPosition].intervalType)
   );
   const [currentIntervalTime, setCurrentIntervalTime] = useState(
     intervalArray[0].time * 10
@@ -113,6 +113,10 @@ const useInterval = (
   const getCurrentIntervalRemainingTime = () => {
     return Math.ceil(currentIntervalTime / 10);
   };
+
+  useEffect(() => {
+    setColor(getBackgroundColor(intervalArray[intervalPosition].intervalType));
+  }, [intervalPosition]);
 
   useEffect(() => {
     timerRef.current = running && handleTimerRunning();
