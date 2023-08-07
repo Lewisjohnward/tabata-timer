@@ -38,13 +38,13 @@ const debugArray = [
   {
     id: uuidv4(),
     intervalType: "prepare",
-    time: 500,
+    time: 5,
   },
   {
     id: uuidv4(),
     description: "a very very long test work description",
     intervalType: "work",
-    time: 6,
+    time: 600,
   },
   {
     id: uuidv4(),
@@ -108,17 +108,20 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
       className="relative flex flex-col lg:flex-row lg:justify-center lg:gap-20 h-screen text-white p-4"
       style={{ backgroundColor: intervalManager.color }}
     >
-      <div className="flex flex-col">
-        <div className="flex justify-center items-center gap-8 text-4xl lg:text-6xl font-bold">
+      <div className="flex flex-col justify-center">
+        <div className="flex justify-center items-center gap-8 text-4xl lg:text-6xl font-bold overflow-hidden">
           <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
             {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
           </button>
-          <h1>{intervalManager.getTotalRemainingTime()}</h1>
+          <h1 className="w-36 lg:w-48 px-4">
+            {intervalManager.getTotalRemainingTime()}
+          </h1>
           <button onClick={() => intervalManager.setRunning((prev) => !prev)}>
             {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
           </button>
         </div>
-        <div className="text-[10rem] text-center lg:grow lg:flex lg:items-center lg:text-[20rem]">
+
+        <div className="text-center text-[10rem] lg:text-[20rem]">
           {intervalManager.getCurrentIntervalRemainingTime()}
         </div>
       </div>
