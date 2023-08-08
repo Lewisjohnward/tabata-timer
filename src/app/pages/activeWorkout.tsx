@@ -144,8 +144,9 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
       className="h-screen"
       style={{ backgroundColor: intervalManager.color }}
     >
-      <div className="relative flex flex-col  text-white p-4 h-[95vh] gap-5 md:h-[95vh] lg:h-screen lg:flex-row lg:justify-center lg:items-center lg:gap-10">
+      <div className="relative flex flex-col gap-5 text-white p-4 h-[90vh] md:h-[95vh] lg:h-screen lg:flex-row lg:justify-center lg:items-center lg:gap-10">
         <CurrentInterval setView={setView} intervalManager={intervalManager} />
+        <div className="hidden lg:block bg-white w-[1px] h-3/6" />
         <IntervalList
           intervals={debugArray}
           intervalManager={intervalManager}
@@ -204,7 +205,7 @@ const CurrentInterval = ({
   setView,
 }: CurrentIntervalProps) => {
   return (
-    <div className="flex flex-col justify-evenly lg:border-r-[1px] lg:border-white lg:h-4/6 bg-black/5">
+    <div className="flex flex-col justify-evenly lg:h-4/6">
       <div className="flex justify-evenly items-center gap-8 text-4xl lg:text-6xl font-bold overflow-hidden">
         <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
           {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
