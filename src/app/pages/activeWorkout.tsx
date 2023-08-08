@@ -210,7 +210,7 @@ const CurrentInterval = ({
         <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
           {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
         </button>
-        <h1 className="w-36 lg:w-48 px-4">
+        <h1 className="w-36 px-4 lg:w-48">
           {intervalManager.getTotalRemainingTime()}
         </h1>
         <button onClick={() => intervalManager.setRunning((prev) => !prev)}>
