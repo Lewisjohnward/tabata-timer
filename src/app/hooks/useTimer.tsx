@@ -109,7 +109,7 @@ const useInterval = (
     setRemainingTime(calculateTotalTime(intervalArray) * 10);
   };
 
-  const playASound = () => {
+  const playSound = () => {
     const { intervalType } = intervalArray[intervalPosition];
     currentIntervalTime == 30 && playBeep();
     currentIntervalTime == 20 && playBeep();
@@ -125,7 +125,7 @@ const useInterval = (
   const playEndBell = () => endBellRef?.current?.play();
 
   const handleTimerRunning = () => {
-    playASound();
+    playSound();
     if (newInterval) {
       setNewInterval(false);
       return setTimeout(decrementIntervalTime, 500);
