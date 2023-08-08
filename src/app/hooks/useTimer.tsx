@@ -18,13 +18,13 @@ const calculateTotalTime = (array: IntervalType) => {
 const getBackgroundColor = (intervalType: string) => {
   switch (intervalType) {
     case "prepare":
-      return "green";
+      return "#15803d";
     case "work":
-      return "red";
+      return "#b91c1c";
     case "rest":
       return "#4dc0e3";
     case "cooldown":
-      return "#4de3de";
+      return "#0284c7";
     default:
       return "#ffffff";
   }
