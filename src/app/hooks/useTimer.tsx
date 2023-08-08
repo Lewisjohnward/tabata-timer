@@ -110,14 +110,14 @@ const useInterval = (
   };
 
   const playASound = () => {
+    const { intervalType } = intervalArray[intervalPosition];
     currentIntervalTime == 30 && playBeep();
     currentIntervalTime == 20 && playBeep();
     currentIntervalTime == 10 && playBeep();
 
-    currentIntervalTime == 0 &&
-      intervalArray[intervalPosition].intervalType != "prepare" &&
-      playEndBell();
-    newInterval && playStartWhistle();
+    currentIntervalTime == 0 && intervalType == "work" && playEndBell();
+
+    newInterval && intervalType == "work" && playStartWhistle();
   };
 
   const playStartWhistle = () => endWhistleRef?.current?.play();
