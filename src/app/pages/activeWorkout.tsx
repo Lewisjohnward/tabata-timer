@@ -155,6 +155,8 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
           <NavigationButtons
             setView={setView}
             gotoNextInterval={intervalManager.gotoNextInterval}
+            gotoPreviousInterval={intervalManager.gotoPreviousInterval}
+            intervalPosition={intervalManager.getIntervalPosition()}
           />
         </div>
         <audio preload="auto" src="/startWhistle.wav" ref={startWhistleRef} />
@@ -165,21 +167,24 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
     </div>
   );
 };
+
 const NavigationButtons = ({
   setView,
   gotoNextInterval,
+  gotoPreviousInterval,
+  intervalPosition,
 }: {
   setView: React.Dispatch<SetStateAction<string>>;
   gotoNextInterval: () => void;
+  gotoPreviousInterval: () => void;
+  intervalPosition: string;
 }) => {
   return (
     <>
-      <button>
+      <button onClick={gotoPreviousInterval}>
         <FaStepBackward />
       </button>
-      <button onClick={() => setView("home")}>
-        <AiFillHome />
-      </button>
+      <button onClick={() => setView("home")}>{intervalPosition}</button>
       <button onClick={gotoNextInterval}>
         <FaStepForward />
       </button>
@@ -192,10 +197,12 @@ type CurrentIntervalProps = {
     setLocked: React.Dispatch<SetStateAction<boolean>>;
     locked: boolean;
     getTotalRemainingTime: () => string;
+    getIntervalPosition: () => string;
     setRunning: React.Dispatch<SetStateAction<boolean>>;
     running: boolean;
     getCurrentIntervalRemainingTime: () => number;
     gotoNextInterval: () => void;
+    gotoPreviousInterval: () => void;
   };
   setView: React.Dispatch<SetStateAction<string>>;
 };
@@ -223,8 +230,10 @@ const CurrentInterval = ({
       </div>
       <div className="hidden w-full lg:flex justify-evenly gap-4 py-4 text-white text-4xl">
         <NavigationButtons
+          gotoPreviousInterval={intervalManager.gotoPreviousInterval}
           setView={setView}
           gotoNextInterval={intervalManager.gotoNextInterval}
+          intervalPosition={intervalManager.getIntervalPosition()}
         />
       </div>
     </div>
@@ -240,7 +249,7 @@ type IntervalListProps = {
   }[];
   intervalManager: {
     intervalPosition: number;
-    handleChangeInterval: () => void;
+    handleChangeInterval: (i: number) => void;
   };
 };
 
@@ -259,7 +268,7 @@ const IntervalList = ({ intervals, intervalManager }: IntervalListProps) => {
           >
             <button
               className="py-2 w-full rounded px-4 hover:bg-black/30"
-              onClick={() => handleChangeInterval(i)}
+              onClick={() => intervalManager.handleChangeInterval(i)}
             >
               <p>{description}</p>
               {i + 1}. {intervalType}: {time}
