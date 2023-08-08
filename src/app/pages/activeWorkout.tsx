@@ -154,8 +154,8 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
         <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
           <NavigationButtons
             setView={setView}
-            gotoNextInterval={intervalManager.gotoNextInterval}
-            gotoPreviousInterval={intervalManager.gotoPreviousInterval}
+            nextInterval={intervalManager.nextInterval}
+            previousInterval={intervalManager.previousInterval}
             intervalPosition={intervalManager.getIntervalPosition()}
           />
         </div>
@@ -170,22 +170,22 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
 
 const NavigationButtons = ({
   setView,
-  gotoNextInterval,
-  gotoPreviousInterval,
+  nextInterval,
+  previousInterval,
   intervalPosition,
 }: {
   setView: React.Dispatch<SetStateAction<string>>;
-  gotoNextInterval: () => void;
-  gotoPreviousInterval: () => void;
+  nextInterval: () => void;
+  previousInterval: () => void;
   intervalPosition: string;
 }) => {
   return (
     <>
-      <button onClick={gotoPreviousInterval}>
+      <button onClick={previousInterval}>
         <FaStepBackward />
       </button>
       <button onClick={() => setView("home")}>{intervalPosition}</button>
-      <button onClick={gotoNextInterval}>
+      <button onClick={nextInterval}>
         <FaStepForward />
       </button>
     </>
@@ -201,8 +201,8 @@ type CurrentIntervalProps = {
     setRunning: React.Dispatch<SetStateAction<boolean>>;
     running: boolean;
     getCurrentIntervalRemainingTime: () => number;
-    gotoNextInterval: () => void;
-    gotoPreviousInterval: () => void;
+    nextInterval: () => void;
+    previousInterval: () => void;
   };
   setView: React.Dispatch<SetStateAction<string>>;
 };
@@ -230,9 +230,9 @@ const CurrentInterval = ({
       </div>
       <div className="hidden w-full lg:flex justify-evenly gap-4 py-4 text-white text-4xl">
         <NavigationButtons
-          gotoPreviousInterval={intervalManager.gotoPreviousInterval}
+          previousInterval={intervalManager.previousInterval}
           setView={setView}
-          gotoNextInterval={intervalManager.gotoNextInterval}
+          nextInterval={intervalManager.nextInterval}
           intervalPosition={intervalManager.getIntervalPosition()}
         />
       </div>
