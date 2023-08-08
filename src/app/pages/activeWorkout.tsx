@@ -44,7 +44,43 @@ const debugArray = [
     id: uuidv4(),
     description: "a very very long test work description",
     intervalType: "work",
-    time: 60,
+    time: 600,
+  },
+  {
+    id: uuidv4(),
+    description: "test rest description",
+    intervalType: "rest",
+    time: 300,
+  },
+  {
+    id: uuidv4(),
+    description: "test work description",
+    intervalType: "work",
+    time: 6,
+  },
+  {
+    id: uuidv4(),
+    description: "test rest description",
+    intervalType: "rest",
+    time: 3,
+  },
+  {
+    id: uuidv4(),
+    description: "test work description",
+    intervalType: "work",
+    time: 6,
+  },
+  {
+    id: uuidv4(),
+    description: "test rest description",
+    intervalType: "rest",
+    time: 3,
+  },
+  {
+    id: uuidv4(),
+    description: "test work description",
+    intervalType: "work",
+    time: 6,
   },
   {
     id: uuidv4(),
@@ -105,57 +141,26 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
 
   return (
     <div
-      className="relative flex flex-col lg:flex-row lg:justify-center lg:gap-20 h-screen text-white p-4"
+      className="h-screen"
       style={{ backgroundColor: intervalManager.color }}
     >
-      <div className="flex flex-col justify-center">
-        <div className="flex justify-center items-center gap-8 text-4xl lg:text-6xl font-bold overflow-hidden">
-          <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
-            {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
-          </button>
-          <h1 className="w-36 lg:w-48 px-4">
-            {intervalManager.getTotalRemainingTime()}
-          </h1>
-          <button onClick={() => intervalManager.setRunning((prev) => !prev)}>
-            {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
-          </button>
+      <div className="relative flex flex-col  text-white p-4 h-[95vh] gap-5 md:h-[95vh] lg:h-screen lg:flex-row lg:justify-center lg:items-center lg:gap-10">
+        <CurrentInterval setView={setView} intervalManager={intervalManager} />
+        <IntervalList
+          intervals={debugArray}
+          intervalManager={intervalManager}
+        />
+        <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
+          <NavigationButtons
+            setView={setView}
+            gotoNextInterval={intervalManager.gotoNextInterval}
+          />
         </div>
-
-        <div className="text-center lg:w-[550px] text-[10rem] lg:text-[20rem]">
-          {intervalManager.getCurrentIntervalRemainingTime()}
-        </div>
+        <audio preload="auto" src="/startWhistle.wav" ref={startWhistleRef} />
+        <audio preload="auto" src="/beep.mp3" ref={beepRef} />
+        <audio preload="auto" src="/endWhistle.mp3" ref={endWhistleRef} />
+        <audio preload="auto" src="/endBell.mp3" ref={endBellRef} />
       </div>
-
-      <div className="lg:flex-grow-0 lg:self-center lg:h-5/6 overflow-scroll">
-        {debugArray.map((interval, i) => {
-          const { id, intervalType, time } = interval;
-          return (
-            <div
-              key={id}
-              className={clsx(
-                "border-b-[1px] border-white text-center text-2xl lg:text-4xl",
-                i == intervalManager.intervalPosition && "bg-black/30 rounded"
-              )}
-            >
-              <button
-                className="py-2 w-full rounded px-4 hover:bg-black/30"
-                onClick={() => handleChangeInterval(i)}
-              >
-                <p>{interval.description}</p>
-                {i + 1}. {intervalType}: {time}
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      <NavigationButtons
-        setView={setView}
-        gotoNextInterval={intervalManager.gotoNextInterval}
-      />
-      <audio preload="auto" src="/startWhistle.wav" ref={startWhistleRef} />
-      <audio preload="auto" src="/beep.mp3" ref={beepRef} />
-      <audio preload="auto" src="/endWhistle.mp3" ref={endWhistleRef} />
-      <audio preload="auto" src="/endBell.mp3" ref={endBellRef} />
     </div>
   );
 };
@@ -167,7 +172,7 @@ const NavigationButtons = ({
   gotoNextInterval: () => void;
 }) => {
   return (
-    <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
+    <>
       <button>
         <FaStepBackward />
       </button>
@@ -177,6 +182,90 @@ const NavigationButtons = ({
       <button onClick={gotoNextInterval}>
         <FaStepForward />
       </button>
+    </>
+  );
+};
+
+type CurrentIntervalProps = {
+  intervalManager: {
+    setLocked: React.Dispatch<SetStateAction<boolean>>;
+    locked: boolean;
+    getTotalRemainingTime: () => string;
+    setRunning: React.Dispatch<SetStateAction<boolean>>;
+    running: boolean;
+    getCurrentIntervalRemainingTime: () => number;
+    gotoNextInterval: () => void;
+  };
+  setView: React.Dispatch<SetStateAction<string>>;
+};
+
+const CurrentInterval = ({
+  intervalManager,
+  setView,
+}: CurrentIntervalProps) => {
+  return (
+    <div className="flex flex-col justify-evenly lg:border-r-[1px] lg:border-white lg:h-4/6 bg-black/5">
+      <div className="flex justify-evenly items-center gap-8 text-4xl lg:text-6xl font-bold overflow-hidden">
+        <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
+          {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
+        </button>
+        <h1 className="w-36 lg:w-48 px-4">
+          {intervalManager.getTotalRemainingTime()}
+        </h1>
+        <button onClick={() => intervalManager.setRunning((prev) => !prev)}>
+          {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
+        </button>
+      </div>
+
+      <div className="text-center lg:w-[550px] text-[10rem] lg:text-[15rem]">
+        {intervalManager.getCurrentIntervalRemainingTime()}
+      </div>
+      <div className="hidden w-full lg:flex justify-evenly gap-4 py-4 text-white text-4xl">
+        <NavigationButtons
+          setView={setView}
+          gotoNextInterval={intervalManager.gotoNextInterval}
+        />
+      </div>
+    </div>
+  );
+};
+
+type IntervalListProps = {
+  intervals: {
+    id: string;
+    description?: string;
+    intervalType: string;
+    time: number;
+  }[];
+  intervalManager: {
+    intervalPosition: number;
+    handleChangeInterval: () => void;
+  };
+};
+
+const IntervalList = ({ intervals, intervalManager }: IntervalListProps) => {
+  return (
+    <div className="overflow-scroll lg:h-4/6">
+      {intervals.map((interval, i) => {
+        const { id, intervalType, time, description } = interval;
+        return (
+          <div
+            key={id}
+            className={clsx(
+              "border-b-[1px] border-white text-center text-2xl lg:text-4xl",
+              i == intervalManager.intervalPosition && "bg-black/30 rounded"
+            )}
+          >
+            <button
+              className="py-2 w-full rounded px-4 hover:bg-black/30"
+              onClick={() => handleChangeInterval(i)}
+            >
+              <p>{description}</p>
+              {i + 1}. {intervalType}: {time}
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 };
