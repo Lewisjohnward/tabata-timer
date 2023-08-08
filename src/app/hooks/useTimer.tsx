@@ -71,6 +71,7 @@ const useInterval = (
   };
 
   const nextInterval = () => {
+    clearTimeout(timerRef.current);
     const newIntervalPosition = calculateNextPosition(
       intervalPosition,
       intervalArray.length,
@@ -80,6 +81,7 @@ const useInterval = (
   };
 
   const previousInterval = () => {
+    clearTimeout(timerRef.current);
     const newIntervalPosition = calculateNextPosition(
       intervalPosition,
       intervalArray.length,
@@ -98,15 +100,6 @@ const useInterval = (
     setCurrentIntervalTime(intervalArray[position].time * 10);
     setIntervalPosition(position);
     setColor(intervalArray[position].intervalType);
-  };
-
-  const gotoNextInterval = () => {
-    nextInterval();
-  };
-
-  const gotoPreviousInterval = () => {
-    clearTimeout(timerRef.current);
-    previousInterval();
   };
 
   const resetWorkout = () => {
@@ -184,8 +177,8 @@ const useInterval = (
     getCurrentIntervalRemainingTime,
     getTotalRemainingTime,
     getIntervalPosition,
-    gotoNextInterval,
-    gotoPreviousInterval,
+    nextInterval,
+    previousInterval,
     handleChangeInterval,
   };
 };
