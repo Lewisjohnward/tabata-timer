@@ -9,9 +9,11 @@ type IntervalType = {
   time: number;
 }[];
 
-const calculateTotalTime = (array: IntervalType) => {
+const calculateTotalTime = (array: IntervalType, position: number = 0) => {
   let total = 0;
-  array.forEach((interval) => (total += interval.time));
+  array.forEach((interval, i) => {
+    if (i >= position) total += interval.time;
+  });
   return total;
 };
 
@@ -37,7 +39,7 @@ const calculateNextPosition = (
 ) => {
   switch (direction) {
     case "forwards":
-      return intervalPosition + 1 < length - 1 ? intervalPosition + 1 : 0;
+      return intervalPosition + 1 <= length - 1 ? intervalPosition + 1 : 0;
     case "backwards":
       return intervalPosition - 1 >= 0 ? intervalPosition - 1 : length - 1;
   }
@@ -102,6 +104,11 @@ const useInterval = (
     setColor(intervalArray[position].intervalType);
   };
 
+  const calculateTimeLeft = () => {
+    console.log(intervalPosition);
+    setRemainingTime(calculateTotalTime(intervalArray, intervalPosition) * 10);
+  };
+
   const resetWorkout = () => {
     setRunning(false);
     setIntervalPosition(0);
@@ -154,6 +161,7 @@ const useInterval = (
 
   useEffect(() => {
     setColor(getBackgroundColor(intervalArray[intervalPosition].intervalType));
+    calculateTimeLeft();
   }, [intervalPosition]);
 
   useEffect(() => {
