@@ -30,6 +30,19 @@ const getBackgroundColor = (intervalType: string) => {
   }
 };
 
+const calculateNextPosition = (
+  intervalPosition: number,
+  length: number,
+  direction: "forwards" | "backwards"
+) => {
+  switch (direction) {
+    case "forwards":
+      return intervalPosition + 1 < length - 1 ? intervalPosition + 1 : 0;
+    case "backwards":
+      return intervalPosition - 1 >= 0 ? intervalPosition - 1 : length - 1;
+  }
+};
+
 const useInterval = (
   intervalArray: IntervalType,
   startWhistleRef: RefObject<HTMLAudioElement>,
@@ -50,7 +63,7 @@ const useInterval = (
   const [currentIntervalTime, setCurrentIntervalTime] = useState(
     intervalArray[0].time * 10
   );
-  const timerRef = useRef();
+  const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const decrementIntervalTime = () => {
     setCurrentIntervalTime((prev) => prev - 1);
@@ -58,16 +71,42 @@ const useInterval = (
   };
 
   const nextInterval = () => {
-    const newIntervalPosition = intervalPosition + 1;
+    const newIntervalPosition = calculateNextPosition(
+      intervalPosition,
+      intervalArray.length,
+      "forwards"
+    );
+    updateIntervalPosition(newIntervalPosition);
+  };
+
+  const previousInterval = () => {
+    const newIntervalPosition = calculateNextPosition(
+      intervalPosition,
+      intervalArray.length,
+      "backwards"
+    );
+    updateIntervalPosition(newIntervalPosition);
+  };
+
+  const handleChangeInterval = (position: number) => {
+    clearTimeout(timerRef.current);
+    updateIntervalPosition(position);
+  };
+
+  const updateIntervalPosition = (position: number) => {
     setNewInterval(true);
-    setCurrentIntervalTime(intervalArray[newIntervalPosition].time * 10);
-    setIntervalPosition(newIntervalPosition);
-    setColor(intervalArray[newIntervalPosition].intervalType);
+    setCurrentIntervalTime(intervalArray[position].time * 10);
+    setIntervalPosition(position);
+    setColor(intervalArray[position].intervalType);
   };
 
   const gotoNextInterval = () => {
-    clearTimeout(timerRef.current);
     nextInterval();
+  };
+
+  const gotoPreviousInterval = () => {
+    clearTimeout(timerRef.current);
+    previousInterval();
   };
 
   const resetWorkout = () => {
@@ -82,12 +121,13 @@ const useInterval = (
     currentIntervalTime == 20 && playBeep();
     currentIntervalTime == 10 && playBeep();
 
-    currentIntervalTime == 0 && playEndBell();
-    newInterval && playEndWhistle();
+    currentIntervalTime == 0 &&
+      intervalArray[intervalPosition].intervalType != "prepare" &&
+      playEndBell();
+    newInterval && playStartWhistle();
   };
 
-  const playStartWhistle = () => startWhistleRef?.current?.play();
-  const playEndWhistle = () => endWhistleRef?.current?.play();
+  const playStartWhistle = () => endWhistleRef?.current?.play();
   const playBeep = () => beepRef?.current?.play();
   const playEndBell = () => endBellRef?.current?.play();
 
@@ -104,10 +144,7 @@ const useInterval = (
       return setTimeout(nextInterval, 1000);
     }
     resetWorkout();
-  };
-
-  const handleChangeInterval = () => {
-    /* change interval logic */
+    return undefined;
   };
 
   const getTotalRemainingTime = () => {
@@ -118,12 +155,18 @@ const useInterval = (
     return Math.ceil(currentIntervalTime / 10);
   };
 
+  const getIntervalPosition = () => {
+    return `${intervalPosition + 1} / ${intervalArray.length}`;
+  };
+
   useEffect(() => {
     setColor(getBackgroundColor(intervalArray[intervalPosition].intervalType));
   }, [intervalPosition]);
 
   useEffect(() => {
-    timerRef.current = running && handleTimerRunning();
+    if (running) {
+      timerRef.current = handleTimerRunning();
+    }
   }, [running, currentIntervalTime]);
 
   useEffect(() => {
@@ -140,7 +183,9 @@ const useInterval = (
     color,
     getCurrentIntervalRemainingTime,
     getTotalRemainingTime,
+    getIntervalPosition,
     gotoNextInterval,
+    gotoPreviousInterval,
     handleChangeInterval,
   };
 };
