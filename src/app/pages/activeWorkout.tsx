@@ -208,7 +208,7 @@ const CurrentInterval = ({
   setView,
 }: CurrentIntervalProps) => {
   return (
-    <div className="flex flex-col justify-evenly lg:h-1/2">
+    <div className="flex flex-col justify-evenly lg:h-1/2 lg:gap-10">
       <div className="flex justify-evenly items-center gap-8 text-4xl lg:text-6xl font-bold">
         <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
           {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
@@ -221,7 +221,7 @@ const CurrentInterval = ({
         </button>
       </div>
 
-      <div className="text-center lg:w-[550px] text-[10rem] lg:text-[15rem] leading-none">
+      <div className="text-center text-[10rem] lg:text-[10rem] leading-none">
         {intervalManager.getCurrentIntervalRemainingTime()}
       </div>
       <div className="hidden w-full lg:flex justify-evenly gap-4 py-4 text-white text-4xl">
