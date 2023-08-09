@@ -134,10 +134,9 @@ const useInterval = (
     playSound();
     if (isStartOfNewInterval) setIsStartOfNewInterval(false);
     if (currentIntervalTime > 0) return setTimeout(decrementIntervalTime, 1000);
-    if (intervalPosition != intervalArray.length - 1) {
-      return setTimeout(nextInterval, 1000);
-    }
-    return setTimeout(resetWorkout, 1000);
+    if (intervalPosition == intervalArray.length - 1)
+      return setTimeout(resetWorkout, 1000);
+    nextInterval();
   };
 
   const getTotalRemainingTime = () => {
