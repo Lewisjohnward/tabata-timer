@@ -141,29 +141,24 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
 
   return (
     <div
-      className="h-screen"
+      className="relative flex flex-col gap-5 text-white p-4 h-[90vh] md:h-[95vh] lg:h-screen lg:flex-row lg:justify-center lg:items-center lg:gap-10"
       style={{ backgroundColor: intervalManager.color }}
     >
-      <div className="relative flex flex-col gap-5 text-white p-4 h-[90vh] md:h-[95vh] lg:h-screen lg:flex-row lg:justify-center lg:items-center lg:gap-10">
-        <CurrentInterval setView={setView} intervalManager={intervalManager} />
-        <div className="hidden lg:block bg-white w-[1px] h-3/6" />
-        <IntervalList
-          intervals={debugArray}
-          intervalManager={intervalManager}
+      <CurrentInterval setView={setView} intervalManager={intervalManager} />
+      <div className="hidden lg:block bg-white w-[1px] h-3/6" />
+      <IntervalList intervals={debugArray} intervalManager={intervalManager} />
+      <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
+        <NavigationButtons
+          setView={setView}
+          nextInterval={intervalManager.nextInterval}
+          previousInterval={intervalManager.previousInterval}
+          intervalPosition={intervalManager.getIntervalPosition()}
         />
-        <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
-          <NavigationButtons
-            setView={setView}
-            nextInterval={intervalManager.nextInterval}
-            previousInterval={intervalManager.previousInterval}
-            intervalPosition={intervalManager.getIntervalPosition()}
-          />
-        </div>
-        <audio preload="auto" src="/startWhistle.wav" ref={startWhistleRef} />
-        <audio preload="auto" src="/beep.mp3" ref={beepRef} />
-        <audio preload="auto" src="/endWhistle.mp3" ref={endWhistleRef} />
-        <audio preload="auto" src="/endBell.mp3" ref={endBellRef} />
       </div>
+      <audio preload="auto" src="/startWhistle.wav" ref={startWhistleRef} />
+      <audio preload="auto" src="/beep.mp3" ref={beepRef} />
+      <audio preload="auto" src="/endWhistle.mp3" ref={endWhistleRef} />
+      <audio preload="auto" src="/endBell.mp3" ref={endBellRef} />
     </div>
   );
 };
@@ -213,8 +208,8 @@ const CurrentInterval = ({
   setView,
 }: CurrentIntervalProps) => {
   return (
-    <div className="flex flex-col justify-evenly lg:h-4/6">
-      <div className="flex justify-evenly items-center gap-8 text-4xl lg:text-6xl font-bold overflow-hidden">
+    <div className="flex flex-col justify-evenly lg:h-1/2">
+      <div className="flex justify-evenly items-center gap-8 text-4xl lg:text-6xl font-bold">
         <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
           {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
         </button>
@@ -226,7 +221,7 @@ const CurrentInterval = ({
         </button>
       </div>
 
-      <div className="text-center lg:w-[550px] text-[10rem] lg:text-[15rem]">
+      <div className="text-center lg:w-[550px] text-[10rem] lg:text-[15rem] leading-none">
         {intervalManager.getCurrentIntervalRemainingTime()}
       </div>
       <div className="hidden w-full lg:flex justify-evenly gap-4 py-4 text-white text-4xl">
@@ -256,7 +251,7 @@ type IntervalListProps = {
 
 const IntervalList = ({ intervals, intervalManager }: IntervalListProps) => {
   return (
-    <div className="overflow-scroll lg:h-4/6">
+    <div className="overflow-scroll lg:h-1/2">
       {intervals.map((interval, i) => {
         const { id, intervalType, time, description } = interval;
         return (
