@@ -203,6 +203,7 @@ type CurrentIntervalProps = {
     getCurrentIntervalRemainingTime: () => number;
     nextInterval: () => void;
     previousInterval: () => void;
+    handleToggleRunning: () => void;
   };
   setView: React.Dispatch<SetStateAction<string>>;
 };
@@ -220,7 +221,7 @@ const CurrentInterval = ({
         <h1 className="w-36 px-4 lg:w-48">
           {intervalManager.getTotalRemainingTime()}
         </h1>
-        <button onClick={() => intervalManager.setRunning((prev) => !prev)}>
+        <button onClick={intervalManager.handleToggleRunning}>
           {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
         </button>
       </div>

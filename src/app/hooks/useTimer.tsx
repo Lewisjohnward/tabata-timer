@@ -53,17 +53,17 @@ const useInterval = (
   endBellRef: RefObject<HTMLAudioElement>
 ) => {
   const [remainingTime, setRemainingTime] = useState(
-    calculateTotalTime(intervalArray) * 10
+    calculateTotalTime(intervalArray)
   );
   const [locked, setLocked] = useState(false);
   const [running, setRunning] = useState(false);
   const [intervalPosition, setIntervalPosition] = useState(0);
-  const [newInterval, setNewInterval] = useState(false);
+  const [isStartOfNewInterval, setIsStartOfNewInterval] = useState(false);
   const [color, setColor] = useState(
     getBackgroundColor(intervalArray[intervalPosition].intervalType)
   );
   const [currentIntervalTime, setCurrentIntervalTime] = useState(
-    intervalArray[0].time * 10
+    intervalArray[0].time
   );
   const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
@@ -98,33 +98,32 @@ const useInterval = (
   };
 
   const updateIntervalPosition = (position: number) => {
-    setNewInterval(true);
-    setCurrentIntervalTime(intervalArray[position].time * 10);
+    setIsStartOfNewInterval(true);
+    setCurrentIntervalTime(intervalArray[position].time);
     setIntervalPosition(position);
     setColor(intervalArray[position].intervalType);
   };
 
   const calculateTimeLeft = () => {
-    console.log(intervalPosition);
-    setRemainingTime(calculateTotalTime(intervalArray, intervalPosition) * 10);
+    setRemainingTime(calculateTotalTime(intervalArray, intervalPosition));
   };
 
   const resetWorkout = () => {
     setRunning(false);
     setIntervalPosition(0);
-    setCurrentIntervalTime(intervalArray[0].time * 10);
-    setRemainingTime(calculateTotalTime(intervalArray) * 10);
+    setCurrentIntervalTime(intervalArray[0].time);
+    setRemainingTime(calculateTotalTime(intervalArray));
   };
 
   const playSound = () => {
     const { intervalType } = intervalArray[intervalPosition];
-    currentIntervalTime == 30 && playBeep();
-    currentIntervalTime == 20 && playBeep();
-    currentIntervalTime == 10 && playBeep();
+    currentIntervalTime == 3 && playBeep();
+    currentIntervalTime == 2 && playBeep();
+    currentIntervalTime == 1 && playBeep();
 
     currentIntervalTime == 0 && intervalType == "work" && playEndBell();
 
-    newInterval && intervalType == "work" && playStartWhistle();
+    isStartOfNewInterval && intervalType == "work" && playStartWhistle();
   };
 
   const playStartWhistle = () => endWhistleRef?.current?.play();
@@ -133,30 +132,29 @@ const useInterval = (
 
   const handleTimerRunning = () => {
     playSound();
-    if (newInterval) {
-      setNewInterval(false);
-      return setTimeout(decrementIntervalTime, 500);
-    }
-    if (currentIntervalTime != 0) {
-      return setTimeout(decrementIntervalTime, 100);
-    }
+    if (isStartOfNewInterval) setIsStartOfNewInterval(false);
+    if (currentIntervalTime > 0) return setTimeout(decrementIntervalTime, 1000);
     if (intervalPosition != intervalArray.length - 1) {
       return setTimeout(nextInterval, 1000);
     }
-    resetWorkout();
-    return undefined;
+    return setTimeout(resetWorkout, 1000);
   };
 
   const getTotalRemainingTime = () => {
-    return convertTime(Math.ceil(remainingTime / 10));
+    return convertTime(remainingTime);
   };
 
   const getCurrentIntervalRemainingTime = () => {
-    return Math.ceil(currentIntervalTime / 10);
+    return currentIntervalTime;
   };
 
   const getIntervalPosition = () => {
     return `${intervalPosition + 1} / ${intervalArray.length}`;
+  };
+
+  const handleToggleRunning = () => {
+    if (running) clearInterval(timerRef.current);
+    setRunning((prev) => !prev);
   };
 
   useEffect(() => {
@@ -188,6 +186,7 @@ const useInterval = (
     nextInterval,
     previousInterval,
     handleChangeInterval,
+    handleToggleRunning,
   };
 };
 
