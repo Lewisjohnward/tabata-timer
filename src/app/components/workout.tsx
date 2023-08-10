@@ -1,7 +1,7 @@
 import { SetStateAction } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { FaEllipsisV } from "react-icons/fa";
-import { WorkoutObj } from "../types/Workout";
+import { WorkoutObj } from "../types/WorkoutObj";
 import convertTime from "../helpers/convertTime";
 
 type Props = {
