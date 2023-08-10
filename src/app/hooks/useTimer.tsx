@@ -3,6 +3,7 @@ import { RefObject, useEffect, useRef, useState } from "react";
 import convertTime from "../helpers/convertTime";
 import generateArray from "../helpers/generateArray";
 import calculateTotalTime from "../helpers/calculateTotalTime";
+import { WorkoutObj } from "../types/Workout";
 
 const getBackgroundColor = (intervalType: string) => {
   switch (intervalType) {
@@ -13,6 +14,7 @@ const getBackgroundColor = (intervalType: string) => {
     case "rest":
       return "#4dc0e3";
     case "cooldown":
+    case "rest between sets":
       return "#0284c7";
     default:
       return "#ffffff";
@@ -33,7 +35,7 @@ const calculateNextPosition = (
 };
 
 const useInterval = (
-  workoutObj: any,
+  workoutObj: WorkoutObj,
   startWhistleRef: RefObject<HTMLAudioElement>,
   beepRef: RefObject<HTMLAudioElement>,
   endWhistleRef: RefObject<HTMLAudioElement>,
