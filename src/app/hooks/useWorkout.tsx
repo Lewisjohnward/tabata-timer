@@ -43,7 +43,7 @@ const useCreateWorkout = () => {
       id,
       title,
       color,
-      totalTime: totalTime == undefined ? 0 : totalTime,
+      totalTime: !totalTime ? 0 : totalTime,
       intervals,
       prepare,
       work,
