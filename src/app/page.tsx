@@ -3,12 +3,12 @@ import { useState } from "react";
 import ActiveWorkout from "./pages/activeWorkout";
 import AddWorkout from "./pages/addWorkout";
 import Home from "./pages/home";
-import { Workout } from "./types/Workout";
+import { WorkoutObj } from "./types/Workout";
 
 export default function Page() {
   const [view, setView] = useState("home");
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
-  const [activeWorkout, setActiveWorkout] = useState<Workout>();
+  const [workouts, setWorkouts] = useState<WorkoutObj[]>([]);
+  const [activeWorkout, setActiveWorkout] = useState({});
 
   return (
     <main className="relative min-h-full">

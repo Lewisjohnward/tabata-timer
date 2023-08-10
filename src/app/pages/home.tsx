@@ -6,7 +6,7 @@ import { WorkoutObj } from "../types/Workout";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
+  setActiveWorkout: React.Dispatch<SetStateAction<undefined | WorkoutObj>>;
   workouts: WorkoutObj[];
 };
 
