@@ -1,4 +1,4 @@
-export type Workout = {
+export type WorkoutObj = {
   id: string;
   title: string;
   totalTime: number;

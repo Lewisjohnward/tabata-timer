@@ -2,15 +2,15 @@ import { SetStateAction } from "react";
 import AddIcon from "../components/addIcon";
 import Header from "../components/header";
 import Workout from "../components/workout";
-import { Workout as WorkoutType } from "../types/Workout";
+import { WorkoutObj } from "../types/Workout";
 
-type HomeProps = {
+type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutType | undefined>>;
-  workouts: WorkoutType[];
+  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
+  workouts: WorkoutObj[];
 };
 
-const Home = ({ setView, workouts, setActiveWorkout }: HomeProps) => {
+const Home = ({ setView, workouts, setActiveWorkout }: Props) => {
   return (
     <>
       <Header workoutCount={workouts.length} />
