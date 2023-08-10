@@ -39,7 +39,11 @@ const generateArray = (workout: {
         });
     }
     if (restBetweenSets > 1 && set != sets) {
-      arr.push({ id: uuidv4(), intervalType: "rest", time: rest });
+      arr.push({
+        id: uuidv4(),
+        intervalType: "rest between sets",
+        time: restBetweenSets,
+      });
     }
   }
 

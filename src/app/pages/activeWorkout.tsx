@@ -18,12 +18,9 @@ const ActiveWorkout = ({ setView, workoutObj }: Props) => {
   const beepRef = useRef<HTMLAudioElement>(null);
   const endWhistleRef = useRef<HTMLAudioElement>(null);
   const endBellRef = useRef<HTMLAudioElement>(null);
-  const intervalArray = workoutObj && generateArray(workoutObj);
-  if (!intervalArray) return null;
-  console.log(intervalArray);
 
   const intervalManager = useInterval(
-    intervalArray,
+    workoutObj,
     startWhistleRef,
     beepRef,
     endWhistleRef,
@@ -38,7 +35,7 @@ const ActiveWorkout = ({ setView, workoutObj }: Props) => {
       <CurrentInterval setView={setView} intervalManager={intervalManager} />
       <div className="hidden lg:block bg-white w-[1px] h-3/6" />
       <IntervalList
-        intervals={intervalArray}
+        intervals={intervalManager.intervalArray}
         intervalManager={intervalManager}
       />
       <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">

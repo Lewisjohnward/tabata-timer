@@ -1,21 +1,8 @@
 "use client";
 import { RefObject, useEffect, useRef, useState } from "react";
 import convertTime from "../helpers/convertTime";
-
-type IntervalType = {
-  id: string;
-  description?: string;
-  intervalType: string;
-  time: number;
-}[];
-
-const calculateTotalTime = (array: IntervalType, position: number = 0) => {
-  let total = 0;
-  array.forEach((interval, i) => {
-    if (i >= position) total += interval.time;
-  });
-  return total;
-};
+import generateArray from "../helpers/generateArray";
+import calculateTotalTime from "../helpers/calculateTotalTime";
 
 const getBackgroundColor = (intervalType: string) => {
   switch (intervalType) {
@@ -46,12 +33,13 @@ const calculateNextPosition = (
 };
 
 const useInterval = (
-  intervalArray: IntervalType,
+  workoutObj: any,
   startWhistleRef: RefObject<HTMLAudioElement>,
   beepRef: RefObject<HTMLAudioElement>,
   endWhistleRef: RefObject<HTMLAudioElement>,
   endBellRef: RefObject<HTMLAudioElement>
 ) => {
+  const intervalArray = generateArray(workoutObj);
   const [remainingTime, setRemainingTime] = useState(
     calculateTotalTime(intervalArray)
   );
@@ -186,6 +174,7 @@ const useInterval = (
     previousInterval,
     handleChangeInterval,
     handleToggleRunning,
+    intervalArray,
   };
 };
 
