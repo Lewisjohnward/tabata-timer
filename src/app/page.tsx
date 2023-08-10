@@ -3,7 +3,7 @@ import { useState } from "react";
 import ActiveWorkout from "./pages/activeWorkout";
 import AddWorkout from "./pages/addWorkout";
 import Home from "./pages/home";
-import { WorkoutObj } from "./types/Workout";
+import { WorkoutObj } from "./types/WorkoutObj";
 
 export default function Page() {
   const [view, setView] = useState("home");

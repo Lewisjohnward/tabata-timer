@@ -6,7 +6,7 @@ import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { FaStepBackward, FaStepForward } from "react-icons/fa";
 import generateArray from "../helpers/generateArray";
 import useInterval from "../hooks/useTimer";
-import { WorkoutObj } from "../types/Workout";
+import { WorkoutObj } from "../types/WorkoutObj";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;

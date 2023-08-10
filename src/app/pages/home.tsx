@@ -2,7 +2,7 @@ import { SetStateAction } from "react";
 import AddIcon from "../components/addIcon";
 import Header from "../components/header";
 import Workout from "../components/workout";
-import { WorkoutObj } from "../types/Workout";
+import { WorkoutObj } from "../types/WorkoutObj";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;

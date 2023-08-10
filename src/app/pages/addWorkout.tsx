@@ -15,7 +15,7 @@ import { TiTick } from "react-icons/ti";
 import Input, { TextInput } from "../components/input";
 import Modal from "../components/modal";
 import useCreateWorkout from "../hooks/useWorkout";
-import { WorkoutObj } from "../types/Workout";
+import { WorkoutObj } from "../types/WorkoutObj";
 import convertTime from "../helpers/convertTime";
 import { colors } from "../misc/colors";
 
