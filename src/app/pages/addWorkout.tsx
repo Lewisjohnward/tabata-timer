@@ -15,13 +15,13 @@ import { TiTick } from "react-icons/ti";
 import Input, { TextInput } from "../components/input";
 import Modal from "../components/modal";
 import useCreateWorkout from "../hooks/useWorkout";
-import { Workout } from "../types/Workout";
+import { WorkoutObj } from "../types/Workout";
 import convertTime from "../helpers/convertTime";
 import { colors } from "../misc/colors";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
-  setWorkouts: React.Dispatch<SetStateAction<Workout[]>>;
+  setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
 };
 
 const AddWorkout = ({ setView, setWorkouts }: Props) => {

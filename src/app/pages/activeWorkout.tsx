@@ -6,21 +6,21 @@ import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { FaStepBackward, FaStepForward } from "react-icons/fa";
 import generateArray from "../helpers/generateArray";
 import useInterval from "../hooks/useTimer";
-import { Workout } from "../types/Workout";
+import { WorkoutObj } from "../types/Workout";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
-  workoutObj: Workout | undefined;
+  workout: WorkoutObj;
 };
 
-const ActiveWorkout = ({ setView, workoutObj }: Props) => {
+const ActiveWorkout = ({ setView, workout }: Props) => {
   const startWhistleRef = useRef<HTMLAudioElement>(null);
   const beepRef = useRef<HTMLAudioElement>(null);
   const endWhistleRef = useRef<HTMLAudioElement>(null);
   const endBellRef = useRef<HTMLAudioElement>(null);
 
   const intervalManager = useInterval(
-    workoutObj,
+    workout,
     startWhistleRef,
     beepRef,
     endWhistleRef,
