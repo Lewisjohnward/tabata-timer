@@ -1,16 +1,13 @@
 type Workout = {
-  prepare?: number;
-  work?: number;
-  rest?: number;
-  cooldown?: number;
+  id: string;
+  intervalType: string;
+  time: number;
 }[];
 
 const calculateTotalTime = (arr: Workout) => {
   let total = 0;
   arr.forEach((d) => {
-    const key = Object.keys(d)[0];
-    const val = d[key as keyof typeof d];
-    if (val != undefined) total += val;
+    total += d.time;
   });
 
   return total;

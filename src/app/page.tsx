@@ -7,7 +7,7 @@ import { Workout } from "./types/Workout";
 
 export default function Page() {
   const [view, setView] = useState("home");
-  const [workouts, setWorkouts] = useState<never | Workout[]>([]);
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [activeWorkout, setActiveWorkout] = useState<Workout>();
 
   return (
@@ -21,7 +21,7 @@ export default function Page() {
       ) : view == "addworkout" ? (
         <AddWorkout setView={setView} setWorkouts={setWorkouts} />
       ) : view == "workout" ? (
-        <ActiveWorkout setView={setView} activeWorkout={activeWorkout} />
+        <ActiveWorkout setView={setView} workoutObj={activeWorkout} />
       ) : null}
     </main>
   );

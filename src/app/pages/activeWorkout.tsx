@@ -1,138 +1,29 @@
 "use client";
 import clsx from "clsx";
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { SetStateAction, useRef } from "react";
 import { AiFillHome, AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { FaStepBackward, FaStepForward } from "react-icons/fa";
 import generateArray from "../helpers/generateArray";
 import useInterval from "../hooks/useTimer";
 import { Workout } from "../types/Workout";
-import getIntervalDetails from "../helpers/getIntervalDetails";
-import convertTime from "../helpers/convertTime";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
-  activeWorkout: Workout | undefined;
+  workoutObj: Workout | undefined;
 };
 
-import { v4 as uuidv4 } from "uuid";
-
-const debugWorkout = {
-  id: uuidv4,
-  title: "biceps baby",
-  totalTime: 69,
-  intervals: 69,
-  color: "#ffffff",
-  prepare: 10,
-  workDescription: "test description",
-  work: 25,
-  restDescription: "rest description",
-  rest: 15,
-  cycles: 2,
-  sets: 1,
-  restBetweenSets: 0,
-  cooldown: 15,
-};
-
-const debugArray = [
-  {
-    id: uuidv4(),
-    intervalType: "prepare",
-    time: 5,
-  },
-  {
-    id: uuidv4(),
-    description: "a very very long test work description",
-    intervalType: "work",
-    time: 600,
-  },
-  {
-    id: uuidv4(),
-    description: "test rest description",
-    intervalType: "rest",
-    time: 300,
-  },
-  {
-    id: uuidv4(),
-    description: "test work description",
-    intervalType: "work",
-    time: 6,
-  },
-  {
-    id: uuidv4(),
-    description: "test rest description",
-    intervalType: "rest",
-    time: 3,
-  },
-  {
-    id: uuidv4(),
-    description: "test work description",
-    intervalType: "work",
-    time: 6,
-  },
-  {
-    id: uuidv4(),
-    description: "test rest description",
-    intervalType: "rest",
-    time: 3,
-  },
-  {
-    id: uuidv4(),
-    description: "test work description",
-    intervalType: "work",
-    time: 6,
-  },
-  {
-    id: uuidv4(),
-    description: "test rest description",
-    intervalType: "rest",
-    time: 3,
-  },
-  {
-    id: uuidv4(),
-    description: "test work description",
-    intervalType: "work",
-    time: 6,
-  },
-  {
-    id: uuidv4(),
-    description: "test rest description",
-    intervalType: "rest",
-    time: 3,
-  },
-  {
-    id: uuidv4(),
-    description: "test work description",
-    intervalType: "work",
-    time: 6,
-  },
-  {
-    id: uuidv4(),
-    description: "test rest description",
-    intervalType: "rest",
-    time: 3,
-  },
-  {
-    id: uuidv4(),
-    description: "test work description",
-    intervalType: "work",
-    time: 6,
-  },
-  {
-    id: uuidv4(),
-    intervalType: "cooldown",
-    time: 2,
-  },
-];
-
-const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
+const ActiveWorkout = ({ setView, workoutObj }: Props) => {
   const startWhistleRef = useRef<HTMLAudioElement>(null);
   const beepRef = useRef<HTMLAudioElement>(null);
   const endWhistleRef = useRef<HTMLAudioElement>(null);
   const endBellRef = useRef<HTMLAudioElement>(null);
+  const intervalArray = workoutObj && generateArray(workoutObj);
+  if (!intervalArray) return null;
+  console.log(intervalArray);
 
   const intervalManager = useInterval(
-    debugArray,
+    intervalArray,
     startWhistleRef,
     beepRef,
     endWhistleRef,
@@ -146,7 +37,10 @@ const ActiveWorkout = ({ setView, activeWorkout }: Props) => {
     >
       <CurrentInterval setView={setView} intervalManager={intervalManager} />
       <div className="hidden lg:block bg-white w-[1px] h-3/6" />
-      <IntervalList intervals={debugArray} intervalManager={intervalManager} />
+      <IntervalList
+        intervals={intervalArray}
+        intervalManager={intervalManager}
+      />
       <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
         <NavigationButtons
           setView={setView}

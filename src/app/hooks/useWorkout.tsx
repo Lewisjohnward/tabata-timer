@@ -20,21 +20,22 @@ const useCreateWorkout = () => {
   const [cycles, setCycles] = useState(1);
   const [sets, setSets] = useState(1);
   const [restBetweenSets, setRestBetweenSets] = useState(0);
-  const [cooldown, setCooldown] = useState(0);
+  const [cooldown, setCooldown] = useState(10);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [intervals, setIntervals] = useState(0);
 
   useEffect(() => {
-    const arr = generateArray(
+    const arr = generateArray({
       prepare,
       work,
       rest,
       cycles,
       sets,
       restBetweenSets,
-      cooldown
-    );
+      cooldown,
+    });
     setIntervals(calculateIntervals(arr));
+    setTotalTime(69);
     setTotalTime(calculateTotalTime(arr));
   }, [prepare, work, rest, cycles, sets, rest, cooldown, restBetweenSets]);
 

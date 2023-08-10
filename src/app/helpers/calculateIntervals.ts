@@ -1,8 +1,7 @@
 type Workout = {
-  prepare?: number;
-  work?: number;
-  rest?: number;
-  cooldown?: number;
+  id: string;
+  intervalType: string;
+  time: number;
 }[];
 
 const calculateIntervals = (arr: Workout): number => {
