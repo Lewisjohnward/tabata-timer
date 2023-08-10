@@ -54,32 +54,6 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
   );
 };
 
-const NavigationButtons = ({
-  setView,
-  nextInterval,
-  previousInterval,
-  intervalPosition,
-}: {
-  setView: React.Dispatch<SetStateAction<string>>;
-  nextInterval: () => void;
-  previousInterval: () => void;
-  intervalPosition: string;
-}) => {
-  return (
-    <>
-      <button onClick={previousInterval}>
-        <FaStepBackward />
-      </button>
-      <button className="lg:w-48" onClick={() => setView("home")}>
-        {intervalPosition}
-      </button>
-      <button onClick={nextInterval}>
-        <FaStepForward />
-      </button>
-    </>
-  );
-};
-
 type CurrentIntervalProps = {
   intervalManager: {
     setLocked: React.Dispatch<SetStateAction<boolean>>;
@@ -166,6 +140,32 @@ const IntervalList = ({ intervals, intervalManager }: IntervalListProps) => {
         );
       })}
     </div>
+  );
+};
+
+const NavigationButtons = ({
+  setView,
+  nextInterval,
+  previousInterval,
+  intervalPosition,
+}: {
+  setView: React.Dispatch<SetStateAction<string>>;
+  nextInterval: () => void;
+  previousInterval: () => void;
+  intervalPosition: string;
+}) => {
+  return (
+    <>
+      <button onClick={previousInterval}>
+        <FaStepBackward />
+      </button>
+      <button className="lg:w-48" onClick={() => setView("home")}>
+        {intervalPosition}
+      </button>
+      <button onClick={nextInterval}>
+        <FaStepForward />
+      </button>
+    </>
   );
 };
 
