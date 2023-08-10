@@ -1,10 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
-import { HomeProps } from "./types";
+import { useState, useEffect, SetStateAction } from "react";
 import { AiOutlineOrderedList } from "react-icons/ai";
 import clsx from "clsx";
 
-const AddIcon = ({ setView }: HomeProps) => {
+type Props = {
+  setView: React.Dispatch<SetStateAction<string>>;
+};
+
+const AddIcon = ({ setView }: Props) => {
   const [open, setOpen] = useState(false);
 
   const activateScroll = () => {
