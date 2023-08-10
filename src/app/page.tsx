@@ -6,7 +6,7 @@ import Home from "./pages/home";
 import { Workout } from "./types/Workout";
 
 export default function Page() {
-  const [view, setView] = useState("workout");
+  const [view, setView] = useState("home");
   const [workouts, setWorkouts] = useState<never | Workout[]>([]);
   const [activeWorkout, setActiveWorkout] = useState<Workout>();
 
