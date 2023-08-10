@@ -1,13 +1,13 @@
 import { SetStateAction } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { FaEllipsisV } from "react-icons/fa";
-import { Workout as WorkoutType } from "../types/Workout";
+import { WorkoutObj } from "../types/Workout";
 import convertTime from "../helpers/convertTime";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutType | undefined>>;
-  workout: WorkoutType;
+  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
+  workout: WorkoutObj;
 };
 
 const Workout = ({ setView, workout, setActiveWorkout }: Props) => {
