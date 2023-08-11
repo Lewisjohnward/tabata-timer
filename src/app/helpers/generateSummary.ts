@@ -18,6 +18,16 @@ const generateSummary = (workout: {
   //    "Rest: 01:10 . 7 intervals",
   //  ],
   //};
+  // summaryObj = {
+  // totals: [
+  //    "Total: 0:35 . 15 intervals",
+  //    "Work: 0:24 . 8 intervals",
+  //    "Rest: 01:10 . 7 intervals",
+  // ]
+  // ,
+  // summary : [
+  // ]
+  //}
   const { prepare, work, rest, cycles, sets, restBetweenSets, cooldown } =
     workout;
   const arr = [];
