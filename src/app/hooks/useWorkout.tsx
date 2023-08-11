@@ -5,6 +5,7 @@ import calculateTotalTime from "../helpers/calculateTotalTime";
 import generateArray from "../helpers/generateArray";
 import { v4 as uuidv4 } from "uuid";
 import { colors } from "../misc/colors";
+import generateSummary from "../helpers/generateSummary";
 
 const random = (array: string[]) => {
   return array[Math.floor(Math.random() * array.length)];
@@ -26,6 +27,15 @@ const useCreateWorkout = () => {
 
   useEffect(() => {
     const arr = generateArray({
+      prepare,
+      work,
+      rest,
+      cycles,
+      sets,
+      restBetweenSets,
+      cooldown,
+    });
+    generateSummary({
       prepare,
       work,
       rest,
