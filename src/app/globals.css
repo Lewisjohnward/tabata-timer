@@ -6,6 +6,10 @@
     user-select:none;
 }
 
+body {
+    overscroll-behavior: contain;
+}
+
 button,
 textarea,
 input,
