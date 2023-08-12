@@ -47,6 +47,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
     intervals,
     totalTime,
     createWorkoutObject,
+    summary,
   } = useCreateWorkout();
 
   const [summaryVisible, setSummaryVisible] = useState(false);
@@ -161,7 +162,9 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
           />
         </div>
       </div>
-      {summaryVisible && <Summary setSummaryVisible={setSummaryVisible} />}
+      {summaryVisible && (
+        <Summary setSummaryVisible={setSummaryVisible} summary={summary} />
+      )}
       {paletteVisible && (
         <Palette
           setPaletteVisible={setPaletteVisible}
@@ -177,13 +180,14 @@ export default AddWorkout;
 
 type SummaryProps = {
   setSummaryVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  summary: any;
 };
 
-const Summary = ({ setSummaryVisible }: SummaryProps) => {
+const Summary = ({ setSummaryVisible, summary }: SummaryProps) => {
   return (
     <Modal closePortal={() => setSummaryVisible(false)}>
       <div className="bg-white h-[500px] w-[800px] rounded shadow">
-        summary here
+        {summary}
       </div>
     </Modal>
   );

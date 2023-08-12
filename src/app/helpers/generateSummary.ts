@@ -73,7 +73,6 @@ const generateSummary = (workout: {
     totalTime -= cooldown;
   }
   arr.push(`Finish: - ${convertTime(totalTime)}`);
-  console.log(arr);
 
   return arr;
 };
