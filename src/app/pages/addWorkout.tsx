@@ -204,18 +204,18 @@ const Palette = ({
 
   return (
     <Modal closePortal={() => setPaletteVisible(false)}>
-      <div className="bg-white rounded shadow p-4 space-y-4">
+      <div className="-mt-14 md:mt-0 bg-white rounded shadow p-4 space-y-10 md:p-8">
         <h2 className="text-xl font-bold">Select a color</h2>
-        <div className="grid grid-cols-5 justify-items-center gap-4">
+        <div className="grid grid-cols-4 md:grid-cols-5 justify-items-center gap-4">
           {colors.map((color) => (
             <button
               key={color}
-              className="w-28 h-28 rounded-full"
+              className="w-20 h-20 rounded-full md:w-28 md:h-28"
               style={{ backgroundColor: color }}
               onClick={(e) => handleColorSelect(e, color)}
             >
               {selectedColor == color && (
-                <TiTick className="m-auto text-6xl text-white bg-black/10 rounded-full" />
+                <TiTick className="m-auto text-4xl md:text-6xl text-white bg-black/10 rounded-full" />
               )}
             </button>
           ))}
