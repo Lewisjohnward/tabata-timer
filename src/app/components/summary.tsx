@@ -62,7 +62,7 @@ const Summary = ({ setSummaryVisible, summaryObj, color }: SummaryProps) => {
 
   return (
     <Modal closePortal={() => setSummaryVisible(false)}>
-      <div className="bg-white h-[500px] w-[800px] overflow-scroll rounded shadow space-y-4 lg:h-[800px] font-semibold text-lg text-center pt-4">
+      <div className="flex flex-col items-center bg-white h-[500px] w-[800px] overflow-scroll rounded shadow space-y-4 lg:h-[800px] font-semibold text-lg text-center pt-4">
         <p style={{ color: color }}>Workout</p>
         {numberOfSets && (
           <NumberOfSets numberOfSets={numberOfSets} color={color} />
