@@ -12,11 +12,7 @@ const NumberOfSets = ({
   numberOfSets: string;
   color: string;
 }) => {
-  return (
-    <p style={{ color: color }}>
-      {numberOfSets && `Number of sets: ${numberOfSets}`}
-    </p>
-  );
+  return <p style={{ color: color }}>{`Number of sets: ${numberOfSets}`}</p>;
 };
 
 const Totals = ({ totals, color }: { totals: string[]; color: string }) => {
@@ -66,9 +62,11 @@ const Summary = ({ setSummaryVisible, summaryObj, color }: SummaryProps) => {
 
   return (
     <Modal closePortal={() => setSummaryVisible(false)}>
-      <div className="bg-white h-[500px] w-[800px] overflow-scroll rounded shadow space-y-4 lg:h-[800px] font-semibold text-lg text-center">
+      <div className="bg-white h-[500px] w-[800px] overflow-scroll rounded shadow space-y-4 lg:h-[800px] font-semibold text-lg text-center pt-4">
         <p style={{ color: color }}>Workout</p>
-        <NumberOfSets numberOfSets={numberOfSets} color={color} />
+        {numberOfSets && (
+          <NumberOfSets numberOfSets={numberOfSets} color={color} />
+        )}
         <Totals totals={totals} color={color} />
         <IntervalsList summary={summary} color={color} />
       </div>
