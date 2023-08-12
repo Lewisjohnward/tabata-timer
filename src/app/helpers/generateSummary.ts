@@ -102,13 +102,13 @@ const generateSummary = (workout: {
 
       if (set == 1 && cycle == 1 && prepare != 0) {
         summaryObj.summary.push(
-          `${interval++}.Prepare: ${prepare} - ${convertTime(totalTime)}`
+          `${interval++}. Prepare: ${prepare} - ${convertTime(totalTime)}`
         );
         totalTime -= prepare;
       }
 
       summaryObj.summary.push(
-        `${interval++}.Work: ${work} - ${convertTime(totalTime)}`
+        `${interval++}. Work: ${work} - ${convertTime(totalTime)}`
       );
       totalTime -= work;
 
@@ -117,14 +117,14 @@ const generateSummary = (workout: {
         (cycle == cycles && set == sets && rest != 0)
       ) {
         summaryObj.summary.push(
-          `${interval++}.Rest: ${rest} - ${convertTime(totalTime)}`
+          `${interval++}. Rest: ${rest} - ${convertTime(totalTime)}`
         );
         totalTime -= rest;
       }
     }
     if (restBetweenSets > 1 && set != sets) {
       summaryObj.summary.push(
-        `${interval++}.Rest Between sets: ${restBetweenSets} - ${convertTime(
+        `${interval++}. Rest Between sets: ${restBetweenSets} - ${convertTime(
           totalTime
         )}`
       );
@@ -134,7 +134,7 @@ const generateSummary = (workout: {
 
   if (cooldown != 0) {
     summaryObj.summary.push(
-      `${interval++}.Cooldown: ${cooldown} - ${convertTime(totalTime)}`
+      `${interval++}. Cooldown: ${cooldown} - ${convertTime(totalTime)}`
     );
     totalTime -= cooldown;
   }

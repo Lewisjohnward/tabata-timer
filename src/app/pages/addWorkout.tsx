@@ -18,6 +18,7 @@ import useCreateWorkout from "../hooks/useWorkout";
 import { WorkoutObj } from "../types/WorkoutObj";
 import convertTime from "../helpers/convertTime";
 import { colors } from "../misc/colors";
+import Summary from "../components/summary";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
@@ -163,7 +164,11 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
         </div>
       </div>
       {summaryVisible && (
-        <Summary setSummaryVisible={setSummaryVisible} summaryObj={summary} />
+        <Summary
+          setSummaryVisible={setSummaryVisible}
+          summaryObj={summary}
+          color={color}
+        />
       )}
       {paletteVisible && (
         <Palette
@@ -213,33 +218,6 @@ const Palette = ({
                 <TiTick className="m-auto text-6xl text-white bg-black/10 rounded-full" />
               )}
             </button>
-          ))}
-        </div>
-      </div>
-    </Modal>
-  );
-};
-
-type SummaryProps = {
-  setSummaryVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  summaryObj: any;
-};
-
-const Summary = ({ setSummaryVisible, summaryObj }: SummaryProps) => {
-  const { numberOfSets, totals, summary } = summaryObj;
-
-  return (
-    <Modal closePortal={() => setSummaryVisible(false)}>
-      <div className="bg-white h-[500px] w-[800px] overflow-scroll rounded shadow text-center space-y-4">
-        {numberOfSets && <p>Number of sets: {numberOfSets}</p>}
-        <div>
-          {totals.map((total: string) => (
-            <p>{total}</p>
-          ))}
-        </div>
-        <div className="space-y-2">
-          {summary.map((d: string) => (
-            <p>{d}</p>
           ))}
         </div>
       </div>
