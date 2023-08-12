@@ -38,7 +38,7 @@ const generateArray = (workout: {
           time: rest,
         });
     }
-    if (restBetweenSets > 1 && set != sets) {
+    if (restBetweenSets > 0 && set != sets) {
       arr.push({
         id: uuidv4(),
         intervalType: "rest between sets",

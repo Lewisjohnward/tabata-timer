@@ -95,7 +95,9 @@ const useInterval = (
   };
 
   const calculateTimeLeft = () => {
-    setRemainingTime(calculateTotalTime(intervalArray, intervalPosition));
+    setRemainingTime(
+      calculateTotalTime(intervalArray, "all", intervalPosition)
+    );
   };
 
   const resetWorkout = () => {

@@ -24,7 +24,7 @@ const useCreateWorkout = () => {
   const [cooldown, setCooldown] = useState(10);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [intervals, setIntervals] = useState(0);
-  const [summary, setSummary] = useState<string[]>([]);
+  const [summary, setSummary] = useState({});
 
   useEffect(() => {
     const arr = generateArray({

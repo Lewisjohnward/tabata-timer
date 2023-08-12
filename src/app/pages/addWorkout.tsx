@@ -163,7 +163,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
         </div>
       </div>
       {summaryVisible && (
-        <Summary setSummaryVisible={setSummaryVisible} summary={summary} />
+        <Summary setSummaryVisible={setSummaryVisible} summaryObj={summary} />
       )}
       {paletteVisible && (
         <Palette
@@ -177,21 +177,6 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
 };
 
 export default AddWorkout;
-
-type SummaryProps = {
-  setSummaryVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  summary: any;
-};
-
-const Summary = ({ setSummaryVisible, summary }: SummaryProps) => {
-  return (
-    <Modal closePortal={() => setSummaryVisible(false)}>
-      <div className="bg-white h-[500px] w-[800px] rounded shadow">
-        {summary}
-      </div>
-    </Modal>
-  );
-};
 
 type PaletteProps = {
   setPaletteVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -228,6 +213,33 @@ const Palette = ({
                 <TiTick className="m-auto text-6xl text-white bg-black/10 rounded-full" />
               )}
             </button>
+          ))}
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
+type SummaryProps = {
+  setSummaryVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  summaryObj: any;
+};
+
+const Summary = ({ setSummaryVisible, summaryObj }: SummaryProps) => {
+  const { numberOfSets, totals, summary } = summaryObj;
+
+  return (
+    <Modal closePortal={() => setSummaryVisible(false)}>
+      <div className="bg-white h-[500px] w-[800px] overflow-scroll rounded shadow text-center space-y-4">
+        {numberOfSets && <p>Number of sets: {numberOfSets}</p>}
+        <div>
+          {totals.map((total: string) => (
+            <p>{total}</p>
+          ))}
+        </div>
+        <div className="space-y-2">
+          {summary.map((d: string) => (
+            <p>{d}</p>
           ))}
         </div>
       </div>
