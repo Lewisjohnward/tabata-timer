@@ -40,7 +40,7 @@ const IntervalsList = ({
     <div className="space-y-2">
       {summary.map((d: string) => {
         const fontColor = d.includes("Prepare")
-          ? "#15803d"
+          ? "#166534"
           : d.includes("Work")
           ? "#dc2626"
           : d.includes("Rest")
@@ -52,7 +52,7 @@ const IntervalsList = ({
           : d.includes("Set")
           ? color
           : d.includes("Cooldown")
-          ? "#15803d"
+          ? "#166534"
           : "black";
 
         return <p style={{ color: fontColor }}>{d}</p>;
