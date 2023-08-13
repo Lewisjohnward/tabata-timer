@@ -11,7 +11,6 @@ export default function Page() {
   const [activeWorkout, setActiveWorkout] = useState<WorkoutObj>(
     {} as WorkoutObj
   );
-  const [filterByColor, setFilterByColor] = useState("");
 
   return (
     <main className="relative min-h-full">
@@ -20,8 +19,6 @@ export default function Page() {
           setView={setView}
           workouts={workouts}
           setActiveWorkout={setActiveWorkout}
-          filterByColor={filterByColor}
-          setFilterByColor={setFilterByColor}
         />
       ) : view == "addworkout" ? (
         <AddWorkout setView={setView} setWorkouts={setWorkouts} />
