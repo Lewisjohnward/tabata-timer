@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, SetStateAction, useState } from "react";
+import { ReactNode, SetStateAction } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import {
   BsArrowsCollapse,
@@ -11,95 +11,89 @@ import {
 } from "react-icons/bs";
 
 import { MdExpandLess, MdExpandMore, MdSettings } from "react-icons/md";
-import { colors } from "../misc/colors";
 import { WorkoutObj } from "../types/WorkoutObj";
 import Palette from "./palette";
 
 type Props = {
-  workoutCount: number;
-  filterByColor: string;
-  setFilterByColor: React.Dispatch<SetStateAction<string>>;
-  workouts: WorkoutObj[];
+  filter: {
+    filterByColor: string;
+    setFilterByColor: React.Dispatch<SetStateAction<string>>;
+    filteredWorkouts: WorkoutObj[];
+    optionsVisible: boolean;
+    setOptionsVisible: React.Dispatch<SetStateAction<boolean>>;
+    sortFavorites: boolean;
+    setSortFavorites: React.Dispatch<SetStateAction<boolean>>;
+    expandedWorkouts: boolean;
+    setExpandedWorkouts: React.Dispatch<SetStateAction<boolean>>;
+    paletteVisible: boolean;
+    setPaletteVisible: React.Dispatch<SetStateAction<boolean>>;
+    handleFilterByColor: () => void;
+    colorCount: { color: string; number: any }[];
+  };
 };
 
-const Header = ({
-  workoutCount,
-  filterByColor,
-  setFilterByColor,
-  workouts,
-}: Props) => {
-  /* move all of these into useFilter and pass to Header */
-  const [optionsVisible, setOptionsVisible] = useState(false);
-  const [sortFavorites, setSortFavorites] = useState(false);
-  const [expandedWorkouts, setExpandedWorkouts] = useState(false);
-  const [paletteVisible, setPaletteVisible] = useState(false);
-
-  const handleFilterByColor = () => {
-    if (filterByColor) {
-      setFilterByColor("");
-    } else {
-      setPaletteVisible(true);
-    }
-  };
-
-  const colorCount = colors.map((color) => {
-    const number = workouts.filter((workout) => color == workout.color).length;
-    return {
-      color,
-      number,
-    };
-  });
-  /***************************/
-
+const Header = ({ filter }: Props) => {
   return (
     <>
       <div
         className="flex justify-between gap-4 bg-gray-400 px-4 py-4 text-white font-bold"
-        style={{ backgroundColor: filterByColor }}
+        style={{ backgroundColor: filter.filterByColor }}
       >
         <div className="space-y-4">
-          <h1 className="text-2xl">Workouts: {workoutCount}</h1>
+          <h1 className="text-2xl">
+            Workouts: {filter.filteredWorkouts.length}
+          </h1>
         </div>
         <div className="flex gap-6 text-2xl">
           <Button>
             <AiOutlineSearch />
           </Button>
-          <Button onClickEvent={() => setOptionsVisible((prev) => !prev)}>
-            {!optionsVisible ? <MdExpandMore /> : <MdExpandLess />}
+          <Button
+            onClickEvent={() => filter.setOptionsVisible((prev) => !prev)}
+          >
+            {!filter.optionsVisible ? <MdExpandMore /> : <MdExpandLess />}
           </Button>
           <Button>
             <MdSettings />
           </Button>
         </div>
       </div>
-      {optionsVisible && (
+      {filter.optionsVisible && (
         <div
           className="flex justify-between px-4 py-2 bg-gray-400 text-white text-xl"
-          style={{ backgroundColor: filterByColor }}
+          style={{ backgroundColor: filter.filterByColor }}
         >
           <p>all</p>
           <div className="flex gap-6 text-2xl">
-            <Button onClickEvent={handleFilterByColor}>
-              {filterByColor ? <BsPaletteFill /> : <BsPalette />}
+            <Button onClickEvent={filter.handleFilterByColor}>
+              {filter.filterByColor ? <BsPaletteFill /> : <BsPalette />}
             </Button>
-            <Button onClickEvent={() => setSortFavorites((prev) => !prev)}>
-              {sortFavorites ? <BsStarFill /> : <BsStar />}
+            <Button
+              onClickEvent={() => filter.setSortFavorites((prev) => !prev)}
+            >
+              {filter.sortFavorites ? <BsStarFill /> : <BsStar />}
             </Button>
-            <Button onClickEvent={() => setExpandedWorkouts((prev) => !prev)}>
-              {!expandedWorkouts ? <BsArrowsExpand /> : <BsArrowsCollapse />}
+            <Button
+              onClickEvent={() => filter.setExpandedWorkouts((prev) => !prev)}
+            >
+              {!filter.expandedWorkouts ? (
+                <BsArrowsExpand />
+              ) : (
+                <BsArrowsCollapse />
+              )}
             </Button>
           </div>
         </div>
       )}
-      {paletteVisible && (
+      {filter.paletteVisible && (
         <Palette
-          setPaletteVisible={setPaletteVisible}
-          setColor={setFilterByColor}
-          selectedColor={filterByColor}
+          setPaletteVisible={filter.setPaletteVisible}
+          setColor={filter.setFilterByColor}
+          selectedColor={filter.filterByColor}
           closeOnSelect={true}
           displaySelection={false}
           displayNumbers={true}
-          colors={colorCount}
+          colors={filter.colorCount}
         />
       )}
     </>
