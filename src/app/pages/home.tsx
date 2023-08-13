@@ -24,10 +24,12 @@ const Home = ({
     filterByColor == ""
       ? workouts
       : workouts.filter(({ color }) => color == filterByColor);
+
   return (
     <>
       <Header
         workoutCount={filteredWorkouts.length}
+        workouts={workouts}
         filterByColor={filterByColor}
         setFilterByColor={setFilterByColor}
       />
