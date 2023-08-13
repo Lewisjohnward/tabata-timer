@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { SetStateAction } from "react";
 import AddIcon from "../components/addIcon";
 import Header from "../components/header";
@@ -9,17 +10,11 @@ type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
   workouts: WorkoutObj[];
-  filterByColor: string;
-  setFilterByColor: React.Dispatch<SetStateAction<string>>;
 };
 
-const Home = ({
-  setView,
-  workouts,
-  setActiveWorkout,
-  filterByColor,
-  setFilterByColor,
-}: Props) => {
+const Home = ({ setView, workouts, setActiveWorkout }: Props) => {
+  /* const filter = useFilter() */
+  const [filterByColor, setFilterByColor] = useState("");
   const filteredWorkouts =
     filterByColor == ""
       ? workouts
