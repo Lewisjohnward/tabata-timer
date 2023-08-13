@@ -1,6 +1,7 @@
 export type WorkoutObj = {
   id: string;
   title: string;
+  favourite: boolean;
   totalTime: number;
   intervals: number;
   color: string;
