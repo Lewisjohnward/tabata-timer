@@ -5,6 +5,7 @@ import {
   BsArrowsCollapse,
   BsArrowsExpand,
   BsPalette,
+  BsPaletteFill,
   BsStar,
   BsStarFill,
 } from "react-icons/bs";
@@ -23,6 +24,14 @@ const Header = ({ workoutCount, filterByColor, setFilterByColor }: Props) => {
   const [sortFavorites, setSortFavorites] = useState(false);
   const [expandedWorkouts, setExpandedWorkouts] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
+
+  const handleFilterByColor = () => {
+    if (filterByColor) {
+      setFilterByColor("");
+    } else {
+      setPaletteVisible(true);
+    }
+  };
   return (
     <>
       <div
@@ -51,8 +60,8 @@ const Header = ({ workoutCount, filterByColor, setFilterByColor }: Props) => {
         >
           <p>all</p>
           <div className="flex gap-6 text-2xl">
-            <Button onClickEvent={() => setPaletteVisible(true)}>
-              <BsPalette />
+            <Button onClickEvent={handleFilterByColor}>
+              {filterByColor ? <BsPaletteFill /> : <BsPalette />}
             </Button>
             <Button onClickEvent={() => setSortFavorites((prev) => !prev)}>
               {sortFavorites ? <BsStarFill /> : <BsStar />}
@@ -68,6 +77,8 @@ const Header = ({ workoutCount, filterByColor, setFilterByColor }: Props) => {
           setPaletteVisible={setPaletteVisible}
           setColor={setFilterByColor}
           selectedColor={filterByColor}
+          closeOnSelect={true}
+          displaySelection={false}
         />
       )}
     </>

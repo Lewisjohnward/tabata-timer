@@ -82,7 +82,7 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
                 <button onClick={() => setSummaryVisible(true)}>
                   <AiFillEye />
                 </button>
-                <button onClick={() => setPaletteVisible(true)}>
+                <button className="" onClick={() => setPaletteVisible(true)}>
                   <BsFillPaletteFill />
                 </button>
                 <button onClick={handleCreateWorkout}>
@@ -174,6 +174,8 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
           setPaletteVisible={setPaletteVisible}
           setColor={setColor}
           selectedColor={color}
+          closeOnSelect={false}
+          displaySelection={true}
         />
       )}
     </>

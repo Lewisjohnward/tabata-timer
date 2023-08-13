@@ -27,7 +27,7 @@ const Home = ({
   return (
     <>
       <Header
-        workoutCount={workouts.length}
+        workoutCount={filteredWorkouts.length}
         filterByColor={filterByColor}
         setFilterByColor={setFilterByColor}
       />

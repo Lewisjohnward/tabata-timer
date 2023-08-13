@@ -6,19 +6,27 @@ type PaletteProps = {
   setPaletteVisible: React.Dispatch<React.SetStateAction<boolean>>;
   setColor: React.Dispatch<React.SetStateAction<string>>;
   selectedColor: string;
+  closeOnSelect: boolean;
+  displaySelection: boolean;
 };
 
 const Palette = ({
   setPaletteVisible,
   setColor,
   selectedColor,
+  closeOnSelect,
+  displaySelection,
 }: PaletteProps) => {
   const handleColorSelect = (
     event: React.MouseEvent<HTMLElement>,
     color: string
   ) => {
-    event.stopPropagation();
-    setColor(color);
+    if (closeOnSelect) {
+      setColor(color);
+    } else {
+      event.stopPropagation();
+      setColor(color);
+    }
   };
 
   return (
@@ -33,7 +41,7 @@ const Palette = ({
               style={{ backgroundColor: color }}
               onClick={(e) => handleColorSelect(e, color)}
             >
-              {selectedColor == color && (
+              {selectedColor == color && displaySelection && (
                 <TiTick className="m-auto text-4xl md:text-6xl text-white bg-black/10 rounded-full" />
               )}
             </button>
