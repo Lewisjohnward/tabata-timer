@@ -18,6 +18,7 @@ import { WorkoutObj } from "../types/WorkoutObj";
 import convertTime from "../helpers/convertTime";
 import Summary from "../components/summary";
 import Palette from "../components/palette";
+import { colors } from "../misc/colors";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
@@ -176,6 +177,8 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
           selectedColor={color}
           closeOnSelect={false}
           displaySelection={true}
+          displayNumbers={false}
+          colors={colors}
         />
       )}
     </>
