@@ -10,18 +10,25 @@ import {
 } from "react-icons/bs";
 
 import { MdExpandLess, MdExpandMore, MdSettings } from "react-icons/md";
+import Palette from "./palette";
 
 type Props = {
   workoutCount: number;
+  filterByColor: string;
+  setFilterByColor: React.Dispatch<SetStateAction<string>>;
 };
 
-const Header = ({ workoutCount }: Props) => {
+const Header = ({ workoutCount, filterByColor, setFilterByColor }: Props) => {
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [sortFavorites, setSortFavorites] = useState(false);
   const [expandedWorkouts, setExpandedWorkouts] = useState(false);
+  const [paletteVisible, setPaletteVisible] = useState(false);
   return (
     <>
-      <div className="flex justify-between gap-4 bg-gray-400 px-4 py-4 text-white font-bold">
+      <div
+        className="flex justify-between gap-4 bg-gray-400 px-4 py-4 text-white font-bold"
+        style={{ backgroundColor: filterByColor }}
+      >
         <div className="space-y-4">
           <h1 className="text-2xl">Workouts: {workoutCount}</h1>
         </div>
@@ -38,10 +45,13 @@ const Header = ({ workoutCount }: Props) => {
         </div>
       </div>
       {optionsVisible && (
-        <div className="flex justify-between px-4 py-2 bg-gray-400 text-white text-xl">
+        <div
+          className="flex justify-between px-4 py-2 bg-gray-400 text-white text-xl"
+          style={{ backgroundColor: filterByColor }}
+        >
           <p>all</p>
           <div className="flex gap-6 text-2xl">
-            <Button>
+            <Button onClickEvent={() => setPaletteVisible(true)}>
               <BsPalette />
             </Button>
             <Button onClickEvent={() => setSortFavorites((prev) => !prev)}>
@@ -52,6 +62,13 @@ const Header = ({ workoutCount }: Props) => {
             </Button>
           </div>
         </div>
+      )}
+      {paletteVisible && (
+        <Palette
+          setPaletteVisible={setPaletteVisible}
+          setColor={setFilterByColor}
+          selectedColor={filterByColor}
+        />
       )}
     </>
   );

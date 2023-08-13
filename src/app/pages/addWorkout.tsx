@@ -13,12 +13,11 @@ import { RxSpaceBetweenHorizontally } from "react-icons/rx";
 import { MdTitle } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import Input, { TextInput } from "../components/input";
-import Modal from "../components/modal";
 import useCreateWorkout from "../hooks/useWorkout";
 import { WorkoutObj } from "../types/WorkoutObj";
 import convertTime from "../helpers/convertTime";
-import { colors } from "../misc/colors";
 import Summary from "../components/summary";
+import Palette from "../components/palette";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
@@ -182,45 +181,3 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
 };
 
 export default AddWorkout;
-
-type PaletteProps = {
-  setPaletteVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
-  selectedColor: string;
-};
-
-const Palette = ({
-  setPaletteVisible,
-  setColor,
-  selectedColor,
-}: PaletteProps) => {
-  const handleColorSelect = (
-    event: React.MouseEvent<HTMLElement>,
-    color: string
-  ) => {
-    event.stopPropagation();
-    setColor(color);
-  };
-
-  return (
-    <Modal closePortal={() => setPaletteVisible(false)}>
-      <div className="-mt-14 md:mt-0 bg-white rounded shadow p-4 space-y-10 md:p-8">
-        <h2 className="text-xl font-bold">Select a color</h2>
-        <div className="grid grid-cols-4 md:grid-cols-5 justify-items-center gap-4">
-          {colors.map((color) => (
-            <button
-              key={color}
-              className="w-20 h-20 rounded-full md:w-28 md:h-28"
-              style={{ backgroundColor: color }}
-              onClick={(e) => handleColorSelect(e, color)}
-            >
-              {selectedColor == color && (
-                <TiTick className="m-auto text-4xl md:text-6xl text-white bg-black/10 rounded-full" />
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-    </Modal>
-  );
-};

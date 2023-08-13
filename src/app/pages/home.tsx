@@ -1,3 +1,4 @@
+"use client";
 import { SetStateAction } from "react";
 import AddIcon from "../components/addIcon";
 import Header from "../components/header";
@@ -8,14 +9,30 @@ type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
   workouts: WorkoutObj[];
+  filterByColor: string;
+  setFilterByColor: React.Dispatch<SetStateAction<string>>;
 };
 
-const Home = ({ setView, workouts, setActiveWorkout }: Props) => {
+const Home = ({
+  setView,
+  workouts,
+  setActiveWorkout,
+  filterByColor,
+  setFilterByColor,
+}: Props) => {
+  const filteredWorkouts =
+    filterByColor == ""
+      ? workouts
+      : workouts.filter(({ color }) => color == filterByColor);
   return (
     <>
-      <Header workoutCount={workouts.length} />
+      <Header
+        workoutCount={workouts.length}
+        filterByColor={filterByColor}
+        setFilterByColor={setFilterByColor}
+      />
       <div className="p-1 space-y-1">
-        {workouts.map((workout) => (
+        {filteredWorkouts.map((workout) => (
           <Workout
             key={workout.id}
             setView={setView}
