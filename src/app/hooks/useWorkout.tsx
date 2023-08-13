@@ -55,6 +55,7 @@ const useCreateWorkout = () => {
     return {
       id,
       title,
+      favourite: false,
       color,
       totalTime: !totalTime ? 0 : totalTime,
       intervals,
