@@ -11,15 +11,23 @@ import {
 } from "react-icons/bs";
 
 import { MdExpandLess, MdExpandMore, MdSettings } from "react-icons/md";
+import { colors } from "../misc/colors";
+import { WorkoutObj } from "../types/WorkoutObj";
 import Palette from "./palette";
 
 type Props = {
   workoutCount: number;
   filterByColor: string;
   setFilterByColor: React.Dispatch<SetStateAction<string>>;
+  workouts: WorkoutObj[];
 };
 
-const Header = ({ workoutCount, filterByColor, setFilterByColor }: Props) => {
+const Header = ({
+  workoutCount,
+  filterByColor,
+  setFilterByColor,
+  workouts,
+}: Props) => {
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [sortFavorites, setSortFavorites] = useState(false);
   const [expandedWorkouts, setExpandedWorkouts] = useState(false);
@@ -32,6 +40,15 @@ const Header = ({ workoutCount, filterByColor, setFilterByColor }: Props) => {
       setPaletteVisible(true);
     }
   };
+
+  const colorCount = colors.map((color) => {
+    const number = workouts.filter((workout) => color == workout.color).length;
+    return {
+      color,
+      number,
+    };
+  });
+
   return (
     <>
       <div
@@ -79,6 +96,8 @@ const Header = ({ workoutCount, filterByColor, setFilterByColor }: Props) => {
           selectedColor={filterByColor}
           closeOnSelect={true}
           displaySelection={false}
+          displayNumbers={true}
+          colors={colorCount}
         />
       )}
     </>
