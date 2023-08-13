@@ -28,6 +28,7 @@ const Header = ({
   setFilterByColor,
   workouts,
 }: Props) => {
+  /* move all of these into useFilter and pass to Header */
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [sortFavorites, setSortFavorites] = useState(false);
   const [expandedWorkouts, setExpandedWorkouts] = useState(false);
@@ -48,6 +49,7 @@ const Header = ({
       number,
     };
   });
+  /***************************/
 
   return (
     <>
