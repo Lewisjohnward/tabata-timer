@@ -62,13 +62,15 @@ const Summary = ({ setSummaryVisible, summaryObj, color }: SummaryProps) => {
 
   return (
     <Modal closePortal={() => setSummaryVisible(false)}>
-      <div className="flex flex-col items-center -mt-8 md:mt-0 bg-white h-5/6 w-11/12 md:h-5/6 md:w-3/6 lg:w-2/6 overflow-scroll rounded shadow space-y-4 lg:h-8/12 font-semibold text-lg text-center pt-4">
-        <p style={{ color: color }}>Workout</p>
-        {numberOfSets && (
-          <NumberOfSets numberOfSets={numberOfSets} color={color} />
-        )}
-        <Totals totals={totals} color={color} />
-        <IntervalsList summary={summary} color={color} />
+      <div className="w-screen h-screen flex justify-center items-center bg-black/20">
+        <div className="flex flex-col items-center -mt-8 md:mt-0 bg-white h-5/6 w-11/12 md:h-5/6 md:w-3/6 lg:w-2/6 overflow-scroll rounded shadow space-y-4 lg:h-8/12 font-semibold text-lg text-center pt-4">
+          <p style={{ color: color }}>Workout</p>
+          {numberOfSets && (
+            <NumberOfSets numberOfSets={numberOfSets} color={color} />
+          )}
+          <Totals totals={totals} color={color} />
+          <IntervalsList summary={summary} color={color} />
+        </div>
       </div>
     </Modal>
   );
