@@ -18,11 +18,12 @@ const MenuItem = ({
   mouseEvent?: () => void;
 }) => {
   return (
-    <div className="px-2 text-xl text-sky-900 rounded hover:bg-black/10">
-      <button className="flex items-center gap-4" onClick={mouseEvent}>
-        {children}
-      </button>
-    </div>
+    <button
+      className="flex items-center w-full gap-2 px-2 text-xl text-sky-900 rounded hover:bg-black/10"
+      onClick={mouseEvent}
+    >
+      {children}
+    </button>
   );
 };
 
