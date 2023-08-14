@@ -15,9 +15,20 @@ type Props = {
 
 const Workout = ({ setView, workout, setActiveWorkout }: Props) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => {
+  const [yPosition, setYPosition] = useState(0);
+
+  const toggleMenu = (event: any) => {
+    setYPosition(event.clientY);
     setMenuOpen((prev) => !prev);
-    true;
+  };
+
+  const handleEdit = () => {
+    setMenuOpen(false);
+    setView("addworkout");
+  };
+
+  const handlePreview = () => {
+    console.log("preview");
   };
 
   const handleActivateWorkout = () => {
@@ -47,7 +58,14 @@ const Workout = ({ setView, workout, setActiveWorkout }: Props) => {
             <button>
               <FaEllipsisV onClick={toggleMenu} />
             </button>
-            {menuOpen && <Menu />}
+            {menuOpen && (
+              <Menu
+                closeMenu={() => setMenuOpen(false)}
+                yPosition={yPosition}
+                handleEdit={handleEdit}
+                handlePreview={handlePreview}
+              />
+            )}
           </div>
         </div>
       </div>
