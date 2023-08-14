@@ -23,9 +23,16 @@ import { colors } from "../misc/colors";
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
+  workoutToEdit: WorkoutObj | null;
+  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
 };
 
-const AddWorkout = ({ setView, setWorkouts }: Props) => {
+const AddWorkout = ({
+  setView,
+  setWorkouts,
+  workoutToEdit,
+  setWorkoutToEdit,
+}: Props) => {
   const {
     title,
     setTitle,
@@ -49,14 +56,26 @@ const AddWorkout = ({ setView, setWorkouts }: Props) => {
     totalTime,
     createWorkoutObject,
     summary,
-  } = useCreateWorkout();
+  } = useCreateWorkout(workoutToEdit);
 
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
 
   const handleCreateWorkout = () => {
     const workout = createWorkoutObject();
-    setWorkouts((prev) => [...prev, workout]);
+    if (workoutToEdit) {
+      setWorkouts((prev) => {
+        const index = prev.findIndex(
+          (prevWorkout) => prevWorkout.id === workout.id
+        );
+        const newWorkoutArr = prev.filter(({ id }) => id != workoutToEdit.id);
+        newWorkoutArr.splice(index, 0, workout);
+        return newWorkoutArr;
+      });
+      setWorkoutToEdit(null);
+    } else {
+      setWorkouts((prev) => [...prev, workout]);
+    }
     setView("home");
   };
 

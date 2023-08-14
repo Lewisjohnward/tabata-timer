@@ -11,6 +11,7 @@ export default function Page() {
   const [activeWorkout, setActiveWorkout] = useState<WorkoutObj>(
     {} as WorkoutObj
   );
+  const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
 
   return (
     <main className="relative min-h-full">
@@ -19,9 +20,15 @@ export default function Page() {
           setView={setView}
           workouts={workouts}
           setActiveWorkout={setActiveWorkout}
+          setWorkoutToEdit={setWorkoutToEdit}
         />
       ) : view == "addworkout" ? (
-        <AddWorkout setView={setView} setWorkouts={setWorkouts} />
+        <AddWorkout
+          setView={setView}
+          setWorkouts={setWorkouts}
+          workoutToEdit={workoutToEdit}
+          setWorkoutToEdit={setWorkoutToEdit}
+        />
       ) : view == "workout" ? (
         <ActiveWorkout setView={setView} workout={activeWorkout} />
       ) : null}

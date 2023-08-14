@@ -6,24 +6,29 @@ import generateArray from "../helpers/generateArray";
 import { v4 as uuidv4 } from "uuid";
 import { colors } from "../misc/colors";
 import generateSummary from "../helpers/generateSummary";
+import { WorkoutObj } from "../types/WorkoutObj";
 
 const random = (array: string[]) => {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-const useCreateWorkout = () => {
-  const id = uuidv4();
-  const [title, setTitle] = useState("Bicep curls");
-  const [color, setColor] = useState(random(colors));
-  const [prepare, setPrepare] = useState(10);
-  const [work, setWork] = useState(25);
-  const [rest, setRest] = useState(60);
-  const [cycles, setCycles] = useState(1);
-  const [sets, setSets] = useState(1);
-  const [restBetweenSets, setRestBetweenSets] = useState(0);
-  const [cooldown, setCooldown] = useState(10);
-  const [totalTime, setTotalTime] = useState<number>(0);
-  const [intervals, setIntervals] = useState(0);
+const useCreateWorkout = (workoutToEdit: WorkoutObj | null) => {
+  const id = workoutToEdit?.id || uuidv4();
+  const [title, setTitle] = useState(workoutToEdit?.title || "Bicep curls");
+  const [color, setColor] = useState(workoutToEdit?.color || random(colors));
+  const [prepare, setPrepare] = useState(workoutToEdit?.prepare || 10);
+  const [work, setWork] = useState(workoutToEdit?.work || 25);
+  const [rest, setRest] = useState(workoutToEdit?.rest || 60);
+  const [cycles, setCycles] = useState(workoutToEdit?.cycles || 1);
+  const [sets, setSets] = useState(workoutToEdit?.sets || 1);
+  const [restBetweenSets, setRestBetweenSets] = useState(
+    workoutToEdit?.restBetweenSets || 0
+  );
+  const [cooldown, setCooldown] = useState(workoutToEdit?.cooldown || 10);
+  const [totalTime, setTotalTime] = useState<number>(
+    workoutToEdit?.totalTime || 0
+  );
+  const [intervals, setIntervals] = useState(workoutToEdit?.intervals || 0);
   const [summary, setSummary] = useState({});
 
   useEffect(() => {

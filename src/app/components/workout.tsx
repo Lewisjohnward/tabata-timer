@@ -11,9 +11,15 @@ type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
   workout: WorkoutObj;
+  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
 };
 
-const Workout = ({ setView, workout, setActiveWorkout }: Props) => {
+const Workout = ({
+  setView,
+  workout,
+  setActiveWorkout,
+  setWorkoutToEdit,
+}: Props) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [yPosition, setYPosition] = useState(0);
 
@@ -24,9 +30,7 @@ const Workout = ({ setView, workout, setActiveWorkout }: Props) => {
 
   const handleEdit = () => {
     setView("addworkout");
-    /* create state in Page editWorkout setEditWorkout
-     * with id to use with AddWorkout */
-    console.log(workout.id);
+    setWorkoutToEdit(workout);
   };
 
   const handlePreview = () => {
