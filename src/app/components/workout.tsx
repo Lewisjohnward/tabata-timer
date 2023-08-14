@@ -24,6 +24,9 @@ const Workout = ({ setView, workout, setActiveWorkout }: Props) => {
 
   const handleEdit = () => {
     setView("addworkout");
+    /* create state in Page editWorkout setEditWorkout
+     * with id to use with AddWorkout */
+    console.log(workout.id);
   };
 
   const handlePreview = () => {
