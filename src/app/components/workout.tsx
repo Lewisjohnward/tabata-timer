@@ -23,7 +23,6 @@ const Workout = ({ setView, workout, setActiveWorkout }: Props) => {
   };
 
   const handleEdit = () => {
-    setMenuOpen(false);
     setView("addworkout");
   };
 
