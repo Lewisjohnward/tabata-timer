@@ -9,9 +9,15 @@ type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
   workouts: WorkoutObj[];
+  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
 };
 
-const Home = ({ setView, workouts, setActiveWorkout }: Props) => {
+const Home = ({
+  setView,
+  workouts,
+  setActiveWorkout,
+  setWorkoutToEdit,
+}: Props) => {
   const filter = useFilter(workouts);
 
   return (
@@ -24,6 +30,7 @@ const Home = ({ setView, workouts, setActiveWorkout }: Props) => {
             setView={setView}
             workout={workout}
             setActiveWorkout={setActiveWorkout}
+            setWorkoutToEdit={setWorkoutToEdit}
           />
         ))}
       </div>
