@@ -6,6 +6,8 @@ import { WorkoutObj } from "../types/WorkoutObj";
 import useMenu from "../hooks/useMenu";
 import convertTime from "../helpers/convertTime";
 import Menu from "./menu";
+import Summary from "./summary";
+import generateSummary from "../helpers/generateSummary";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
@@ -49,6 +51,13 @@ const Workout = ({
                 yPosition={menu.yPosition}
                 handleEdit={menu.handleEdit}
                 handlePreview={menu.handlePreview}
+              />
+            )}
+            {menu.summaryOpen && (
+              <Summary
+                setSummaryVisible={menu.setSummaryOpen}
+                summaryObj={generateSummary(workout)}
+                color={workout.color}
               />
             )}
           </div>
