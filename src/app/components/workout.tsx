@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useRef } from "react";
 import { SetStateAction } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { FaEllipsisV } from "react-icons/fa";
 import { WorkoutObj } from "../types/WorkoutObj";
+import useMenu from "../hooks/useMenu";
 import convertTime from "../helpers/convertTime";
 import Menu from "./menu";
 
@@ -20,28 +21,7 @@ const Workout = ({
   setActiveWorkout,
   setWorkoutToEdit,
 }: Props) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [yPosition, setYPosition] = useState(0);
-
-  const toggleMenu = (event: any) => {
-    setYPosition(event.clientY);
-    setMenuOpen((prev) => !prev);
-  };
-
-  const handleEdit = () => {
-    setView("addworkout");
-    setWorkoutToEdit(workout);
-  };
-
-  const handlePreview = () => {
-    console.log("preview");
-  };
-
-  const handleActivateWorkout = () => {
-    setView("workout");
-    setActiveWorkout(workout);
-  };
-
+  const menu = useMenu(setView, setActiveWorkout, setWorkoutToEdit, workout);
   return (
     <>
       <div
@@ -58,18 +38,18 @@ const Workout = ({
         </div>
         <div className="flex-grow flex justify-end gap-4 text-2xl [&>button]:text-4xl">
           <button>
-            <BsFillPlayFill onClick={handleActivateWorkout} />
+            <BsFillPlayFill onClick={menu.handleActivateWorkout} />
           </button>
           <div className="relative flex justify-center items-center">
             <button>
-              <FaEllipsisV onClick={toggleMenu} />
+              <FaEllipsisV onClick={menu.toggleMenu} />
             </button>
-            {menuOpen && (
+            {menu.menuOpen && (
               <Menu
-                closeMenu={() => setMenuOpen(false)}
-                yPosition={yPosition}
-                handleEdit={handleEdit}
-                handlePreview={handlePreview}
+                closeMenu={() => menu.setMenuOpen(false)}
+                yPosition={menu.yPosition}
+                handleEdit={menu.handleEdit}
+                handlePreview={menu.handlePreview}
               />
             )}
           </div>
