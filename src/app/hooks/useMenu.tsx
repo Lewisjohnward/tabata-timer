@@ -9,13 +9,16 @@ const useMenu = (
   workout: WorkoutObj
 ) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [summaryOpen, setSummaryOpen] = useState(false);
   const [yPosition, setYPosition] = useState(0);
 
   const toggleMenu = (event: MouseEvent) => {
     const screenHeight = screen.height;
     const mousePosition = event.clientY;
 
-    setYPosition(mousePosition);
+    setYPosition(
+      mousePosition + 440 > screenHeight ? mousePosition - 270 : mousePosition
+    );
     setMenuOpen((prev) => !prev);
   };
 
@@ -25,7 +28,8 @@ const useMenu = (
   };
 
   const handlePreview = () => {
-    console.log("preview");
+    setMenuOpen(false);
+    setSummaryOpen(true);
   };
 
   const handleActivateWorkout = () => {
@@ -42,6 +46,8 @@ const useMenu = (
     handleEdit,
     handlePreview,
     handleActivateWorkout,
+    summaryOpen,
+    setSummaryOpen,
   };
 };
 
