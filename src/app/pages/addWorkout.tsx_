@@ -33,7 +33,30 @@ const AddWorkout = ({
   workoutToEdit,
   setWorkoutToEdit,
 }: Props) => {
-  const { state, dispatch } = useCreateWorkout(workoutToEdit);
+  const {
+    title,
+    setTitle,
+    color,
+    setColor,
+    prepare,
+    setPrepare,
+    work,
+    setWork,
+    rest,
+    setRest,
+    cycles,
+    setCycles,
+    sets,
+    setSets,
+    restBetweenSets,
+    setRestBetweenSets,
+    cooldown,
+    setCooldown,
+    intervals,
+    totalTime,
+    createWorkoutObject,
+    summary,
+  } = useCreateWorkout(workoutToEdit);
 
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
@@ -65,7 +88,7 @@ const AddWorkout = ({
       <div className="relative text-sky-900 pb-4">
         <div
           className="px-6 py-4 text-white font-bold"
-          style={{ backgroundColor: state.color }}
+          style={{ backgroundColor: color }}
         >
           <div className="space-y-4">
             <div className="flex justify-between items-center gap-4">
@@ -88,35 +111,95 @@ const AddWorkout = ({
               </div>
             </div>
             <p className="text-center text-2xl">
-              {`${convertTime(state.totalTime)}. ${state.intervals} intervals`}
+              {`${convertTime(totalTime)}. ${intervals} intervals`}
             </p>
           </div>
         </div>
 
         <div className="pr-4 pt-4 space-y-4 text-2xl">
           <TextInput
+            inputType={"text"}
             icon={<MdTitle />}
             label={"Title"}
-            value={state.title}
-            dispatch={dispatch}
+            value={title}
+            setValue={setTitle}
           />
           <Input
+            inputType={"number"}
             icon={<FaWalking />}
             label={"Prepare"}
-            value={state.prepare}
+            value={prepare}
             minValue={0}
-            increment={dispatch({
-              type: "increment",
-              payload: { key: "prepare" },
-            })}
-            decrement={dispatch({
-              type: "decrement",
-              payload: { key: "prepare" },
-            })}
-            dispatch={dispatch}
+            setValue={setPrepare}
+          />
+          <Input
+            inputType={"number"}
+            icon={<GiWeightLiftingUp />}
+            label={"Work"}
+            value={work}
+            minValue={1}
+            setValue={setWork}
+          />
+          <Input
+            inputType={"number"}
+            icon={<GiSofa />}
+            label={"Rest"}
+            value={rest}
+            minValue={0}
+            setValue={setRest}
+          />
+          <Input
+            inputType={"number"}
+            icon={<BsArrowRepeat />}
+            label={"Cycles"}
+            value={cycles}
+            minValue={1}
+            setValue={setCycles}
+          />
+          <Input
+            inputType={"number"}
+            icon={<BsFillStopwatchFill />}
+            label={"Sets"}
+            value={sets}
+            minValue={1}
+            setValue={setSets}
+          />
+          <Input
+            inputType={"number"}
+            icon={<RxSpaceBetweenHorizontally />}
+            label={"Rest between sets"}
+            value={restBetweenSets}
+            minValue={0}
+            setValue={setRestBetweenSets}
+          />
+          <Input
+            inputType={"number"}
+            icon={<BsSnow />}
+            label={"Cool down"}
+            value={cooldown}
+            minValue={0}
+            setValue={setCooldown}
           />
         </div>
       </div>
+      {summaryVisible && (
+        <Summary
+          setSummaryVisible={setSummaryVisible}
+          summaryObj={summary}
+          color={color}
+        />
+      )}
+      {paletteVisible && (
+        <Palette
+          setPaletteVisible={setPaletteVisible}
+          setColor={setColor}
+          selectedColor={color}
+          closeOnSelect={false}
+          displaySelection={true}
+          displayNumbers={false}
+          colors={colors}
+        />
+      )}
     </>
   );
 };

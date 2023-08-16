@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import calculateIntervals from "../helpers/calculateIntervals";
 import calculateTotalTime from "../helpers/calculateTotalTime";
 import generateArray from "../helpers/generateArray";
@@ -12,56 +12,7 @@ const random = (array: string[]) => {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-const workoutTemplate = {
-  id: uuidv4(),
-  title: "Bicep curls",
-  favourite: false,
-  totalTime: 0,
-  intervals: 0,
-  color: random(colors),
-  prepare: 10,
-  work: 30,
-  rest: 10,
-  cycles: 1,
-  sets: 1,
-  restBetweenSets: 0,
-  cooldown: 10,
-};
-
-const reducer = (
-  state: WorkoutObj,
-  action: { type: string; payload?: any }
-) => {
-  const {
-    type,
-    payload: { key },
-    payload: { value },
-  } = action;
-  switch (type) {
-    case "update":
-      return { ...state, [key]: value };
-    case "decrement":
-      return { ...state, [key]: state[key] - 1 };
-    case "increment":
-      return { ...state, [key]: state[key] + 1 };
-    default:
-      return state;
-  }
-};
-
 const useCreateWorkout = (workoutToEdit: WorkoutObj | null) => {
-  const [state, dispatch] = useReducer(
-    reducer,
-    workoutToEdit || workoutTemplate
-  );
-
-  const inputAction = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: "update",
-      payload: { key: event.target.name, value: event.target.value },
-    });
-  };
-
   const id = workoutToEdit?.id || uuidv4();
   const [title, setTitle] = useState(workoutToEdit?.title || "Bicep curls");
   const [color, setColor] = useState(workoutToEdit?.color || random(colors));
@@ -124,9 +75,28 @@ const useCreateWorkout = (workoutToEdit: WorkoutObj | null) => {
   };
 
   return {
-    state,
-    dispatch,
-    inputAction,
+    title,
+    setTitle,
+    color,
+    setColor,
+    prepare,
+    setPrepare,
+    work,
+    setWork,
+    rest,
+    setRest,
+    cycles,
+    setCycles,
+    sets,
+    setSets,
+    restBetweenSets,
+    setRestBetweenSets,
+    cooldown,
+    setCooldown,
+    intervals,
+    totalTime,
+    createWorkoutObject,
+    summary,
   };
 };
 
