@@ -51,14 +51,7 @@ const NumberInput = ({
             }
           />
 
-          <button
-            onClick={() =>
-              dispatch({
-                type: "increment",
-                payload: { key: label.toLowerCase() },
-              })
-            }
-          >
+          <button onClick={increment}>
             <AiFillPlusCircle onClick={increment} className="text-5xl" />
           </button>
         </div>

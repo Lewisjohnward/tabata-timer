@@ -12,7 +12,7 @@ import { GiWeightLiftingUp, GiSofa } from "react-icons/gi";
 import { RxSpaceBetweenHorizontally } from "react-icons/rx";
 import { MdTitle } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
-import Input, { TextInput } from "../components/input";
+import NumberInput, { TextInput } from "../components/input";
 import useCreateWorkout from "../hooks/useWorkout";
 import { WorkoutObj } from "../types/WorkoutObj";
 import convertTime from "../helpers/convertTime";
@@ -100,20 +100,43 @@ const AddWorkout = ({
             value={state.title}
             dispatch={dispatch}
           />
-          <Input
-            icon={<FaWalking />}
-            label={"Prepare"}
-            value={state.prepare}
+          <NumberInput
+            icon={<MdTitle />}
+            label={"prepare"}
             minValue={0}
-            increment={dispatch({
-              type: "increment",
-              payload: { key: "prepare" },
-            })}
-            decrement={dispatch({
-              type: "decrement",
-              payload: { key: "prepare" },
-            })}
+            value={state.prepare}
             dispatch={dispatch}
+            increment={() =>
+              dispatch({
+                type: "increment",
+                payload: { key: "prepare" },
+              })
+            }
+            decrement={() =>
+              dispatch({
+                type: "decrement",
+                payload: { key: "prepare" },
+              })
+            }
+          />
+          <NumberInput
+            icon={<MdTitle />}
+            label={"work"}
+            minValue={0}
+            value={state.work}
+            dispatch={dispatch}
+            increment={() =>
+              dispatch({
+                type: "increment",
+                payload: { key: "work" },
+              })
+            }
+            decrement={() =>
+              dispatch({
+                type: "decrement",
+                payload: { key: "work" },
+              })
+            }
           />
         </div>
       </div>

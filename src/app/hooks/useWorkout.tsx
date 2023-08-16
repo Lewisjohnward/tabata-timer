@@ -28,22 +28,27 @@ const workoutTemplate = {
   cooldown: 10,
 };
 
-const reducer = (
-  state: WorkoutObj,
-  action: { type: string; payload?: any }
-) => {
+type Key = "prepare" | "work";
+
+type Action =
+  | {
+      type: "update";
+      payload: { key: Key; value: string | number };
+    }
+  | { type: "increment"; payload: { key: Key } }
+  | { type: "decrement"; payload: { key: Key } };
+
+const reducer = (state: WorkoutObj, action: Action) => {
   const {
-    type,
     payload: { key },
-    payload: { value },
   } = action;
-  switch (type) {
+  switch (action.type) {
     case "update":
-      return { ...state, [key]: value };
-    case "decrement":
-      return { ...state, [key]: state[key] - 1 };
+      return { ...state, [key]: action.payload.value };
     case "increment":
       return { ...state, [key]: state[key] + 1 };
+    case "decrement":
+      return { ...state, [key]: state[key] - 1 };
     default:
       return state;
   }
