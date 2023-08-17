@@ -1,12 +1,14 @@
 "use client";
 import { MouseEvent, SetStateAction, useState } from "react";
 import { WorkoutObj } from "../types/WorkoutObj";
+import { v4 as uuidv4 } from "uuid";
 
 const useMenu = (
   setView: React.Dispatch<SetStateAction<string>>,
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>,
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>,
-  workout: WorkoutObj
+  workout: WorkoutObj,
+  setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>
 ) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
@@ -37,6 +39,22 @@ const useMenu = (
     setActiveWorkout(workout);
   };
 
+  const duplicateWorkout = () => {
+    const duplicateWorkout = { ...workout, id: uuidv4() };
+    setWorkouts((prev) => [...prev, duplicateWorkout]);
+  };
+
+  const deleteWorkout = () => {
+    setWorkouts((prev) => {
+      const filteredWorkouts = prev.filter(({ id }) => id != workout.id);
+      return filteredWorkouts;
+    });
+  };
+
+  const toggleFavorite = () => {
+    console.log("toggle favorite");
+  };
+
   return {
     menuOpen,
     setMenuOpen,
@@ -48,6 +66,9 @@ const useMenu = (
     handleActivateWorkout,
     summaryOpen,
     setSummaryOpen,
+    duplicateWorkout,
+    deleteWorkout,
+    toggleFavorite,
   };
 };
 

@@ -13,16 +13,24 @@ type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
   workout: WorkoutObj;
+  setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
 };
 
 const Workout = ({
   setView,
   workout,
+  setWorkouts,
   setActiveWorkout,
   setWorkoutToEdit,
 }: Props) => {
-  const menu = useMenu(setView, setActiveWorkout, setWorkoutToEdit, workout);
+  const menu = useMenu(
+    setView,
+    setActiveWorkout,
+    setWorkoutToEdit,
+    workout,
+    setWorkouts
+  );
   return (
     <>
       <div
@@ -47,6 +55,9 @@ const Workout = ({
             </button>
             {menu.menuOpen && (
               <Menu
+                duplicateWorkout={menu.duplicateWorkout}
+                toggleFavorite={menu.toggleFavorite}
+                deleteWorkout={menu.deleteWorkout}
                 closeMenu={() => menu.setMenuOpen(false)}
                 yPosition={menu.yPosition}
                 handleEdit={menu.handleEdit}

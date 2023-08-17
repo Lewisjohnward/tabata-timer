@@ -5,10 +5,13 @@ import {
   AiFillDelete,
   AiFillEye,
   AiFillSetting,
+  AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
 import Modal from "./modal";
 import { FaStickyNote } from "react-icons/fa";
+import { WorkoutObj } from "../types/WorkoutObj";
+import { SetStateAction } from "react";
 
 const MenuItem = ({
   children,
@@ -32,11 +35,17 @@ const Menu = ({
   yPosition,
   handleEdit,
   handlePreview,
+  duplicateWorkout,
+  deleteWorkout,
+  toggleFavorite,
 }: {
   closeMenu: () => void;
   yPosition: number;
   handleEdit: () => void;
   handlePreview: () => void;
+  duplicateWorkout: () => void;
+  deleteWorkout: () => void;
+  toggleFavorite: () => void;
 }) => {
   return (
     <Modal closePortal={closeMenu}>
@@ -61,15 +70,16 @@ const Menu = ({
           <FaStickyNote />
           <p>Notes</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem mouseEvent={toggleFavorite}>
           <AiOutlineStar />
+          <AiFillStar />
           <p>Favorite</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem mouseEvent={duplicateWorkout}>
           <AiFillCopy />
           <p>Copy</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem mouseEvent={deleteWorkout}>
           <AiFillDelete />
           <p>Delete</p>
         </MenuItem>
