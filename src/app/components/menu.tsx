@@ -38,6 +38,7 @@ const Menu = ({
   duplicateWorkout,
   deleteWorkout,
   toggleFavorite,
+  favorite,
 }: {
   closeMenu: () => void;
   yPosition: number;
@@ -46,6 +47,7 @@ const Menu = ({
   duplicateWorkout: () => void;
   deleteWorkout: () => void;
   toggleFavorite: () => void;
+  favorite: boolean;
 }) => {
   return (
     <Modal closePortal={closeMenu}>
@@ -71,8 +73,7 @@ const Menu = ({
           <p>Notes</p>
         </MenuItem>
         <MenuItem mouseEvent={toggleFavorite}>
-          <AiOutlineStar />
-          <AiFillStar />
+          {favorite ? <AiFillStar /> : <AiOutlineStar />}
           <p>Favorite</p>
         </MenuItem>
         <MenuItem mouseEvent={duplicateWorkout}>

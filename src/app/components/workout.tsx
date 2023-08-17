@@ -8,6 +8,7 @@ import convertTime from "../helpers/convertTime";
 import Menu from "./menu";
 import Summary from "./summary";
 import generateSummary from "../helpers/generateSummary";
+import { AiFillStar } from "react-icons/ai";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
@@ -34,7 +35,7 @@ const Workout = ({
   return (
     <>
       <div
-        className="flex space-between p-4 text-white rounded-lg"
+        className="relative flex space-between p-4 text-white rounded-lg"
         style={{ backgroundColor: `${workout.color}` }}
       >
         <div className="space-y-4">
@@ -49,6 +50,9 @@ const Workout = ({
           <button>
             <BsFillPlayFill onClick={menu.handleActivateWorkout} />
           </button>
+          {workout.favourite && (
+            <AiFillStar className="absolute top-2 right-2 text-sm" />
+          )}
           <div className="relative flex justify-center items-center">
             <button>
               <FaEllipsisV onClick={menu.toggleMenu} />
@@ -57,6 +61,7 @@ const Workout = ({
               <Menu
                 duplicateWorkout={menu.duplicateWorkout}
                 toggleFavorite={menu.toggleFavorite}
+                favorite={workout.favourite}
                 deleteWorkout={menu.deleteWorkout}
                 closeMenu={() => menu.setMenuOpen(false)}
                 yPosition={menu.yPosition}

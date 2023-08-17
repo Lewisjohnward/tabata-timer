@@ -52,7 +52,14 @@ const useMenu = (
   };
 
   const toggleFavorite = () => {
-    console.log("toggle favorite");
+    setWorkouts((prev) => {
+      const updatedArr = prev.map((d) => {
+        if (d.id == workout.id) {
+          return { ...workout, favourite: !workout.favourite };
+        } else return d;
+      });
+      return updatedArr;
+    });
   };
 
   return {
