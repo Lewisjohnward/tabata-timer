@@ -10,6 +10,7 @@ const useFilter = (workouts: WorkoutObj[]) => {
   const [paletteVisible, setPaletteVisible] = useState(false);
 
   const handleFilterByColor = () => {
+    setSortFavorites(false);
     if (filterByColor) {
       setFilterByColor("");
     } else {
