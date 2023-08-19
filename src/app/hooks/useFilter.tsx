@@ -18,9 +18,11 @@ const useFilter = (workouts: WorkoutObj[]) => {
   };
 
   const filteredWorkouts =
-    filterByColor == ""
-      ? workouts
-      : workouts.filter(({ color }) => color == filterByColor);
+    filterByColor != ""
+      ? workouts.filter(({ color }) => color == filterByColor)
+      : sortFavorites
+      ? workouts.filter(({ favourite }) => favourite)
+      : workouts;
 
   const colorCount = colors.map((color) => {
     const number = workouts.filter((workout) => color == workout.color).length;
@@ -29,6 +31,11 @@ const useFilter = (workouts: WorkoutObj[]) => {
       number,
     };
   });
+
+  const handleFilterFavorites = () => {
+    setFilterByColor("");
+    setSortFavorites((prev) => !prev);
+  };
 
   return {
     filterByColor,
@@ -43,6 +50,7 @@ const useFilter = (workouts: WorkoutObj[]) => {
     paletteVisible,
     setPaletteVisible,
     handleFilterByColor,
+    handleFilterFavorites,
     colorCount,
   };
 };

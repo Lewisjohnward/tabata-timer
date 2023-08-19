@@ -28,6 +28,7 @@ type Props = {
     paletteVisible: boolean;
     setPaletteVisible: React.Dispatch<SetStateAction<boolean>>;
     handleFilterByColor: () => void;
+    handleFilterFavorites: () => void;
     colorCount: { color: string; number: any }[];
   };
 };
@@ -68,9 +69,7 @@ const Header = ({ filter }: Props) => {
             <Button onClickEvent={filter.handleFilterByColor}>
               {filter.filterByColor ? <BsPaletteFill /> : <BsPalette />}
             </Button>
-            <Button
-              onClickEvent={() => filter.setSortFavorites((prev) => !prev)}
-            >
+            <Button onClickEvent={filter.handleFilterFavorites}>
               {filter.sortFavorites ? <BsStarFill /> : <BsStar />}
             </Button>
             <Button
