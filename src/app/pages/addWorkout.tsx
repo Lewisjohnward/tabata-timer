@@ -20,6 +20,44 @@ import Summary from "../components/summary";
 import Palette from "../components/palette";
 import { colors } from "../misc/colors";
 
+const inputArray = [
+  {
+    key: "prepare",
+    displayText: "Prepare",
+    icon: <FaWalking />,
+  },
+  {
+    key: "work",
+    displayText: "Work",
+    icon: <GiWeightLiftingUp />,
+  },
+  {
+    key: "rest",
+    displayText: "Rest",
+    icon: <GiSofa />,
+  },
+  {
+    key: "cycles",
+    displayText: "Cycles",
+    icon: <BsArrowRepeat />,
+  },
+  {
+    key: "sets",
+    displayText: "Sets",
+    icon: <BsFillStopwatchFill />,
+  },
+  {
+    key: "restBetweenSets",
+    displayText: "Rest between sets",
+    icon: <RxSpaceBetweenHorizontally />,
+  },
+  {
+    key: "cooldown",
+    displayText: "Cooldown",
+    icon: <BsSnow />,
+  },
+];
+
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
@@ -33,25 +71,25 @@ const AddWorkout = ({
   workoutToEdit,
   setWorkoutToEdit,
 }: Props) => {
-  const { state, dispatch } = useCreateWorkout(workoutToEdit);
+  const { state, dispatch, summary, totalTime } =
+    useCreateWorkout(workoutToEdit);
 
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
 
   const handleCreateWorkout = () => {
-    const workout = createWorkoutObject();
     if (workoutToEdit) {
       setWorkouts((prev) => {
         const index = prev.findIndex(
-          (prevWorkout) => prevWorkout.id === workout.id
+          (prevWorkout) => prevWorkout.id === state.id
         );
         const newWorkoutArr = prev.filter(({ id }) => id != workoutToEdit.id);
-        newWorkoutArr.splice(index, 0, workout);
+        newWorkoutArr.splice(index, 0, state);
         return newWorkoutArr;
       });
       setWorkoutToEdit(null);
     } else {
-      setWorkouts((prev) => [...prev, workout]);
+      setWorkouts((prev) => [...prev, state]);
     }
     setView("home");
   };
@@ -100,48 +138,66 @@ const AddWorkout = ({
             value={state.title}
             dispatch={dispatch}
           />
-          <NumberInput
-            icon={<MdTitle />}
-            label={"prepare"}
-            minValue={0}
-            value={state.prepare}
-            dispatch={dispatch}
-            increment={() =>
-              dispatch({
-                type: "increment",
-                payload: { key: "prepare" },
-              })
-            }
-            decrement={() =>
-              dispatch({
-                type: "decrement",
-                payload: { key: "prepare" },
-              })
-            }
-          />
-          <NumberInput
-            icon={<MdTitle />}
-            label={"work"}
-            minValue={0}
-            value={state.work}
-            dispatch={dispatch}
-            increment={() =>
-              dispatch({
-                type: "increment",
-                payload: { key: "work" },
-              })
-            }
-            decrement={() =>
-              dispatch({
-                type: "decrement",
-                payload: { key: "work" },
-              })
-            }
-          />
+          {inputArray.map((d) => (
+            <NumberInput
+              key={d.key}
+              icon={d.icon}
+              displayText={d.displayText}
+              property={d.key}
+              value={+state[d.key as keyof WorkoutObj]}
+              dispatch={dispatch}
+            />
+          ))}
         </div>
       </div>
+      {summaryVisible && (
+        <Summary
+          setSummaryVisible={setSummaryVisible}
+          summaryObj={summary}
+          color={state.color}
+        />
+      )}
     </>
   );
 };
 
 export default AddWorkout;
+//          <NumberInput
+//                          icon={<MdTitle />}
+//                          label={"prepare"}
+//                          minValue={0}
+//                          value={state.prepare}
+//                          dispatch={dispatch}
+//                          increment={() =>
+//                                            dispatch({
+//                                                                type: "increment",
+//                                                                payload: { key: "prepare" },
+//                            })
+//                          }
+//                          decrement={() =>
+//                                            dispatch({
+//                                                                type: "decrement",
+//                                                                payload: { key: "prepare" },
+//                            })
+//                          }
+//                        />
+//              <NumberInput
+//                              icon={<MdTitle />}
+//                              label={"work"}
+//                              minValue={0}
+//                              value={state.work}
+//                              dispatch={dispatch}
+//                              increment={() =>
+//                                                dispatch({
+//                                                                    type: "increment",
+//                                                                    payload: { key: "work" },
+//                                })
+//                              }
+//                              decrement={() =>
+//                                                dispatch({
+//                                                                    type: "decrement",
+//                                                                    payload: { key: "work" },
+//                                })
+//                              }
+//                            />
+//

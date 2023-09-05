@@ -12,7 +12,7 @@ const random = (array: string[]) => {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-const workoutTemplate = {
+const defaultWorkout = {
   id: uuidv4(),
   title: "Bicep curls",
   favourite: false,
@@ -28,27 +28,28 @@ const workoutTemplate = {
   cooldown: 10,
 };
 
-type Key = "prepare" | "work";
+type Payload = {
+  key: keyof WorkoutObj;
+  value?: number | string;
+};
 
-type Action =
-  | {
-      type: "update";
-      payload: { key: Key; value: string | number };
-    }
-  | { type: "increment"; payload: { key: Key } }
-  | { type: "decrement"; payload: { key: Key } };
+type Action = {
+  type: string;
+  payload: Payload;
+};
 
 const reducer = (state: WorkoutObj, action: Action) => {
   const {
-    payload: { key },
+    type,
+    payload: { key, value },
   } = action;
-  switch (action.type) {
-    case "update":
-      return { ...state, [key]: action.payload.value };
-    case "increment":
-      return { ...state, [key]: state[key] + 1 };
-    case "decrement":
-      return { ...state, [key]: state[key] - 1 };
+  switch (type) {
+    case "UPDATE":
+      return { ...state, [key]: value };
+    case "INCREMENT":
+      return { ...state, [key]: (state[key] as number) + 1 };
+    case "DECREMENT":
+      return { ...state, [key]: (state[key] as number) - 1 };
     default:
       return state;
   }
@@ -57,15 +58,8 @@ const reducer = (state: WorkoutObj, action: Action) => {
 const useCreateWorkout = (workoutToEdit: WorkoutObj | null) => {
   const [state, dispatch] = useReducer(
     reducer,
-    workoutToEdit || workoutTemplate
+    workoutToEdit || defaultWorkout
   );
-
-  const inputAction = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: "update",
-      payload: { key: event.target.name, value: event.target.value },
-    });
-  };
 
   const id = workoutToEdit?.id || uuidv4();
   const [title, setTitle] = useState(workoutToEdit?.title || "Bicep curls");
@@ -79,11 +73,7 @@ const useCreateWorkout = (workoutToEdit: WorkoutObj | null) => {
     workoutToEdit?.restBetweenSets || 0
   );
   const [cooldown, setCooldown] = useState(workoutToEdit?.cooldown || 10);
-  const [totalTime, setTotalTime] = useState<number>(
-    workoutToEdit?.totalTime || 0
-  );
   const [intervals, setIntervals] = useState(workoutToEdit?.intervals || 0);
-  const [summary, setSummary] = useState({});
 
   useEffect(() => {
     const arr = generateArray({
@@ -95,43 +85,15 @@ const useCreateWorkout = (workoutToEdit: WorkoutObj | null) => {
       restBetweenSets,
       cooldown,
     });
-    setSummary(
-      generateSummary({
-        prepare,
-        work,
-        rest,
-        cycles,
-        sets,
-        restBetweenSets,
-        cooldown,
-      })
-    );
     setIntervals(calculateIntervals(arr));
-    setTotalTime(calculateTotalTime(arr));
   }, [prepare, work, rest, cycles, sets, rest, cooldown, restBetweenSets]);
 
-  const createWorkoutObject = () => {
-    return {
-      id,
-      title,
-      favourite: false,
-      color,
-      totalTime: !totalTime ? 0 : totalTime,
-      intervals,
-      prepare,
-      work,
-      rest,
-      cycles,
-      sets,
-      restBetweenSets,
-      cooldown,
-    };
-  };
+  const summary = generateSummary(state);
 
   return {
     state,
     dispatch,
-    inputAction,
+    summary,
   };
 };
 

@@ -9,11 +9,12 @@ type PaletteProps = {
   closeOnSelect: boolean;
   displaySelection: boolean;
   displayNumbers: boolean;
+  dispatch: any;
 };
 
 const Palette = ({
   setPaletteVisible,
-  setColor,
+  dispatch,
   colors,
   selectedColor,
   closeOnSelect,

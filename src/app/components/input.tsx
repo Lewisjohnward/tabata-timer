@@ -1,39 +1,40 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
+import { WorkoutObj } from "../types/WorkoutObj";
 
 type NumberInputProps = {
   icon: ReactNode;
-  label: string;
-  minValue: number;
+  displayText: string;
+  property: string;
   value: number;
   dispatch: any;
-  increment: any;
-  decrement: any;
 };
 
 const NumberInput = ({
   icon,
-  label,
-  minValue,
+  displayText,
+  property,
   value,
   dispatch,
-  increment,
-  decrement,
 }: NumberInputProps) => {
-  const isDisabled = value == minValue;
   return (
     <div className="flex">
       <div className="flex justify-center items-center text-6xl pl-2">
         {icon}
       </div>
       <div className="flex-grow ml-4 space-y-2 text-center border-b-[1px] border-black pb-2">
-        <label className="block font-bold">{label}</label>
+        <label className="block font-bold">{displayText}</label>
         <div className="flex justify-between items-center">
           <button
             className="disabled:opacity-40"
-            disabled={isDisabled}
-            onClick={decrement}
+            disabled={value == 0}
+            onClick={() => {
+              dispatch({
+                type: "DECREMENT",
+                payload: { key: property as keyof WorkoutObj },
+              });
+            }}
           >
             <AiFillMinusCircle className="text-5xl" />
           </button>
@@ -41,18 +42,31 @@ const NumberInput = ({
             className={clsx(
               "w-full text-center bg-transparent focus:outline-none text-2xl"
             )}
-            type={"number"}
+            type={"text"}
             value={value}
-            onChange={(e) =>
-              dispatch({
-                type: "update",
-                payload: { key: label.toLowerCase(), value: e.target.value },
-              })
-            }
+            onChange={(e) => {
+              const regex = /^[0-9\b]+$/;
+              if (e.target.value === "" || regex.test(e.target.value)) {
+                dispatch({
+                  type: "UPDATE",
+                  payload: {
+                    key: property as keyof WorkoutObj,
+                    value: +e.target.value,
+                  },
+                });
+              }
+            }}
           />
 
-          <button onClick={increment}>
-            <AiFillPlusCircle onClick={increment} className="text-5xl" />
+          <button
+            onClick={() => {
+              dispatch({
+                type: "INCREMENT",
+                payload: { key: property as keyof WorkoutObj },
+              });
+            }}
+          >
+            <AiFillPlusCircle className="text-5xl" />
           </button>
         </div>
       </div>
@@ -64,7 +78,7 @@ type TextInputProps = {
   icon: ReactNode;
   label: string;
   value: string;
-  dispatch: any;
+  dispatch: React.Dispatch<any>;
 };
 
 export const TextInput = ({ icon, label, value, dispatch }: TextInputProps) => {
@@ -81,13 +95,13 @@ export const TextInput = ({ icon, label, value, dispatch }: TextInputProps) => {
               "w-full pb-4 text-center bg-transparent focus:outline-none text-2xl"
             )}
             type={"text"}
-            value={value}
-            onChange={(e) =>
+            onChange={(e) => {
               dispatch({
-                type: "update",
-                payload: { key: label.toLowerCase(), value: e.target.value },
-              })
-            }
+                type: "UPDATE",
+                payload: { key: "title", value: e.target.value },
+              });
+            }}
+            value={value}
           />
         </div>
       </div>
