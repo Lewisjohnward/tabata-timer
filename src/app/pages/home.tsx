@@ -9,12 +9,14 @@ type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
   workouts: WorkoutObj[];
+  setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
 };
 
 const Home = ({
   setView,
   workouts,
+  setWorkouts,
   setActiveWorkout,
   setWorkoutToEdit,
 }: Props) => {
@@ -29,6 +31,7 @@ const Home = ({
             key={workout.id}
             setView={setView}
             workout={workout}
+            setWorkouts={setWorkouts}
             setActiveWorkout={setActiveWorkout}
             setWorkoutToEdit={setWorkoutToEdit}
           />

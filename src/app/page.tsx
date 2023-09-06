@@ -19,6 +19,7 @@ export default function Page() {
         <Home
           setView={setView}
           workouts={workouts}
+          setWorkouts={setWorkouts}
           setActiveWorkout={setActiveWorkout}
           setWorkoutToEdit={setWorkoutToEdit}
         />
