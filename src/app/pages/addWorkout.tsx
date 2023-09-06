@@ -82,17 +82,14 @@ const AddWorkout = ({
         const index = prev.findIndex(
           (prevWorkout) => prevWorkout.id === state.id
         );
-        console.log(index);
         const newWorkoutArr = prev.filter(({ id }) => id != workoutToEdit.id);
         newWorkoutArr.splice(index, 0, state);
         return newWorkoutArr;
       });
       setWorkoutToEdit(null);
     } else {
-      setWorkouts((prev) => [...prev, state]);
+      setWorkouts((prev) => [...prev, { ...state }]);
     }
-
-    setWorkouts((prev) => [...prev, { ...state }]);
     setView("home");
   };
 
