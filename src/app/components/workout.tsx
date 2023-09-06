@@ -56,7 +56,7 @@ const Workout = ({
             {menu.summaryOpen && (
               <Summary
                 setSummaryVisible={menu.setSummaryOpen}
-                summaryObj={generateSummary(workout)}
+                workout={workout}
                 color={workout.color}
               />
             )}

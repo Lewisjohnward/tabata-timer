@@ -1,7 +1,10 @@
+import generateSummary from "../helpers/generateSummary";
+import { WorkoutObj } from "../types/WorkoutObj";
 import Modal from "./modal";
+
 type SummaryProps = {
   setSummaryVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  summaryObj: any;
+  workout: WorkoutObj;
   color: string;
 };
 
@@ -9,7 +12,7 @@ const NumberOfSets = ({
   numberOfSets,
   color,
 }: {
-  numberOfSets: string;
+  numberOfSets: number;
   color: string;
 }) => {
   return <p style={{ color: color }}>{`Number of sets: ${numberOfSets}`}</p>;
@@ -19,7 +22,7 @@ const Totals = ({ totals, color }: { totals: string[]; color: string }) => {
   return (
     <div style={{ color: color }}>
       {totals.map((total: string) => (
-        <p>{total}</p>
+        <p key={total}>{total}</p>
       ))}
     </div>
   );
@@ -51,14 +54,18 @@ const IntervalsList = ({
           ? "#166534"
           : "black";
 
-        return <p style={{ color: fontColor }}>{d}</p>;
+        return (
+          <p key={d} style={{ color: fontColor }}>
+            {d}
+          </p>
+        );
       })}
     </div>
   );
 };
 
-const Summary = ({ setSummaryVisible, summaryObj, color }: SummaryProps) => {
-  const { numberOfSets, totals, summary } = summaryObj;
+const Summary = ({ setSummaryVisible, workout, color }: SummaryProps) => {
+  const { numberOfSets, totals, summary } = generateSummary(workout);
 
   return (
     <Modal closePortal={() => setSummaryVisible(false)}>

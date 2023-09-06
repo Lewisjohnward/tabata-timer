@@ -1,24 +1,18 @@
 "use client";
-import { ChangeEvent, useEffect, useReducer, useState } from "react";
+import { useReducer } from "react";
 import calculateIntervals from "../helpers/calculateIntervals";
 import calculateTotalTime from "../helpers/calculateTotalTime";
 import generateArray from "../helpers/generateArray";
 import { v4 as uuidv4 } from "uuid";
-import { colors } from "../misc/colors";
-import generateSummary from "../helpers/generateSummary";
 import { WorkoutObj } from "../types/WorkoutObj";
 
-const random = (array: string[]) => {
-  return array[Math.floor(Math.random() * array.length)];
-};
-
 const defaultWorkout = {
-  id: uuidv4(),
+  id: "0",
   title: "Bicep curls",
   favourite: false,
   totalTime: 0,
   intervals: 0,
-  color: random(colors),
+  color: "#dc2626",
   prepare: 10,
   work: 30,
   rest: 10,
@@ -75,19 +69,21 @@ const calculateIntervalsTime = (workout: WorkoutObj) => {
   return workout;
 };
 
+const initWorkout = (workout: WorkoutObj) => {
+  workout.id = uuidv4();
+  return calculateIntervalsTime(workout);
+};
+
 const useCreateWorkout = (workoutToEdit: WorkoutObj | null) => {
   const [state, dispatch] = useReducer(
     reducer,
     workoutToEdit || defaultWorkout,
-    calculateIntervalsTime
+    initWorkout
   );
-
-  const summary = generateSummary(state);
 
   return {
     state,
     dispatch,
-    summary,
   };
 };
 

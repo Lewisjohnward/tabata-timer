@@ -3,7 +3,6 @@ import { TiTick } from "react-icons/ti";
 
 type PaletteProps = {
   setPaletteVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
   colors: string[] | { color: string; number: number }[];
   selectedColor: string;
   closeOnSelect: boolean;
@@ -26,10 +25,10 @@ const Palette = ({
     color: string
   ) => {
     if (closeOnSelect) {
-      setColor(color);
+      dispatch({ type: "UPDATE", payload: { key: "color", value: color } });
     } else {
       event.stopPropagation();
-      setColor(color);
+      dispatch({ type: "UPDATE", payload: { key: "color", value: color } });
     }
   };
 

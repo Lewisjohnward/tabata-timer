@@ -71,26 +71,27 @@ const AddWorkout = ({
   workoutToEdit,
   setWorkoutToEdit,
 }: Props) => {
-  const { state, dispatch, summary, totalTime } =
-    useCreateWorkout(workoutToEdit);
+  const { state, dispatch } = useCreateWorkout(workoutToEdit);
 
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
 
   const handleCreateWorkout = () => {
-    if (workoutToEdit) {
-      setWorkouts((prev) => {
-        const index = prev.findIndex(
-          (prevWorkout) => prevWorkout.id === state.id
-        );
-        const newWorkoutArr = prev.filter(({ id }) => id != workoutToEdit.id);
-        newWorkoutArr.splice(index, 0, state);
-        return newWorkoutArr;
-      });
-      setWorkoutToEdit(null);
-    } else {
-      setWorkouts((prev) => [...prev, state]);
-    }
+    //if (workoutToEdit) {
+    //  setWorkouts((prev) => {
+    //    const index = prev.findIndex(
+    //      (prevWorkout) => prevWorkout.id === state.id
+    //    );
+    //    const newWorkoutArr = prev.filter(({ id }) => id != workoutToEdit.id);
+    //    newWorkoutArr.splice(index, 0, state);
+    //    return newWorkoutArr;
+    //  });
+    //  setWorkoutToEdit(null);
+    //} else {
+    //  setWorkouts((prev) => [...prev, state]);
+    //}
+
+    setWorkouts((prev) => [...prev, { ...state }]);
     setView("home");
   };
 
@@ -132,6 +133,7 @@ const AddWorkout = ({
         </div>
 
         <div className="pr-4 pt-4 space-y-4 text-2xl">
+          {JSON.stringify(state)}
           <TextInput
             icon={<MdTitle />}
             label={"Title"}
@@ -153,8 +155,19 @@ const AddWorkout = ({
       {summaryVisible && (
         <Summary
           setSummaryVisible={setSummaryVisible}
-          summaryObj={summary}
+          workout={state}
           color={state.color}
+        />
+      )}
+      {paletteVisible && (
+        <Palette
+          setPaletteVisible={setPaletteVisible}
+          dispatch={dispatch}
+          selectedColor={state.color}
+          closeOnSelect={false}
+          displaySelection={true}
+          displayNumbers={false}
+          colors={colors}
         />
       )}
     </>
