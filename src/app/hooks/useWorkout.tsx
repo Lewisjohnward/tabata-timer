@@ -45,48 +45,42 @@ const reducer = (state: WorkoutObj, action: Action) => {
   } = action;
   switch (type) {
     case "UPDATE":
-      return { ...state, [key]: value };
+      state = {
+        ...state,
+        [key]: value,
+      };
+      break;
     case "INCREMENT":
-      return { ...state, [key]: (state[key] as number) + 1 };
+      state = {
+        ...state,
+        [key]: (state[key] as number) + 1,
+      };
+      break;
     case "DECREMENT":
-      return { ...state, [key]: (state[key] as number) - 1 };
+      state = {
+        ...state,
+        [key]: (state[key] as number) - 1,
+      };
+      break;
     default:
       return state;
   }
+  return calculateIntervalsTime(state);
+};
+
+const calculateIntervalsTime = (workout: WorkoutObj) => {
+  const workoutArray = generateArray(workout);
+  workout.totalTime = calculateTotalTime(workoutArray);
+  workout.intervals = calculateIntervals(workoutArray);
+  return workout;
 };
 
 const useCreateWorkout = (workoutToEdit: WorkoutObj | null) => {
   const [state, dispatch] = useReducer(
     reducer,
-    workoutToEdit || defaultWorkout
+    workoutToEdit || defaultWorkout,
+    calculateIntervalsTime
   );
-
-  const id = workoutToEdit?.id || uuidv4();
-  const [title, setTitle] = useState(workoutToEdit?.title || "Bicep curls");
-  const [color, setColor] = useState(workoutToEdit?.color || random(colors));
-  const [prepare, setPrepare] = useState(workoutToEdit?.prepare || 10);
-  const [work, setWork] = useState(workoutToEdit?.work || 25);
-  const [rest, setRest] = useState(workoutToEdit?.rest || 60);
-  const [cycles, setCycles] = useState(workoutToEdit?.cycles || 1);
-  const [sets, setSets] = useState(workoutToEdit?.sets || 1);
-  const [restBetweenSets, setRestBetweenSets] = useState(
-    workoutToEdit?.restBetweenSets || 0
-  );
-  const [cooldown, setCooldown] = useState(workoutToEdit?.cooldown || 10);
-  const [intervals, setIntervals] = useState(workoutToEdit?.intervals || 0);
-
-  useEffect(() => {
-    const arr = generateArray({
-      prepare,
-      work,
-      rest,
-      cycles,
-      sets,
-      restBetweenSets,
-      cooldown,
-    });
-    setIntervals(calculateIntervals(arr));
-  }, [prepare, work, rest, cycles, sets, rest, cooldown, restBetweenSets]);
 
   const summary = generateSummary(state);
 
