@@ -133,7 +133,6 @@ const AddWorkout = ({
         </div>
 
         <div className="pr-4 pt-4 space-y-4 text-2xl">
-          {JSON.stringify(state)}
           <TextInput
             icon={<MdTitle />}
             label={"Title"}
