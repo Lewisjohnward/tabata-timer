@@ -24,7 +24,6 @@ export default function Page() {
         />
       ) : view == "addworkout" ? (
         <AddWorkout
-          workouts={workouts}
           setView={setView}
           setWorkouts={setWorkouts}
           workoutToEdit={workoutToEdit}
