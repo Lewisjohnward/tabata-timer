@@ -15,25 +15,12 @@ import { WorkoutObj } from "../types/WorkoutObj";
 import Palette from "./palette";
 
 type Props = {
-  filter: {
-    filterByColor: string;
-    setFilterByColor: React.Dispatch<SetStateAction<string>>;
-    filteredWorkouts: WorkoutObj[];
-    optionsVisible: boolean;
-    setOptionsVisible: React.Dispatch<SetStateAction<boolean>>;
-    sortFavorites: boolean;
-    setSortFavorites: React.Dispatch<SetStateAction<boolean>>;
-    expandedWorkouts: boolean;
-    setExpandedWorkouts: React.Dispatch<SetStateAction<boolean>>;
-    paletteVisible: boolean;
-    setPaletteVisible: React.Dispatch<SetStateAction<boolean>>;
-    handleFilterByColor: () => void;
-    handleFilterFavorites: () => void;
-    colorCount: { color: string; number: any }[];
-  };
+  filter: any;
+  dispatch: React.Dispatch<any>;
+  filteredWorkouts: any;
 };
 
-const Header = ({ filter }: Props) => {
+const Header = ({ filter, dispatch, filteredWorkouts }: Props) => {
   return (
     <>
       <div
@@ -41,16 +28,16 @@ const Header = ({ filter }: Props) => {
         style={{ backgroundColor: filter.filterByColor }}
       >
         <div className="space-y-4">
-          <h1 className="text-2xl">
-            Workouts: {filter.filteredWorkouts.length}
-          </h1>
+          <h1 className="text-2xl">Workouts: {filteredWorkouts.length}</h1>
         </div>
         <div className="flex gap-6 text-2xl">
           <Button>
             <AiOutlineSearch />
           </Button>
           <Button
-            onClickEvent={() => filter.setOptionsVisible((prev) => !prev)}
+            onClickEvent={() =>
+              dispatch({ type: "TOGGLE", payload: { key: "sortFavorites" } })
+            }
           >
             {!filter.optionsVisible ? <MdExpandMore /> : <MdExpandLess />}
           </Button>

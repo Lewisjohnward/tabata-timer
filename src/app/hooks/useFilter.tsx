@@ -1,13 +1,52 @@
 "use client";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { WorkoutObj } from "../types/WorkoutObj";
 import { colors } from "../misc/colors";
+
+const filterInit = {
+  filterByColor: "",
+  optionsVisible: false,
+  sortFavorites: false,
+  expandedWorkouts: false,
+  paletteVisible: false,
+};
+
+type Filter = {
+  filterByColor: string;
+  optionsVisible: boolean;
+  sortFavorites: boolean;
+  expandedWorkouts: boolean;
+  paletteVisible: boolean;
+};
+
+type Payload = {
+  key: keyof Filter;
+  value?: boolean | string;
+};
+
+type Action = {
+  type: string;
+  payload: Payload;
+};
+
+const reducer = (filter: Filter, action: Action) => {
+  const {
+    type,
+    payload: { key, value },
+  } = action;
+  switch (type) {
+    case "TOGGLE":
+      return {
+        ...filter,
+        [key]: !value,
+      };
+    default:
+      return filter;
+  }
+};
+
 const useFilter = (workouts: WorkoutObj[]) => {
-  const [filterByColor, setFilterByColor] = useState("");
-  const [optionsVisible, setOptionsVisible] = useState(false);
-  const [sortFavorites, setSortFavorites] = useState(false);
-  const [expandedWorkouts, setExpandedWorkouts] = useState(false);
-  const [paletteVisible, setPaletteVisible] = useState(false);
+  const [filter, dispatch] = useReducer(reducer, filterInit);
 
   const handleFilterByColor = () => {
     setSortFavorites(false);
@@ -39,20 +78,9 @@ const useFilter = (workouts: WorkoutObj[]) => {
   };
 
   return {
-    filterByColor,
-    setFilterByColor,
     filteredWorkouts,
-    optionsVisible,
-    setOptionsVisible,
-    sortFavorites,
-    setSortFavorites,
-    expandedWorkouts,
-    setExpandedWorkouts,
-    paletteVisible,
-    setPaletteVisible,
-    handleFilterByColor,
-    handleFilterFavorites,
-    colorCount,
+    filter,
+    dispatch,
   };
 };
 
