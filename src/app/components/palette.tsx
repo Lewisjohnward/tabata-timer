@@ -2,7 +2,7 @@ import Modal from "./modal";
 import { TiTick } from "react-icons/ti";
 
 type PaletteProps = {
-  setPaletteVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  closePalette: () => void;
   colors: string[] | { color: string; number: number }[];
   selectedColor: string;
   closeOnSelect: boolean;

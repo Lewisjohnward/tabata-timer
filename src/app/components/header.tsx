@@ -18,6 +18,7 @@ type Props = {
   filter: any;
   dispatch: React.Dispatch<any>;
   filteredWorkouts: any;
+  colorCount: { color: string; number: number }[];
 };
 
 const Header = ({ filter, dispatch, filteredWorkouts, colorCount }: Props) => {

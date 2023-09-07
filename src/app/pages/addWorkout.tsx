@@ -158,7 +158,7 @@ const AddWorkout = ({
       )}
       {paletteVisible && (
         <Palette
-          setPaletteVisible={setPaletteVisible}
+          closePalette={() => setPaletteVisible(false)}
           dispatch={dispatch}
           selectedColor={state.color}
           closeOnSelect={false}
