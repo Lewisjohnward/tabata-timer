@@ -51,15 +51,18 @@ const reducer = (filter: Filter, action: Action) => {
   }
 };
 
+const filterWorkouts = (filter: Filter, workouts: WorkoutObj[]) => {
+  return filter.color != ""
+    ? workouts.filter(({ color }) => color == filter.color)
+    : filter.filterFavorites
+    ? workouts.filter(({ favourite }) => favourite)
+    : workouts;
+};
+
 const useFilter = (workouts: WorkoutObj[]) => {
   const [filter, dispatch] = useReducer(reducer, filterInit);
 
-  const filteredWorkouts =
-    filter.color != ""
-      ? workouts.filter(({ color }) => color == filter.color)
-      : filter.filterFavorites
-      ? workouts.filter(({ favourite }) => favourite)
-      : workouts;
+  const filteredWorkouts = filterWorkouts(filter, workouts);
 
   const colorCount = colors.map((color) => {
     const number = workouts.filter((workout) => color == workout.color).length;
