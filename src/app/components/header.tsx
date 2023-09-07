@@ -56,10 +56,18 @@ const Header = ({ filter, dispatch, filteredWorkouts, colorCount }: Props) => {
           <div className="flex gap-6 text-2xl">
             <Button
               onClickEvent={() =>
-                dispatch({ type: "TOGGLE", payload: { key: "paletteVisible" } })
+                filter.color == ""
+                  ? dispatch({
+                      type: "TOGGLE",
+                      payload: { key: "paletteVisible" },
+                    })
+                  : dispatch({
+                      type: "UPDATE",
+                      payload: { key: "color", value: "" },
+                    })
               }
             >
-              {filter.filterByColor ? <BsPaletteFill /> : <BsPalette />}
+              {filter.color != "" ? <BsPaletteFill /> : <BsPalette />}
             </Button>
             <Button
               onClickEvent={() =>
