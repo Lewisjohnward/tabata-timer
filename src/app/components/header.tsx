@@ -83,7 +83,7 @@ const Header = ({ filter, dispatch, filteredWorkouts, colorCount }: Props) => {
               onClickEvent={() =>
                 dispatch({
                   type: "TOGGLE",
-                  payload: { key: "filterFavorites" },
+                  payload: { key: "expandedWorkouts" },
                 })
               }
             >
