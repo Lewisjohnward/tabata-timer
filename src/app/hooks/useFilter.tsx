@@ -4,17 +4,18 @@ import { WorkoutObj } from "../types/WorkoutObj";
 import { colors } from "../misc/colors";
 
 const filterInit = {
-  filterByColor: "",
-  optionsVisible: false,
-  sortFavorites: false,
+  color: "",
+  expandedMenu: false,
+  filterFavorites: false,
   expandedWorkouts: false,
   paletteVisible: false,
+  colorCount: {},
 };
 
 type Filter = {
-  filterByColor: string;
-  optionsVisible: boolean;
-  sortFavorites: boolean;
+  color: string;
+  expandedMenu: boolean;
+  filterFavorites: boolean;
   expandedWorkouts: boolean;
   paletteVisible: boolean;
 };
@@ -38,7 +39,12 @@ const reducer = (filter: Filter, action: Action) => {
     case "TOGGLE":
       return {
         ...filter,
-        [key]: !value,
+        [key]: !filter[key],
+      };
+    case "UPDATE":
+      return {
+        ...filter,
+        [key]: value,
       };
     default:
       return filter;
@@ -48,19 +54,10 @@ const reducer = (filter: Filter, action: Action) => {
 const useFilter = (workouts: WorkoutObj[]) => {
   const [filter, dispatch] = useReducer(reducer, filterInit);
 
-  const handleFilterByColor = () => {
-    setSortFavorites(false);
-    if (filterByColor) {
-      setFilterByColor("");
-    } else {
-      setPaletteVisible(true);
-    }
-  };
-
   const filteredWorkouts =
-    filterByColor != ""
-      ? workouts.filter(({ color }) => color == filterByColor)
-      : sortFavorites
+    filter.color != ""
+      ? workouts.filter(({ color }) => color == filter.color)
+      : filter.filterFavorites
       ? workouts.filter(({ favourite }) => favourite)
       : workouts;
 
@@ -72,13 +69,9 @@ const useFilter = (workouts: WorkoutObj[]) => {
     };
   });
 
-  const handleFilterFavorites = () => {
-    setFilterByColor("");
-    setSortFavorites((prev) => !prev);
-  };
-
   return {
     filteredWorkouts,
+    colorCount,
     filter,
     dispatch,
   };

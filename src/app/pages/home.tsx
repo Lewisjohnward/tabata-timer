@@ -20,7 +20,8 @@ const Home = ({
   setActiveWorkout,
   setWorkoutToEdit,
 }: Props) => {
-  const { filter, dispatch, filteredWorkouts } = useFilter(workouts);
+  const { filter, dispatch, filteredWorkouts, colorCount } =
+    useFilter(workouts);
 
   return (
     <>
@@ -28,9 +29,10 @@ const Home = ({
         filter={filter}
         dispatch={dispatch}
         filteredWorkouts={filteredWorkouts}
+        colorCount={colorCount}
       />
       <div className="p-1 space-y-1">
-        {filter.filteredWorkouts.map((workout) => (
+        {filteredWorkouts.map((workout) => (
           <Workout
             key={workout.id}
             setView={setView}

@@ -12,7 +12,7 @@ type PaletteProps = {
 };
 
 const Palette = ({
-  setPaletteVisible,
+  closePalette,
   dispatch,
   colors,
   selectedColor,
@@ -33,7 +33,7 @@ const Palette = ({
   };
 
   return (
-    <Modal closePortal={() => setPaletteVisible(false)}>
+    <Modal closePortal={() => closePalette()}>
       <div className="w-screen h-screen flex justify-center items-center bg-black/20">
         <div className="-mt-14 md:mt-0 bg-white rounded shadow p-4 space-y-10 md:p-8">
           <h2 className="text-xl font-bold">Select a color</h2>
