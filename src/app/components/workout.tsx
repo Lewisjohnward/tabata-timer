@@ -10,6 +10,19 @@ import Summary from "./summary";
 import generateSummary from "../helpers/generateSummary";
 import { AiFillStar } from "react-icons/ai";
 
+const ExpandedWorkoutView = ({ workout }: { workout: WorkoutObj }) => {
+  return (
+    <div className="text-xl">
+      <p>{workout.prepare > 0 && `Prepare: ${workout.prepare}`}</p>
+      <p>{`Work: ${workout.work}`}</p>
+      <p>{workout.rest > 0 && `Rest: ${workout.rest}`}</p>
+      <p>{workout.cooldown > 0 && `Cooldown: ${workout.cooldown}`}</p>
+      <p>{workout.cycles > 0 && `Cycles: ${workout.cycles}`}</p>
+      <p>{workout.sets > 0 && `Sets: ${workout.sets}`}</p>
+    </div>
+  );
+};
+
 type Props = {
   expandedWorkout: boolean;
   setView: React.Dispatch<SetStateAction<string>>;
@@ -40,12 +53,10 @@ const Workout = ({
         className="relative flex space-between p-4 text-white rounded-lg"
         style={{ backgroundColor: `${workout.color}` }}
       >
-        <div className="space-y-4">
-          <h3 className="font-bold text-xl">{workout.title}</h3>
+        <div className="space-y-2">
+          <h3 className="font-bold text-3xl">{workout.title}</h3>
+          {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
           <p className="text-xl">
-            {expandedWorkout && (
-              <div>{workout.prepare > 0 && `Prepare: ${workout.prepare}`}</div>
-            )}
             {`Total: ${convertTime(workout.totalTime)} - ${
               workout.intervals
             } intervals`}
