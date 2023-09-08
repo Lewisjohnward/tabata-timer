@@ -46,6 +46,13 @@ const Palette = ({
                   className="w-20 h-20 rounded-full md:w-28 md:h-28"
                   style={{ backgroundColor: _color }}
                   onClick={(e) => handleColorSelect(e, _color)}
+                  disabled={
+                    typeof color != "object"
+                      ? false
+                      : color.number == 0
+                      ? true
+                      : false
+                  }
                 >
                   {displayNumbers && typeof color == "object" && (
                     <p className="text-white font-bold text-xl md:text-4xl">
