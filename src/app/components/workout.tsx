@@ -11,6 +11,7 @@ import generateSummary from "../helpers/generateSummary";
 import { AiFillStar } from "react-icons/ai";
 
 type Props = {
+  expandedWorkout: boolean;
   setView: React.Dispatch<SetStateAction<string>>;
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
   workout: WorkoutObj;
@@ -19,6 +20,7 @@ type Props = {
 };
 
 const Workout = ({
+  expandedWorkout,
   setView,
   workout,
   setWorkouts,
@@ -41,6 +43,9 @@ const Workout = ({
         <div className="space-y-4">
           <h3 className="font-bold text-xl">{workout.title}</h3>
           <p className="text-xl">
+            {expandedWorkout && (
+              <div>{workout.prepare > 0 && `Prepare: ${workout.prepare}`}</div>
+            )}
             {`Total: ${convertTime(workout.totalTime)} - ${
               workout.intervals
             } intervals`}
