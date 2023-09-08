@@ -35,6 +35,7 @@ const Home = ({
         {filteredWorkouts.map((workout) => (
           <Workout
             key={workout.id}
+            expandedWorkout={filter.expandedWorkouts}
             setView={setView}
             workout={workout}
             setWorkouts={setWorkouts}
