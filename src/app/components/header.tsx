@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, SetStateAction } from "react";
+import { ReactNode, SetStateAction, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import {
   BsArrowsCollapse,
@@ -9,6 +9,7 @@ import {
   BsStar,
   BsStarFill,
 } from "react-icons/bs";
+import { FaRegUser, FaUser } from "react-icons/fa";
 
 import { MdExpandLess, MdExpandMore, MdSettings } from "react-icons/md";
 import { WorkoutObj } from "../types/WorkoutObj";
@@ -22,6 +23,7 @@ type Props = {
 };
 
 const Header = ({ filter, dispatch, filteredWorkouts, colorCount }: Props) => {
+  const [loggedIn, setLoggedIn] = useState(false);
   return (
     <>
       <div
@@ -32,6 +34,16 @@ const Header = ({ filter, dispatch, filteredWorkouts, colorCount }: Props) => {
           <h1 className="text-2xl">Workouts: {filteredWorkouts.length}</h1>
         </div>
         <div className="flex gap-6 text-2xl">
+          <Button onClickEvent={() => setLoggedIn((prev) => !prev)}>
+            {loggedIn ? (
+              <FaRegUser />
+            ) : (
+              <div className="flex gap-4">
+                <p className="text-sm font-semibold">email@placeholder.com</p>
+                <FaUser />
+              </div>
+            )}
+          </Button>
           <Button>
             <AiOutlineSearch />
           </Button>
