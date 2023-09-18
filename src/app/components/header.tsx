@@ -21,9 +21,16 @@ type Props = {
   dispatch: React.Dispatch<any>;
   filteredWorkouts: any;
   colorCount: { color: string; number: number }[];
+  user: string;
 };
 
-const Header = ({ filter, dispatch, filteredWorkouts, colorCount }: Props) => {
+const Header = ({
+  filter,
+  dispatch,
+  filteredWorkouts,
+  colorCount,
+  user,
+}: Props) => {
   const [loggedIn, setLoggedIn] = useState(false);
   return (
     <>
@@ -35,12 +42,16 @@ const Header = ({ filter, dispatch, filteredWorkouts, colorCount }: Props) => {
           <h1 className="text-2xl">Workouts: {filteredWorkouts.length}</h1>
         </div>
         <div className="flex gap-6 text-xl">
-          <Link
-            href="/login"
-            className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
-          >
-            Login
-          </Link>
+          {user ? (
+            <div>logout</div>
+          ) : (
+            <Link
+              href="/login"
+              className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
+            >
+              Login
+            </Link>
+          )}
           <Button>
             <AiOutlineSearch />
           </Button>
