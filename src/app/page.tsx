@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useState, useEffect } from "react";
 import ActiveWorkout from "./pages/activeWorkout";
 import AddWorkout from "./pages/addWorkout";
 import Home from "./pages/home";
@@ -12,6 +13,18 @@ export default function Page() {
     {} as WorkoutObj
   );
   const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
+  const [user, setUser] = useState<undefined | string>(undefined);
+  const supabase = createClientComponentClient();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user?.email);
+    };
+    getUser();
+  }, [supabase]);
 
   return (
     <main className="relative min-h-full">
