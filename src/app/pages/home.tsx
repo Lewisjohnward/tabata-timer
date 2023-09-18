@@ -11,6 +11,7 @@ type Props = {
   workouts: WorkoutObj[];
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
+  user: string | undefined;
 };
 
 const Home = ({
@@ -19,6 +20,7 @@ const Home = ({
   setWorkouts,
   setActiveWorkout,
   setWorkoutToEdit,
+  user,
 }: Props) => {
   const { filter, dispatch, filteredWorkouts, colorCount } =
     useFilter(workouts);
@@ -30,6 +32,7 @@ const Home = ({
         dispatch={dispatch}
         filteredWorkouts={filteredWorkouts}
         colorCount={colorCount}
+        user={user}
       />
       <div className="p-1 space-y-1">
         {filteredWorkouts.map((workout) => (
