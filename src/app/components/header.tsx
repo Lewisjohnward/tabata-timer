@@ -21,7 +21,7 @@ type Props = {
   dispatch: React.Dispatch<any>;
   filteredWorkouts: any;
   colorCount: { color: string; number: number }[];
-  user: string;
+  user: string | undefined;
 };
 
 const Header = ({
