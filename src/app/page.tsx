@@ -23,7 +23,13 @@ export default function Page() {
       } = await supabase.auth.getUser();
       setUser(user?.email);
     };
+
+    const getWorkouts = async () => {
+      const { data } = await supabase.from("workouts").select();
+      data && setWorkouts(data);
+    };
     getUser();
+    getWorkouts();
   }, [supabase]);
 
   return (
@@ -35,6 +41,7 @@ export default function Page() {
           setWorkouts={setWorkouts}
           setActiveWorkout={setActiveWorkout}
           setWorkoutToEdit={setWorkoutToEdit}
+          user={user}
         />
       ) : view == "addworkout" ? (
         <AddWorkout
