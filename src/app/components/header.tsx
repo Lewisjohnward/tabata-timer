@@ -28,13 +28,13 @@ const Header = ({ filter, dispatch, filteredWorkouts, colorCount }: Props) => {
   return (
     <>
       <div
-        className="flex justify-between gap-4 bg-gray-400 px-4 py-4 text-white font-bold"
+        className="flex justify-between gap-4 bg-gray-400 px-8 py-4 text-white font-bold"
         style={{ backgroundColor: filter.color }}
       >
         <div className="flex items-center space-y-4">
           <h1 className="text-2xl">Workouts: {filteredWorkouts.length}</h1>
         </div>
-        <div className="flex gap-6 text-2xl">
+        <div className="flex gap-6 text-xl">
           <Link
             href="/login"
             className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
