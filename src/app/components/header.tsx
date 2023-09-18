@@ -35,15 +35,18 @@ const Header = ({
   return (
     <>
       <div
-        className="flex justify-between gap-4 bg-gray-400 px-8 py-4 text-white font-bold"
+        className="flex justify-between gap-4 bg-gray-400 px-8 py-4 text-white"
         style={{ backgroundColor: filter.color }}
       >
         <div className="flex items-center space-y-4">
           <h1 className="text-2xl">Workouts: {filteredWorkouts.length}</h1>
         </div>
-        <div className="flex gap-6 text-xl">
+        <div className="flex items-center gap-6">
           {user ? (
-            <div>logout</div>
+            <>
+              <p className="text-md">{`Hey, ${user}!`}</p>
+              <div className="bg-black/20 rounded px-4 py-2">logout</div>
+            </>
           ) : (
             <Link
               href="/login"
