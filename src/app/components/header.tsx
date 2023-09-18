@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { ReactNode, SetStateAction, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import {
@@ -30,20 +31,16 @@ const Header = ({ filter, dispatch, filteredWorkouts, colorCount }: Props) => {
         className="flex justify-between gap-4 bg-gray-400 px-4 py-4 text-white font-bold"
         style={{ backgroundColor: filter.color }}
       >
-        <div className="space-y-4">
+        <div className="flex items-center space-y-4">
           <h1 className="text-2xl">Workouts: {filteredWorkouts.length}</h1>
         </div>
         <div className="flex gap-6 text-2xl">
-          <Button onClickEvent={() => setLoggedIn((prev) => !prev)}>
-            {loggedIn ? (
-              <FaRegUser />
-            ) : (
-              <div className="flex gap-4">
-                <p className="text-sm font-semibold">email@placeholder.com</p>
-                <FaUser />
-              </div>
-            )}
-          </Button>
+          <Link
+            href="/login"
+            className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
+          >
+            Login
+          </Link>
           <Button>
             <AiOutlineSearch />
           </Button>
