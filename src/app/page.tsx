@@ -36,7 +36,7 @@ import AddWorkout from "./pages/addWorkout";
 import Home from "./pages/home";
 import { WorkoutObj } from "./types/WorkoutObj";
 import { cookies } from "next/headers";
-import Link from "next/link";
+import NewHeader from "./components/newHeader";
 
 export default async function Page() {
   const supabase = createServerComponentClient({ cookies });
@@ -46,13 +46,7 @@ export default async function Page() {
   } = await supabase.auth.getUser();
   return (
     <main className="relative min-h-full">
-      {!user ? (
-        <Link href="/login">Login</Link>
-      ) : (
-        <form action="/auth/sign-out" method="post">
-          <button>Logout</button>
-        </form>
-      )}
+      <NewHeader user={user?.email} />
     </main>
   );
 }
