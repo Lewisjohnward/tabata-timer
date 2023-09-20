@@ -44,9 +44,12 @@ export default async function Page() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const { data } = await supabase.from("workouts").select();
+
   return (
     <main className="relative min-h-full">
-      <NewHeader user={user?.email} />
+      <NewHeader user={user?.email} data={data || []} />
     </main>
   );
 }

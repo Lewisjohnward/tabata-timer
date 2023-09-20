@@ -35,7 +35,7 @@ const useMenu = (
   };
 
   const handleActivateWorkout = () => {
-    setView("workout");
+    setView("activeworkout");
     setActiveWorkout(workout);
   };
 

@@ -15,6 +15,7 @@ import { FaRegUser, FaUser } from "react-icons/fa";
 import { MdExpandLess, MdExpandMore, MdSettings } from "react-icons/md";
 import { WorkoutObj } from "../types/WorkoutObj";
 import Palette from "./palette";
+import clsx from "clsx";
 
 type Props = {
   filter: any;
@@ -31,7 +32,6 @@ const Header = ({
   colorCount,
   user,
 }: Props) => {
-  const [loggedIn, setLoggedIn] = useState(false);
   return (
     <>
       <div
@@ -45,7 +45,11 @@ const Header = ({
           {user ? (
             <>
               <p className="text-md">{`Hey, ${user}!`}</p>
-              <div className="bg-black/20 rounded px-4 py-2">logout</div>
+              <form action="/auth/sign-out" method="post">
+                <button className="relative bg-black/20 rounded px-4 py-2">
+                  Logout
+                </button>
+              </form>
             </>
           ) : (
             <Link
