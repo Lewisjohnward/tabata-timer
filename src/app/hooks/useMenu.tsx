@@ -1,5 +1,6 @@
 "use client";
 import { MouseEvent, SetStateAction, useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { WorkoutObj } from "../types/WorkoutObj";
 import { v4 as uuidv4 } from "uuid";
 
@@ -13,6 +14,7 @@ const useMenu = (
   const [menuOpen, setMenuOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [yPosition, setYPosition] = useState(0);
+  const supabase = createClientComponentClient();
 
   const toggleMenu = (event: MouseEvent) => {
     const screenHeight = screen.height;
@@ -44,7 +46,7 @@ const useMenu = (
     setWorkouts((prev) => [...prev, duplicateWorkout]);
   };
 
-  const deleteWorkout = () => {
+  const deleteWorkout = async () => {
     setWorkouts((prev) => {
       const filteredWorkouts = prev.filter(({ id }) => id != workout.id);
       return filteredWorkouts;
