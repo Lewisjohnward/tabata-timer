@@ -1,4 +1,5 @@
 "use client";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { SetStateAction, useState } from "react";
 import { AiOutlineClose, AiFillEye } from "react-icons/ai";
 import {
@@ -74,8 +75,9 @@ const AddWorkout = ({
   const { state, dispatch } = useCreateWorkout(workoutToEdit);
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
+  const supabase = createClientComponentClient();
 
-  const handleCreateWorkout = () => {
+  const handleCreateWorkout = async () => {
     if (workoutToEdit) {
       setWorkouts((prev) => {
         const index = prev.findIndex(
@@ -87,6 +89,8 @@ const AddWorkout = ({
       });
       setWorkoutToEdit(null);
     } else {
+      const { error } = await supabase.from("workouts").insert({ ...state });
+      console.log("Error - add Workout: ", error);
       setWorkouts((prev) => [...prev, { ...state }]);
     }
     setView("home");
