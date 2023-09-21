@@ -41,19 +41,34 @@ const useMenu = (
     setActiveWorkout(workout);
   };
 
-  const duplicateWorkout = () => {
+  const duplicateWorkout = async () => {
+    const { error } = await supabase
+      .from("workouts")
+      .insert({ ...workout, id: uuidv4() });
+    console.log(error);
     const duplicateWorkout = { ...workout, id: uuidv4() };
     setWorkouts((prev) => [...prev, duplicateWorkout]);
   };
 
   const deleteWorkout = async () => {
+    const { error } = await supabase
+      .from("workouts")
+      .delete()
+      .eq("id", workout.id);
+    console.log(error);
     setWorkouts((prev) => {
       const filteredWorkouts = prev.filter(({ id }) => id != workout.id);
       return filteredWorkouts;
     });
   };
 
-  const toggleFavorite = () => {
+  const toggleFavorite = async () => {
+    const { error } = await supabase
+      .from("workouts")
+      .update({ favourite: !workout.favourite })
+      .eq("id", workout.id);
+    console.log(error);
+
     setWorkouts((prev) => {
       const updatedArr = prev.map((d) => {
         if (d.id == workout.id) {
