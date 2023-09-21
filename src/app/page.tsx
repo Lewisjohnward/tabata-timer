@@ -36,7 +36,6 @@ import AddWorkout from "./pages/addWorkout";
 import Home from "./pages/home";
 import { WorkoutObj } from "./types/WorkoutObj";
 import { cookies } from "next/headers";
-import NewHeader from "./components/newHeader";
 
 export default async function Page() {
   const supabase = createServerComponentClient({ cookies });
@@ -49,7 +48,7 @@ export default async function Page() {
 
   return (
     <main className="relative min-h-full">
-      <NewHeader user={user?.email} data={data || []} />
+      <Home user={user?.email} data={data || []} />
     </main>
   );
 }

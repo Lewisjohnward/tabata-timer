@@ -72,7 +72,6 @@ const AddWorkout = ({
   setWorkoutToEdit,
 }: Props) => {
   const { state, dispatch } = useCreateWorkout(workoutToEdit);
-
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
 
