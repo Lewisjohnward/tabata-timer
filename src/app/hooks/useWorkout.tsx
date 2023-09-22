@@ -6,22 +6,6 @@ import generateArray from "../helpers/generateArray";
 import { v4 as uuidv4 } from "uuid";
 import { WorkoutObj } from "../types/WorkoutObj";
 
-const defaultWorkout = {
-  id: "0",
-  title: "Bicep curls",
-  favourite: false,
-  totalTime: 0,
-  intervals: 0,
-  color: "#dc2626",
-  prepare: 10,
-  work: 30,
-  rest: 10,
-  cycles: 1,
-  sets: 1,
-  restBetweenSets: 0,
-  cooldown: 10,
-};
-
 type Payload = {
   key: keyof WorkoutObj;
   value?: number | string;
@@ -70,17 +54,14 @@ const calculateIntervalsTime = (workout: WorkoutObj) => {
 };
 
 const initWorkout = (workout: WorkoutObj) => {
-  //bug here!!!
-  if (workout.id === "0") workout.id = uuidv4();
+  if (workout.id === "0") {
+    workout.id = uuidv4();
+  }
   return calculateIntervalsTime(workout);
 };
 
-const useCreateWorkout = (workoutToEdit: WorkoutObj | null) => {
-  const [state, dispatch] = useReducer(
-    reducer,
-    workoutToEdit || defaultWorkout,
-    initWorkout
-  );
+const useCreateWorkout = (workout: WorkoutObj) => {
+  const [state, dispatch] = useReducer(reducer, workout, initWorkout);
 
   return {
     state,
