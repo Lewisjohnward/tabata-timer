@@ -21,6 +21,22 @@ import Summary from "../components/summary";
 import Palette from "../components/palette";
 import { colors } from "../misc/colors";
 
+const defaultWorkout = {
+  id: "0",
+  title: "Bicep curls",
+  favourite: false,
+  totalTime: 0,
+  intervals: 0,
+  color: "#dc2626",
+  prepare: 10,
+  work: 30,
+  rest: 10,
+  cycles: 1,
+  sets: 1,
+  restBetweenSets: 0,
+  cooldown: 10,
+};
+
 const inputArray = [
   {
     key: "prepare",
@@ -72,7 +88,9 @@ const AddWorkout = ({
   workoutToEdit,
   setWorkoutToEdit,
 }: Props) => {
-  const { state, dispatch } = useCreateWorkout(workoutToEdit);
+  const { state, dispatch } = useCreateWorkout(
+    workoutToEdit || { ...defaultWorkout }
+  );
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
   const supabase = createClientComponentClient();
@@ -94,7 +112,7 @@ const AddWorkout = ({
       });
       setWorkoutToEdit(null);
     } else {
-      const { error } = await supabase.from("workouts").insert({ ...state });
+      const { error } = await supabase.from("workouts").insert(state);
       console.log("Error - add Workout: ", error);
       setWorkouts((prev) => [...prev, { ...state }]);
     }
