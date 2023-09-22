@@ -79,6 +79,11 @@ const AddWorkout = ({
 
   const handleCreateWorkout = async () => {
     if (workoutToEdit) {
+      const { error } = await supabase
+        .from("workouts")
+        .update(state)
+        .eq("id", workoutToEdit.id);
+      console.log(error);
       setWorkouts((prev) => {
         const index = prev.findIndex(
           (prevWorkout) => prevWorkout.id === state.id
