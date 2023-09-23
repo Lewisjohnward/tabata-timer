@@ -7,6 +7,7 @@ import { WorkoutObj } from "../types/WorkoutObj";
 import AddIcon from "../components/addIcon";
 import Header from "../components/header";
 import Workout from "../components/workout";
+import defaultWorkouts from "../misc/defaultWorkouts";
 
 const Home = ({
   user,
@@ -16,7 +17,7 @@ const Home = ({
   data: WorkoutObj[];
 }) => {
   const [view, setView] = useState("home");
-  const [workouts, setWorkouts] = useState(data);
+  const [workouts, setWorkouts] = useState(user ? data : defaultWorkouts);
   const [activeWorkout, setActiveWorkout] = useState({} as WorkoutObj);
   const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
 
