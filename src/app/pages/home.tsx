@@ -8,6 +8,7 @@ import AddIcon from "../components/addIcon";
 import Header from "../components/header";
 import Workout from "../components/workout";
 import defaultWorkouts from "../misc/defaultWorkouts";
+import Modal from "../components/modal";
 
 const Home = ({
   user,
@@ -49,6 +50,9 @@ const Home = ({
             ))}
           </div>
           <AddIcon setView={setView} />
+          <Modal closePortal={() => ""}>
+            <div>Login to create workouts</div>
+          </Modal>
         </>
       )}
       {view == "activeworkout" && (
