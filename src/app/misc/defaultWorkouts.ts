@@ -30,7 +30,7 @@ const defaultWorkouts = [
     cooldown: 10,
   },
   {
-    id: "3ad37a36-68e9-49f8-bec0-f3cf8b9eb5c5",
+    id: "c723054d-fe44-4f40-b1d8-6f8dbeb56f5d",
     title: "Bench press",
     favourite: false,
     totalTime: 420,
