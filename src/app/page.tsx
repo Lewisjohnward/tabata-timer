@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import Home from "./pages/home";
 import { cookies } from "next/headers";
+import PageSelector from "./pageSelector";
 
 export default async function Page() {
   const supabase = createServerComponentClient({ cookies });
@@ -13,7 +13,7 @@ export default async function Page() {
 
   return (
     <main className="relative min-h-full">
-      <Home user={user?.email} data={data || []} />
+      <PageSelector user={user?.email} data={data || []} />
     </main>
   );
 }
