@@ -9,6 +9,8 @@ import Menu from "./menu";
 import Summary from "./summary";
 import generateSummary from "../helpers/generateSummary";
 import { AiFillStar } from "react-icons/ai";
+import Modal from "./modal";
+import Link from "next/link";
 
 const ExpandedWorkoutView = ({ workout }: { workout: WorkoutObj }) => {
   return (
@@ -24,6 +26,7 @@ const ExpandedWorkoutView = ({ workout }: { workout: WorkoutObj }) => {
 };
 
 type Props = {
+  user: string | undefined;
   expandedWorkout: boolean;
   setView: React.Dispatch<SetStateAction<string>>;
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
@@ -33,6 +36,7 @@ type Props = {
 };
 
 const Workout = ({
+  user,
   expandedWorkout,
   setView,
   workout,
@@ -41,6 +45,7 @@ const Workout = ({
   setWorkoutToEdit,
 }: Props) => {
   const menu = useMenu(
+    user,
     setView,
     setActiveWorkout,
     setWorkoutToEdit,
@@ -95,6 +100,26 @@ const Workout = ({
           </div>
         </div>
       </div>
+      {menu.displayModal && (
+        <Modal
+          closePortal={() => {
+            menu.setDisplayModal(false);
+            menu.setMenuOpen(false);
+          }}
+        >
+          <div className="w-full h-full flex justify-center items-center bg-black/20">
+            <div className="flex flex-col items-center gap-4 bg-white p-10 rounded shadow-lg">
+              Login to edit workouts
+              <Link
+                href="/login"
+                className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
+              >
+                Login/Sign up
+              </Link>
+            </div>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

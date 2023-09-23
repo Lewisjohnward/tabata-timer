@@ -5,12 +5,14 @@ import { WorkoutObj } from "../types/WorkoutObj";
 import { v4 as uuidv4 } from "uuid";
 
 const useMenu = (
+  user: string | undefined,
   setView: React.Dispatch<SetStateAction<string>>,
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>,
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>,
   workout: WorkoutObj,
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>
 ) => {
+  const [displayModal, setDisplayModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [yPosition, setYPosition] = useState(0);
@@ -27,8 +29,12 @@ const useMenu = (
   };
 
   const handleEdit = () => {
-    setView("addworkout");
-    setWorkoutToEdit(workout);
+    if (user) {
+      setView("addworkout");
+      setWorkoutToEdit(workout);
+    } else {
+      setDisplayModal(true);
+    }
   };
 
   const handlePreview = () => {
@@ -93,6 +99,8 @@ const useMenu = (
     duplicateWorkout,
     deleteWorkout,
     toggleFavorite,
+    displayModal,
+    setDisplayModal,
   };
 };
 

@@ -39,6 +39,7 @@ const Home = ({
       <div className="p-1 space-y-1">
         {filteredWorkouts.map((workout) => (
           <Workout
+            user={user}
             key={workout.id}
             expandedWorkout={filter.expandedWorkouts}
             setView={setView}
@@ -49,10 +50,7 @@ const Home = ({
           />
         ))}
       </div>
-      <AddIcon setView={setView} />
-      <Modal closePortal={() => ""}>
-        <div>Login to create workouts</div>
-      </Modal>
+      <AddIcon setView={setView} user={user} />
     </>
   );
 };

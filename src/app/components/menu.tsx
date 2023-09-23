@@ -50,42 +50,44 @@ const Menu = ({
   favorite: boolean;
 }) => {
   return (
-    <Modal closePortal={closeMenu}>
-      <div
-        className="absolute right-10 bg-white p-4 space-y-2 shadow rounded-md text-black"
-        style={{ top: yPosition }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <MenuItem mouseEvent={handleEdit}>
-          <BsFillPencilFill />
-          <p>Edit</p>
-        </MenuItem>
-        <MenuItem mouseEvent={handlePreview}>
-          <AiFillEye />
-          <p>Preview</p>
-        </MenuItem>
-        <MenuItem>
-          <AiFillSetting />
-          <p>Settings</p>
-        </MenuItem>
-        <MenuItem>
-          <FaStickyNote />
-          <p>Notes</p>
-        </MenuItem>
-        <MenuItem mouseEvent={toggleFavorite}>
-          {favorite ? <AiFillStar /> : <AiOutlineStar />}
-          <p>Favorite</p>
-        </MenuItem>
-        <MenuItem mouseEvent={duplicateWorkout}>
-          <AiFillCopy />
-          <p>Copy</p>
-        </MenuItem>
-        <MenuItem mouseEvent={deleteWorkout}>
-          <AiFillDelete />
-          <p>Delete</p>
-        </MenuItem>
-      </div>
-    </Modal>
+    <>
+      <Modal closePortal={closeMenu}>
+        <div
+          className="absolute right-10 bg-white p-4 space-y-2 shadow rounded-md text-black"
+          style={{ top: yPosition }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <MenuItem mouseEvent={handleEdit}>
+            <BsFillPencilFill />
+            <p>Edit</p>
+          </MenuItem>
+          <MenuItem mouseEvent={handlePreview}>
+            <AiFillEye />
+            <p>Preview</p>
+          </MenuItem>
+          <MenuItem>
+            <AiFillSetting />
+            <p>Settings</p>
+          </MenuItem>
+          <MenuItem>
+            <FaStickyNote />
+            <p>Notes</p>
+          </MenuItem>
+          <MenuItem mouseEvent={toggleFavorite}>
+            {favorite ? <AiFillStar /> : <AiOutlineStar />}
+            <p>Favorite</p>
+          </MenuItem>
+          <MenuItem mouseEvent={duplicateWorkout}>
+            <AiFillCopy />
+            <p>Copy</p>
+          </MenuItem>
+          <MenuItem mouseEvent={deleteWorkout}>
+            <AiFillDelete />
+            <p>Delete</p>
+          </MenuItem>
+        </div>
+      </Modal>
+    </>
   );
 };
 
