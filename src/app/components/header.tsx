@@ -56,7 +56,7 @@ const Header = ({
               href="/login"
               className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
             >
-              Login
+              Login/Sign up
             </Link>
           )}
           <Button>
