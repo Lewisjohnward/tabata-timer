@@ -5,7 +5,6 @@ import { WorkoutObj } from "../types/WorkoutObj";
 import AddIcon from "../components/addIcon";
 import Header from "../components/header";
 import Workout from "../components/workout";
-import Modal from "../components/modal";
 
 type HomeProps = {
   user: string | undefined;

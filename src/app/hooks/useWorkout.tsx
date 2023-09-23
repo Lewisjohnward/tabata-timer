@@ -5,6 +5,7 @@ import calculateTotalTime from "../helpers/calculateTotalTime";
 import generateArray from "../helpers/generateArray";
 import { v4 as uuidv4 } from "uuid";
 import { WorkoutObj } from "../types/WorkoutObj";
+import { colors } from "../misc/colors";
 
 type Payload = {
   key: keyof WorkoutObj;
@@ -56,7 +57,9 @@ const calculateIntervalsTime = (workout: WorkoutObj) => {
 const initWorkout = (workout: WorkoutObj) => {
   if (workout.id === "0") {
     workout.id = uuidv4();
+    workout.color = colors[Math.floor(Math.random() * colors.length)];
   }
+
   return calculateIntervalsTime(workout);
 };
 

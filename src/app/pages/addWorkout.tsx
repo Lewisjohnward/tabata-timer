@@ -120,6 +120,7 @@ const AddWorkout = ({
   };
 
   const cancelAddWorkout = () => {
+    setWorkoutToEdit(null);
     setView("home");
   };
 
