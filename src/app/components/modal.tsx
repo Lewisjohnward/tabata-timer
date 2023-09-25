@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 type Props = {
@@ -7,14 +7,17 @@ type Props = {
 };
 
 const Modal = ({ children, closePortal }: Props) => {
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-  }, []);
+  document.body.style.overflow = "hidden";
+
+  const close = () => {
+    document.body.style.overflow = "scroll";
+    closePortal();
+  };
 
   return createPortal(
     <div
       className="absolute top-0 w-full h-screen flex justify-center items-center"
-      onClick={() => closePortal()}
+      onClick={close}
     >
       {children}
     </div>,
