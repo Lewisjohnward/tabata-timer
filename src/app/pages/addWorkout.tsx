@@ -95,6 +95,8 @@ const AddWorkout = ({
   const [paletteVisible, setPaletteVisible] = useState(false);
   const supabase = createClientComponentClient();
 
+  document.body.style.overflow = "scroll";
+
   const handleCreateWorkout = async () => {
     if (workoutToEdit) {
       const { error } = await supabase
