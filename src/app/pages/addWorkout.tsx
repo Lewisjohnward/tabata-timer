@@ -13,13 +13,13 @@ import { GiWeightLiftingUp, GiSofa } from "react-icons/gi";
 import { RxSpaceBetweenHorizontally } from "react-icons/rx";
 import { MdTitle } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
-import NumberInput, { TextInput } from "../components/input";
-import useCreateWorkout from "../hooks/useWorkout";
-import { WorkoutObj } from "../types/WorkoutObj";
-import convertTime from "../helpers/convertTime";
-import Summary from "../components/summary";
-import Palette from "../components/palette";
-import { colors } from "../misc/colors";
+import NumberInput, { TextInput } from "@/components/input";
+import useCreateWorkout from "@/hooks/useWorkout";
+import { WorkoutObj } from "@/types/WorkoutObj";
+import convertTime from "@/helpers/convertTime";
+import Summary from "@/components/summary";
+import Palette from "@/components/palette";
+import { colors } from "@/misc/colors";
 
 const defaultWorkout = {
   id: "0",

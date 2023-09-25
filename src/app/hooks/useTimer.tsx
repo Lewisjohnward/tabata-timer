@@ -1,9 +1,9 @@
 "use client";
 import { RefObject, useEffect, useRef, useState } from "react";
-import convertTime from "../helpers/convertTime";
-import generateArray from "../helpers/generateArray";
-import calculateTotalTime from "../helpers/calculateTotalTime";
-import { WorkoutObj } from "../types/WorkoutObj";
+import convertTime from "@/helpers/convertTime";
+import generateArray from "@/helpers/generateArray";
+import calculateTotalTime from "@/helpers/calculateTotalTime";
+import { WorkoutObj } from "@/types/WorkoutObj";
 
 const getBackgroundColor = (intervalType: string) => {
   switch (intervalType) {

@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
-import ActiveWorkout from "./pages/activeWorkout";
-import AddWorkout from "./pages/addWorkout";
-import { WorkoutObj } from "./types/WorkoutObj";
-import defaultWorkouts from "./misc/defaultWorkouts";
-import Home from "./pages/home";
+import { WorkoutObj } from "@/types/WorkoutObj";
+import defaultWorkouts from "@/misc/defaultWorkouts";
+import { ActiveWorkout, AddWorkout, Home } from "@/pages";
 
 const PageSelector = ({
   user,

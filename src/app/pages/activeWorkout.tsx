@@ -1,12 +1,11 @@
 "use client";
 import clsx from "clsx";
 import { SetStateAction, useRef } from "react";
-import { AiFillHome, AiFillLock, AiFillUnlock } from "react-icons/ai";
+import { AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { FaStepBackward, FaStepForward } from "react-icons/fa";
-import generateArray from "../helpers/generateArray";
-import useInterval from "../hooks/useTimer";
-import { WorkoutObj } from "../types/WorkoutObj";
+import useInterval from "@/hooks/useTimer";
+import { WorkoutObj } from "@/types/WorkoutObj";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;

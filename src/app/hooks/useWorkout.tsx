@@ -1,11 +1,11 @@
 "use client";
 import { useReducer } from "react";
-import calculateIntervals from "../helpers/calculateIntervals";
-import calculateTotalTime from "../helpers/calculateTotalTime";
-import generateArray from "../helpers/generateArray";
+import calculateIntervals from "@/helpers/calculateIntervals";
+import calculateTotalTime from "@/helpers/calculateTotalTime";
+import generateArray from "@/helpers/generateArray";
 import { v4 as uuidv4 } from "uuid";
-import { WorkoutObj } from "../types/WorkoutObj";
-import { colors } from "../misc/colors";
+import { WorkoutObj } from "@/types/WorkoutObj";
+import { colors } from "@/misc/colors";
 
 type Payload = {
   key: keyof WorkoutObj;
