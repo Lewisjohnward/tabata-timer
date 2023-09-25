@@ -1,4 +1,4 @@
-export type WorkoutObj = {
+interface WorkoutObj {
   id: string;
   title: string;
   favourite: boolean;
@@ -12,4 +12,4 @@ export type WorkoutObj = {
   sets: number;
   restBetweenSets: number;
   cooldown: number;
-};
+}

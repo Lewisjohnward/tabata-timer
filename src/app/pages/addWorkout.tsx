@@ -15,7 +15,6 @@ import { MdTitle } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import NumberInput, { TextInput } from "@/components/input";
 import useCreateWorkout from "@/hooks/useWorkout";
-import { WorkoutObj } from "@/types/WorkoutObj";
 import convertTime from "@/helpers/convertTime";
 import Summary from "@/components/summary";
 import Palette from "@/components/palette";

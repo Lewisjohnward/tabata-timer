@@ -1,7 +1,6 @@
 "use client";
 import { SetStateAction } from "react";
 import useFilter from "@/hooks/useFilter";
-import { WorkoutObj } from "@/types/WorkoutObj";
 import AddIcon from "@/components/addIcon";
 import Header from "@/components/header";
 import Workout from "@/components/workout";

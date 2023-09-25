@@ -1,5 +1,4 @@
 import generateSummary from "../helpers/generateSummary";
-import { WorkoutObj } from "../types/WorkoutObj";
 import Modal from "./modal";
 
 type SummaryProps = {

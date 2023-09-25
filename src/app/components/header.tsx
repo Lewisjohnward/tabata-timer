@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ReactNode, SetStateAction, useState } from "react";
+import { ReactNode, SetStateAction } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import {
   BsArrowsCollapse,
@@ -10,12 +10,9 @@ import {
   BsStar,
   BsStarFill,
 } from "react-icons/bs";
-import { FaRegUser, FaUser } from "react-icons/fa";
 
 import { MdExpandLess, MdExpandMore, MdSettings } from "react-icons/md";
-import { WorkoutObj } from "../types/WorkoutObj";
 import Palette from "./palette";
-import clsx from "clsx";
 
 type Props = {
   filter: any;

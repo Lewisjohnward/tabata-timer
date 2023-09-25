@@ -1,6 +1,5 @@
 "use client";
 import { useReducer } from "react";
-import { WorkoutObj } from "@/types/WorkoutObj";
 import { colors } from "@/misc/colors";
 
 const filterInit = {

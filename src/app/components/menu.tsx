@@ -10,8 +10,6 @@ import {
 } from "react-icons/ai";
 import Modal from "./modal";
 import { FaStickyNote } from "react-icons/fa";
-import { WorkoutObj } from "../types/WorkoutObj";
-import { SetStateAction } from "react";
 
 const MenuItem = ({
   children,

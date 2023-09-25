@@ -2,12 +2,10 @@
 import { SetStateAction } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { FaEllipsisV } from "react-icons/fa";
-import { WorkoutObj } from "../types/WorkoutObj";
 import useMenu from "../hooks/useMenu";
 import convertTime from "../helpers/convertTime";
 import Menu from "./menu";
 import Summary from "./summary";
-import generateSummary from "../helpers/generateSummary";
 import { AiFillStar } from "react-icons/ai";
 import Modal from "./modal";
 import Link from "next/link";

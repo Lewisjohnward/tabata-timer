@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { WorkoutObj } from "@/types/WorkoutObj";
 import defaultWorkouts from "@/misc/defaultWorkouts";
 import { ActiveWorkout, AddWorkout, Home } from "@/pages";
 

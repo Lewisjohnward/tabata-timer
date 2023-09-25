@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
-import { WorkoutObj } from "../types/WorkoutObj";
 
 type NumberInputProps = {
   icon: ReactNode;
