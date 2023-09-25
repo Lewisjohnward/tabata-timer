@@ -2,6 +2,7 @@
 import { SetStateAction } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { FaEllipsisV } from "react-icons/fa";
+import { RxDragHandleDots1 } from "react-icons/rx";
 import useMenu from "../hooks/useMenu";
 import convertTime from "../helpers/convertTime";
 import Menu from "./menu";
@@ -53,48 +54,51 @@ const Workout = ({
   return (
     <>
       <div
-        className="relative flex space-between p-4 text-white rounded-lg"
+        className="flex items-center gap-2 p-4 text-white rounded-lg"
         style={{ backgroundColor: `${workout.color}` }}
       >
-        <div className="space-y-2">
-          <h3 className="font-bold text-3xl">{workout.title}</h3>
-          {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
-          <p className="text-xl">
-            {`Total: ${convertTime(workout.totalTime)} - ${
-              workout.intervals
-            } intervals`}
-          </p>
-        </div>
-        <div className="flex-grow flex justify-end gap-4 text-2xl [&>button]:text-4xl">
-          <button>
-            <BsFillPlayFill onClick={menu.handleActivateWorkout} />
-          </button>
-          {workout.favourite && (
-            <AiFillStar className="absolute top-2 right-2 text-sm" />
-          )}
-          <div className="relative flex justify-center items-center">
+        <RxDragHandleDots1 className="text-2xl" />
+        <div className="relative flex flex-grow space-between">
+          <div className="space-y-2">
+            <h3 className="font-bold text-3xl">{workout.title}</h3>
+            {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
+            <p className="text-xl">
+              {`Total: ${convertTime(workout.totalTime)} - ${
+                workout.intervals
+              } intervals`}
+            </p>
+          </div>
+          <div className="flex-grow flex justify-end gap-4 text-2xl [&>button]:text-4xl">
             <button>
-              <FaEllipsisV onClick={menu.toggleMenu} />
+              <BsFillPlayFill onClick={menu.handleActivateWorkout} />
             </button>
-            {menu.menuOpen && (
-              <Menu
-                duplicateWorkout={menu.duplicateWorkout}
-                toggleFavorite={menu.toggleFavorite}
-                favorite={workout.favourite}
-                deleteWorkout={menu.deleteWorkout}
-                closeMenu={() => menu.setMenuOpen(false)}
-                yPosition={menu.yPosition}
-                handleEdit={menu.handleEdit}
-                handlePreview={menu.handlePreview}
-              />
+            {workout.favourite && (
+              <AiFillStar className="absolute top-2 right-2 text-sm" />
             )}
-            {menu.summaryOpen && (
-              <Summary
-                setSummaryVisible={menu.setSummaryOpen}
-                workout={workout}
-                color={workout.color}
-              />
-            )}
+            <div className="relative flex justify-center items-center">
+              <button>
+                <FaEllipsisV onClick={menu.toggleMenu} />
+              </button>
+              {menu.menuOpen && (
+                <Menu
+                  duplicateWorkout={menu.duplicateWorkout}
+                  toggleFavorite={menu.toggleFavorite}
+                  favorite={workout.favourite}
+                  deleteWorkout={menu.deleteWorkout}
+                  closeMenu={() => menu.setMenuOpen(false)}
+                  yPosition={menu.yPosition}
+                  handleEdit={menu.handleEdit}
+                  handlePreview={menu.handlePreview}
+                />
+              )}
+              {menu.summaryOpen && (
+                <Summary
+                  setSummaryVisible={menu.setSummaryOpen}
+                  workout={workout}
+                  color={workout.color}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
