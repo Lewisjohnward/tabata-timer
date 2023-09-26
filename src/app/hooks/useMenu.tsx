@@ -22,7 +22,7 @@ const useMenu = (
     const mousePosition = event.clientY;
 
     setYPosition(
-      mousePosition + 440 > screenHeight ? mousePosition - 270 : mousePosition
+      mousePosition + 440 > screenHeight ? mousePosition - 170 : mousePosition
     );
     setMenuOpen((prev) => !prev);
   };
