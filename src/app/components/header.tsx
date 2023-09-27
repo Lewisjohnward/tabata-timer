@@ -76,7 +76,7 @@ const Header = ({
           className="flex justify-between px-4 py-2 bg-gray-400 text-white text-xl"
           style={{ backgroundColor: filter.color }}
         >
-          <p>all</p>
+          <p></p>
           <div className="flex gap-6 text-2xl">
             <Button
               onClickEvent={() =>
