@@ -1,5 +1,5 @@
 "use client";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import convertTime from "@/helpers/convertTime";
 import generateArray from "@/helpers/generateArray";
 import calculateTotalTime from "@/helpers/calculateTotalTime";
@@ -34,6 +34,7 @@ const calculateNextPosition = (
 };
 
 const useInterval = (
+  setView: React.Dispatch<SetStateAction<string>>,
   workoutObj: WorkoutObj,
   startWhistleRef: RefObject<HTMLAudioElement>,
   beepRef: RefObject<HTMLAudioElement>,
@@ -54,6 +55,7 @@ const useInterval = (
   const [currentIntervalTime, setCurrentIntervalTime] = useState(
     intervalArray[0].time
   );
+  const [confirmExit, setConfirmExit] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const decrementIntervalTime = () => {
@@ -178,6 +180,8 @@ const useInterval = (
     handleChangeInterval,
     handleToggleRunning,
     intervalArray,
+    confirmExit,
+    setConfirmExit,
   };
 };
 

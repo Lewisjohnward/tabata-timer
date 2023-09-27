@@ -4,6 +4,7 @@ import { AiOutlineOrderedList } from "react-icons/ai";
 import clsx from "clsx";
 import Modal from "./modal";
 import Link from "next/link";
+import UserMessageModal from "./userMessageModal";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
@@ -108,24 +109,20 @@ const AddIcon = ({ setView, user }: Props) => {
         </div>
       </div>
       {modalVisible && (
-        <Modal
+        <UserMessageModal
           closePortal={() => {
             setModalVisible(false);
             setOpen(false);
           }}
         >
-          <div className="w-full h-full flex justify-center items-center bg-black/20">
-            <div className="flex flex-col items-center gap-4 bg-white p-10 rounded shadow-lg">
-              Login to create new {newWorkout ? "workout" : "sequence"}
-              <Link
-                href="/login"
-                className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
-              >
-                Login/Sign up
-              </Link>
-            </div>
-          </div>
-        </Modal>
+          <p>Login to create new {newWorkout ? "workout" : "sequence"}</p>
+          <Link
+            href="/login"
+            className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
+          >
+            Login/Sign up
+          </Link>
+        </UserMessageModal>
       )}
     </>
   );

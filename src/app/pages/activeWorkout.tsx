@@ -20,6 +20,7 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
   const endBellRef = useRef<HTMLAudioElement>(null);
 
   const intervalManager = useInterval(
+    setView,
     workout,
     startWhistleRef,
     beepRef,
@@ -33,7 +34,7 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
         className="relative flex flex-col gap-5 text-white p-4 h-screen lg:flex-row lg:justify-center lg:items-center lg:gap-10"
         style={{ backgroundColor: intervalManager.color }}
       >
-        <CurrentInterval setView={setView} intervalManager={intervalManager} />
+        <CurrentInterval intervalManager={intervalManager} />
         <div className="hidden lg:block bg-white w-[1px] h-3/6" />
         <IntervalList
           intervals={intervalManager.intervalArray}
@@ -41,7 +42,7 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
         />
         <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
           <NavigationButtons
-            setView={setView}
+            setConfirmExit={intervalManager.setConfirmExit}
             nextInterval={intervalManager.nextInterval}
             previousInterval={intervalManager.previousInterval}
             intervalPosition={intervalManager.getIntervalPosition()}
@@ -52,9 +53,25 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
         <audio preload="auto" src="/endWhistle.mp3" ref={endWhistleRef} />
         <audio preload="auto" src="/endBell.mp3" ref={endBellRef} />
       </div>
-      <UserMessageModal>
-        <p>Are you sure you want to exit current workout?</p>
-      </UserMessageModal>
+      {intervalManager.confirmExit && (
+        <UserMessageModal>
+          <p>Are you sure you want to exit current workout?</p>
+          <div className="flex gap-8">
+            <button
+              className="bg-green-500 rounded-md py-2 px-4 text-white"
+              onClick={() => setView("home")}
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => intervalManager.setConfirmExit(false)}
+              className="bg-red-500 rounded-md py-2 px-4 text-white"
+            >
+              No
+            </button>
+          </div>
+        </UserMessageModal>
+      )}
     </>
   );
 };
@@ -71,14 +88,11 @@ type CurrentIntervalProps = {
     nextInterval: () => void;
     previousInterval: () => void;
     handleToggleRunning: () => void;
+    setConfirmExit: React.Dispatch<SetStateAction<boolean>>;
   };
-  setView: React.Dispatch<SetStateAction<string>>;
 };
 
-const CurrentInterval = ({
-  intervalManager,
-  setView,
-}: CurrentIntervalProps) => {
+const CurrentInterval = ({ intervalManager }: CurrentIntervalProps) => {
   return (
     <div className="flex flex-col justify-evenly lg:gap-10">
       <div className="flex justify-evenly items-center gap-8 text-4xl lg:text-6xl font-bold">
@@ -99,7 +113,7 @@ const CurrentInterval = ({
       <div className="hidden w-full lg:flex justify-evenly gap-4 py-4 text-white text-4xl">
         <NavigationButtons
           previousInterval={intervalManager.previousInterval}
-          setView={setView}
+          setConfirmExit={intervalManager.setConfirmExit}
           nextInterval={intervalManager.nextInterval}
           intervalPosition={intervalManager.getIntervalPosition()}
         />
@@ -149,12 +163,12 @@ const IntervalList = ({ intervals, intervalManager }: IntervalListProps) => {
 };
 
 const NavigationButtons = ({
-  setView,
+  setConfirmExit,
   nextInterval,
   previousInterval,
   intervalPosition,
 }: {
-  setView: React.Dispatch<SetStateAction<string>>;
+  setConfirmExit: React.Dispatch<SetStateAction<boolean>>;
   nextInterval: () => void;
   previousInterval: () => void;
   intervalPosition: string;
@@ -164,7 +178,7 @@ const NavigationButtons = ({
       <button onClick={previousInterval}>
         <FaStepBackward />
       </button>
-      <button className="lg:w-48" onClick={() => setView("home")}>
+      <button className="lg:w-48" onClick={() => setConfirmExit(true)}>
         {intervalPosition}
       </button>
       <button onClick={nextInterval}>

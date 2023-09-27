@@ -10,6 +10,7 @@ import Summary from "./summary";
 import { AiFillStar } from "react-icons/ai";
 import Modal from "./modal";
 import Link from "next/link";
+import UserMessageModal from "./userMessageModal";
 
 const ExpandedWorkoutView = ({ workout }: { workout: WorkoutObj }) => {
   return (
@@ -103,24 +104,20 @@ const Workout = ({
         </div>
       </div>
       {menu.displayModal && (
-        <Modal
+        <UserMessageModal
           closePortal={() => {
             menu.setDisplayModal(false);
             menu.setMenuOpen(false);
           }}
         >
-          <div className="w-full h-full flex justify-center items-center bg-black/20">
-            <div className="flex flex-col items-center gap-4 bg-white p-10 rounded shadow-lg">
-              Login to modify workouts
-              <Link
-                href="/login"
-                className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
-              >
-                Login/Sign up
-              </Link>
-            </div>
-          </div>
-        </Modal>
+          <p>Login to modify workouts</p>
+          <Link
+            href="/login"
+            className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
+          >
+            Login/Sign up
+          </Link>
+        </UserMessageModal>
       )}
     </>
   );

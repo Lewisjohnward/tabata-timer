@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 type Props = {
   children: ReactNode;
-  closePortal: Function;
+  closePortal?: Function;
 };
 
 const Modal = ({ children, closePortal }: Props) => {
@@ -11,7 +11,7 @@ const Modal = ({ children, closePortal }: Props) => {
 
   const close = () => {
     document.body.style.overflow = "scroll";
-    closePortal();
+    closePortal && closePortal();
   };
 
   return createPortal(
