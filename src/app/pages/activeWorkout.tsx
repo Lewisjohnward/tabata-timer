@@ -5,6 +5,8 @@ import { AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { FaStepBackward, FaStepForward } from "react-icons/fa";
 import useInterval from "@/hooks/useTimer";
+import Modal from "@/components/modal";
+import UserMessageModal from "@/components/userMessageModal";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
@@ -26,29 +28,34 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
   );
 
   return (
-    <div
-      className="relative flex flex-col gap-5 text-white p-4 h-screen lg:flex-row lg:justify-center lg:items-center lg:gap-10"
-      style={{ backgroundColor: intervalManager.color }}
-    >
-      <CurrentInterval setView={setView} intervalManager={intervalManager} />
-      <div className="hidden lg:block bg-white w-[1px] h-3/6" />
-      <IntervalList
-        intervals={intervalManager.intervalArray}
-        intervalManager={intervalManager}
-      />
-      <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
-        <NavigationButtons
-          setView={setView}
-          nextInterval={intervalManager.nextInterval}
-          previousInterval={intervalManager.previousInterval}
-          intervalPosition={intervalManager.getIntervalPosition()}
+    <>
+      <div
+        className="relative flex flex-col gap-5 text-white p-4 h-screen lg:flex-row lg:justify-center lg:items-center lg:gap-10"
+        style={{ backgroundColor: intervalManager.color }}
+      >
+        <CurrentInterval setView={setView} intervalManager={intervalManager} />
+        <div className="hidden lg:block bg-white w-[1px] h-3/6" />
+        <IntervalList
+          intervals={intervalManager.intervalArray}
+          intervalManager={intervalManager}
         />
+        <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
+          <NavigationButtons
+            setView={setView}
+            nextInterval={intervalManager.nextInterval}
+            previousInterval={intervalManager.previousInterval}
+            intervalPosition={intervalManager.getIntervalPosition()}
+          />
+        </div>
+        <audio preload="auto" src="/startWhistle.wav" ref={startWhistleRef} />
+        <audio preload="auto" src="/beep.mp3" ref={beepRef} />
+        <audio preload="auto" src="/endWhistle.mp3" ref={endWhistleRef} />
+        <audio preload="auto" src="/endBell.mp3" ref={endBellRef} />
       </div>
-      <audio preload="auto" src="/startWhistle.wav" ref={startWhistleRef} />
-      <audio preload="auto" src="/beep.mp3" ref={beepRef} />
-      <audio preload="auto" src="/endWhistle.mp3" ref={endWhistleRef} />
-      <audio preload="auto" src="/endBell.mp3" ref={endBellRef} />
-    </div>
+      <UserMessageModal>
+        <p>Are you sure you want to exit current workout?</p>
+      </UserMessageModal>
+    </>
   );
 };
 
