@@ -14,7 +14,7 @@ export default async function Page() {
   const { data } = await supabase.from("workouts").select();
 
   return (
-    <main className="relative min-h-full">
+    <main className="relative min-h-full sm:h-[100dvh]">
       <PageSelector user={user?.email} data={data || []} />
     </main>
   );
