@@ -63,7 +63,7 @@ const Workout = ({
           <div className="space-y-2">
             <h3 className="font-bold text-3xl">{workout.title}</h3>
             {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
-            <p className="text-xl">
+            <p className="text-md lg:text-lg">
               {`Total: ${convertTime(workout.totalTime)} - ${
                 workout.intervals
               } intervals`}

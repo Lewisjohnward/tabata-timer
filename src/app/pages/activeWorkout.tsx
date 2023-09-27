@@ -31,7 +31,7 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
   return (
     <>
       <div
-        className="relative flex flex-col gap-5 text-white p-4 h-screen lg:flex-row lg:justify-center lg:items-center lg:gap-10"
+        className="relative flex flex-col gap-5 text-white p-4 h-[100dvh] lg:flex-row lg:justify-center lg:items-center lg:gap-10"
         style={{ backgroundColor: intervalManager.color }}
       >
         <CurrentInterval intervalManager={intervalManager} />

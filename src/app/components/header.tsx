@@ -32,11 +32,11 @@ const Header = ({
   return (
     <>
       <div
-        className="flex justify-between gap-4 bg-gray-400 px-8 py-4 text-white"
+        className="flex justify-between gap-2 bg-gray-400 px-2 py-4 lg:px-20 text-white"
         style={{ backgroundColor: filter.color }}
       >
         <div className="flex items-center space-y-4">
-          <h1 className="text-2xl">Workouts: {filteredWorkouts.length}</h1>
+          <h1 className="text-xl">Workouts: {filteredWorkouts.length}</h1>
         </div>
         <div className="flex items-center gap-6">
           {user ? (
@@ -56,9 +56,6 @@ const Header = ({
               Login/Sign up
             </Link>
           )}
-          <Button>
-            <AiOutlineSearch />
-          </Button>
           <Button
             onClickEvent={() =>
               dispatch({ type: "TOGGLE", payload: { key: "expandedMenu" } })
@@ -66,18 +63,21 @@ const Header = ({
           >
             {!filter.expandedMenu ? <MdExpandMore /> : <MdExpandLess />}
           </Button>
-          <Button>
-            <MdSettings />
-          </Button>
         </div>
       </div>
       {filter.expandedMenu && (
         <div
-          className="flex justify-between px-4 py-2 bg-gray-400 text-white text-xl"
+          className="flex justify-between px-4 py-2 bg-gray-400 text-white text-xl lg:pr-20"
           style={{ backgroundColor: filter.color }}
         >
           <p></p>
           <div className="flex gap-6 text-2xl">
+            <Button>
+              <AiOutlineSearch />
+            </Button>
+            <Button>
+              <MdSettings />
+            </Button>
             <Button
               onClickEvent={() =>
                 filter.color == ""

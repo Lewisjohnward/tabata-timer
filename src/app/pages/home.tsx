@@ -34,7 +34,7 @@ const Home = ({
         colorCount={colorCount}
         user={user}
       />
-      <div className="sm:p-1 lg:pl-1 lg:pr-2 space-y-1">
+      <div className="p-1 space-y-1">
         {filteredWorkouts.map((workout) => (
           <Workout
             user={user}
