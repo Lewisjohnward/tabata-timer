@@ -4,7 +4,7 @@ import Messages from "./messages";
 export default function Login() {
   return (
     <div className="h-screen flex justify-center items-center bg-[url('/background.png')]">
-      <div className="bg-white border border-black/10 px-10 py-10 rounded">
+      <div className="bg-white border border-black/10 px-6 md:px-10 py-10 rounded">
         <Link
           href="/"
           className="absolute left-8 top-8 py-2 px-4 bg-white shadow-lg rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
