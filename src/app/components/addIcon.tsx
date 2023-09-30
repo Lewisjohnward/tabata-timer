@@ -97,14 +97,19 @@ const AddIcon = ({ setView, user }: Props) => {
             </button>
           )}
           <button
-            className={clsx(
-              "flex justify-center items-center w-20 h-20 bg-red-500 rounded-full text-4xl shadow-[1px_1px_1px_0px_rgba(0,0,0,0.4)]"
-            )}
+            className="flex justify-center items-center w-20 h-20 bg-red-500 rounded-full text-4xl shadow-[1px_1px_1px_0px_rgba(0,0,0,0.4)] leading-none transition-transform duration-300"
             onClick={() => {
               open ? handleAddWorkout() : setOpen(true);
             }}
           >
-            +
+            <div
+              className={clsx(
+                "w-10 h-10 transition-transform duration-500 leading-none",
+                open && "rotate-180"
+              )}
+            >
+              +
+            </div>
           </button>
         </div>
       </div>
