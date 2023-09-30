@@ -55,11 +55,11 @@ const Workout = ({
   return (
     <>
       <div
-        className="flex items-center gap-2 p-4 text-white rounded-lg"
+        className="relative flex items-center gap-2 p-4 text-white rounded-lg"
         style={{ backgroundColor: `${workout.color}` }}
       >
         <RxDragHandleDots1 className="text-2xl" />
-        <div className="relative flex flex-grow space-between">
+        <div className="flex flex-grow space-between">
           <div className="space-y-2">
             <h3 className="font-bold text-3xl">{workout.title}</h3>
             {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
