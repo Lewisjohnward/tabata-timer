@@ -35,15 +35,15 @@ const Palette = ({
   return (
     <Modal closePortal={() => closePalette()}>
       <div className="w-screen h-screen flex justify-center items-center bg-black/20">
-        <div className="-mt-14 md:mt-0 bg-white rounded shadow p-4 space-y-10 md:p-8">
+        <div className="-mt-14 md:mt-0 bg-white rounded shadow p-4 space-y-4 md:space-y-10 md:p-18">
           <h2 className="text-xl font-bold">Select a color</h2>
-          <div className="grid grid-cols-4 md:grid-cols-5 justify-items-center gap-4">
+          <div className="grid grid-cols-4 md:grid-cols-5 justify-items-center gap-2 md:gap-4">
             {colors.map((color) => {
               const _color = typeof color == "string" ? color : color.color;
               return (
                 <button
                   key={_color}
-                  className="w-20 h-20 rounded-full md:w-28 md:h-28"
+                  className="w-16 h-16 rounded-full md:w-28 md:h-28"
                   style={{ backgroundColor: _color }}
                   onClick={(e) => handleColorSelect(e, _color)}
                   disabled={
