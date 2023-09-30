@@ -35,16 +35,22 @@ export default function Login() {
             Email
           </label>
           <input
-            className="rounded-md px-4 py-2 border mb-6"
+            className="rounded-md px-4 py-2 border"
+            id="email"
             name="email"
             placeholder="you@example.com"
+            pattern=".+@globex\.com"
             required
           />
+          <p className="text-red-500 mb-6">
+            Please enter a valid email address
+          </p>
           <label className="text-md" htmlFor="password">
             Password
           </label>
           <input
             className="rounded-md px-4 py-2 border mb-6"
+            id="password"
             type="password"
             name="password"
             placeholder="••••••••"
