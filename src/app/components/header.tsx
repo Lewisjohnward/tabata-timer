@@ -67,10 +67,9 @@ const Header = ({
       </div>
       {filter.expandedMenu && (
         <div
-          className="flex justify-between px-4 py-2 bg-gray-400 text-white text-xl lg:pr-20"
+          className="flex justify-end px-4 py-2 bg-gray-400 text-white text-xl lg:pr-20"
           style={{ backgroundColor: filter.color }}
         >
-          <p></p>
           <div className="flex gap-6 text-2xl">
             <Button>
               <AiOutlineSearch />
