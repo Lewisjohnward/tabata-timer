@@ -1,11 +1,16 @@
 "use client";
 import clsx from "clsx";
 import { SetStateAction, useRef } from "react";
-import { AiFillLock, AiFillUnlock } from "react-icons/ai";
-import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
-import { FaStepBackward, FaStepForward } from "react-icons/fa";
+import {
+  AiFillHome,
+  AiFillLock,
+  AiFillUnlock,
+  BsFillPlayFill,
+  BsFillPauseFill,
+  FaStepBackward,
+  FaStepForward,
+} from "@/misc/icons";
 import useInterval from "@/hooks/useTimer";
-import Modal from "@/components/modal";
 import UserMessageModal from "@/components/userMessageModal";
 
 type Props = {
@@ -27,7 +32,6 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
     endWhistleRef,
     endBellRef
   );
-
   return (
     <>
       <div
@@ -42,7 +46,6 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
         />
         <div className="lg:hidden w-full flex justify-evenly gap-4 py-4 text-white text-4xl">
           <NavigationButtons
-            setConfirmExit={intervalManager.setConfirmExit}
             nextInterval={intervalManager.nextInterval}
             previousInterval={intervalManager.previousInterval}
             intervalPosition={intervalManager.getIntervalPosition()}
@@ -102,6 +105,9 @@ const CurrentInterval = ({ intervalManager }: CurrentIntervalProps) => {
         <h1 className="w-36 px-4 lg:w-48">
           {intervalManager.getTotalRemainingTime()}
         </h1>
+        <button onClick={() => intervalManager.setConfirmExit(true)}>
+          <AiFillHome />
+        </button>
         <button onClick={intervalManager.handleToggleRunning}>
           {intervalManager.running ? <BsFillPauseFill /> : <BsFillPlayFill />}
         </button>
@@ -113,7 +119,6 @@ const CurrentInterval = ({ intervalManager }: CurrentIntervalProps) => {
       <div className="hidden w-full lg:flex justify-evenly gap-4 py-4 text-white text-4xl">
         <NavigationButtons
           previousInterval={intervalManager.previousInterval}
-          setConfirmExit={intervalManager.setConfirmExit}
           nextInterval={intervalManager.nextInterval}
           intervalPosition={intervalManager.getIntervalPosition()}
         />
@@ -163,12 +168,10 @@ const IntervalList = ({ intervals, intervalManager }: IntervalListProps) => {
 };
 
 const NavigationButtons = ({
-  setConfirmExit,
   nextInterval,
   previousInterval,
   intervalPosition,
 }: {
-  setConfirmExit: React.Dispatch<SetStateAction<boolean>>;
   nextInterval: () => void;
   previousInterval: () => void;
   intervalPosition: string;
@@ -178,9 +181,7 @@ const NavigationButtons = ({
       <button onClick={previousInterval}>
         <FaStepBackward />
       </button>
-      <button className="lg:w-48" onClick={() => setConfirmExit(true)}>
-        {intervalPosition}
-      </button>
+      <p className="lg:w-48 text-center">{intervalPosition}</p>
       <button onClick={nextInterval}>
         <FaStepForward />
       </button>
