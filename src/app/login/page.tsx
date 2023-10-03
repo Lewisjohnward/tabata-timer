@@ -49,13 +49,19 @@ export default function Login() {
             Password
           </label>
           <input
-            className="rounded-md px-4 py-2 border mb-6"
+            className="rounded-md px-4 py-2 border"
             id="password"
             type="password"
             name="password"
             placeholder="••••••••"
             required
           />
+          <Link
+            href="/forgotpassword"
+            className="text-blue-500 text-sm hover:underline"
+          >
+            Forgot password
+          </Link>
           <button className="bg-gray-500 rounded px-4 py-2 text-white mb-2 hover:bg-gray-500 font-bold">
             Sign In
           </button>
