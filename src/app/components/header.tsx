@@ -71,9 +71,13 @@ const Header = ({
           style={{ backgroundColor: filter.color }}
         >
           <div className="flex gap-6 text-2xl">
-            <Button>
-              <AiOutlineSearch />
-            </Button>
+            <div className="flex items-center px-2 bg-white rounded">
+              <AiOutlineSearch className="text-gray-400" />
+              <input
+                type="text"
+                className="text-md text-gray-400 outline-none"
+              />
+            </div>
             <Button>
               <MdSettings />
             </Button>
