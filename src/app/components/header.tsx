@@ -1,18 +1,19 @@
 "use client";
 import Link from "next/link";
 import { ReactNode, SetStateAction } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
+import Palette from "./palette";
 import {
+  AiOutlineSearch,
   BsArrowsCollapse,
   BsArrowsExpand,
   BsPalette,
   BsPaletteFill,
   BsStar,
   BsStarFill,
-} from "react-icons/bs";
-
-import { MdExpandLess, MdExpandMore, MdSettings } from "react-icons/md";
-import Palette from "./palette";
+  MdExpandLess,
+  MdExpandMore,
+  MdSettings,
+} from "@/misc/icons";
 
 type Props = {
   filter: any;
