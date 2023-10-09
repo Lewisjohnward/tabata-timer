@@ -15,6 +15,45 @@ import {
   MdSettings,
 } from "@/misc/icons";
 
+const SearchBar = ({ dispatch }: { dispatch: any }) => {
+  const handleInput = (e: any) => {
+    dispatch({
+      type: "SEARCH",
+      payload: { key: "filterString", value: e.target.value },
+    });
+  };
+
+  return (
+    <div className="flex items-center px-2 bg-white rounded cursor-pointer">
+      <button>
+        <AiOutlineSearch className="text-gray-400" />
+      </button>
+      <input
+        type="text"
+        onChange={handleInput}
+        className="text-md text-gray-400 outline-none"
+      />
+    </div>
+  );
+};
+
+const Button = ({
+  children,
+  onClickEvent,
+}: {
+  children: ReactNode;
+  onClickEvent?: React.Dispatch<SetStateAction<boolean>>;
+}) => {
+  return (
+    <button
+      className="hover:text-white/40"
+      onClick={() => onClickEvent != undefined && onClickEvent(true)}
+    >
+      {children}
+    </button>
+  );
+};
+
 type Props = {
   filter: any;
   dispatch: React.Dispatch<any>;
@@ -68,17 +107,11 @@ const Header = ({
       </div>
       {filter.expandedMenu && (
         <div
-          className="flex justify-end px-4 py-2 bg-gray-400 text-white text-xl lg:pr-20"
+          className="flex justify-end gap-4 px-4 py-2 bg-gray-400 text-white text-xl lg:pr-20"
           style={{ backgroundColor: filter.color }}
         >
+          <SearchBar dispatch={dispatch} />
           <div className="flex gap-6 text-2xl">
-            <div className="flex items-center px-2 bg-white rounded">
-              <AiOutlineSearch className="text-gray-400" />
-              <input
-                type="text"
-                className="text-md text-gray-400 outline-none"
-              />
-            </div>
             <Button>
               <MdSettings />
             </Button>
@@ -141,23 +174,6 @@ const Header = ({
         />
       )}
     </>
-  );
-};
-
-const Button = ({
-  children,
-  onClickEvent,
-}: {
-  children: ReactNode;
-  onClickEvent?: React.Dispatch<SetStateAction<boolean>>;
-}) => {
-  return (
-    <button
-      className="hover:text-white/40"
-      onClick={() => onClickEvent != undefined && onClickEvent(true)}
-    >
-      {children}
-    </button>
   );
 };
 

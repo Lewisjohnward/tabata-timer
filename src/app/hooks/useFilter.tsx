@@ -4,6 +4,7 @@ import { colors } from "@/misc/colors";
 
 const filterInit = {
   color: "",
+  filterString: "",
   expandedMenu: false,
   filterFavorites: false,
   expandedWorkouts: false,
@@ -13,6 +14,7 @@ const filterInit = {
 
 type Filter = {
   color: string;
+  filterString: string;
   expandedMenu: boolean;
   filterFavorites: boolean;
   expandedWorkouts: boolean;
@@ -45,6 +47,9 @@ const reducer = (filter: Filter, action: Action) => {
         ...filter,
         [key]: value,
       };
+    case "SEARCH":
+      console.log("SEARCH");
+      return filter;
     default:
       return filter;
   }
@@ -55,6 +60,8 @@ const filterWorkouts = (filter: Filter, workouts: WorkoutObj[]) => {
     ? workouts.filter(({ color }) => color == filter.color)
     : filter.filterFavorites
     ? workouts.filter(({ favourite }) => favourite)
+    : filter.filterString != ""
+    ? workouts
     : workouts;
 };
 
