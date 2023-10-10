@@ -1,24 +1,26 @@
 "use client";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { SetStateAction, useState } from "react";
-import { AiOutlineClose, AiFillEye } from "react-icons/ai";
-import {
-  BsFillPaletteFill,
-  BsArrowRepeat,
-  BsFillStopwatchFill,
-  BsSnow,
-} from "react-icons/bs";
-import { FaWalking } from "react-icons/fa";
-import { GiWeightLiftingUp, GiSofa } from "react-icons/gi";
-import { RxSpaceBetweenHorizontally } from "react-icons/rx";
-import { MdTitle } from "react-icons/md";
-import { TiTick } from "react-icons/ti";
 import NumberInput, { TextInput } from "@/components/input";
 import useCreateWorkout from "@/hooks/useWorkout";
 import convertTime from "@/helpers/convertTime";
 import Summary from "@/components/summary";
 import Palette from "@/components/palette";
 import { colors } from "@/misc/colors";
+import {
+  AiOutlineClose,
+  AiFillEye,
+  BsArrowRepeat,
+  BsFillStopwatchFill,
+  BsSnow,
+  BsFillPaletteFill,
+  FaWalking,
+  GiWeightLiftingUp,
+  GiSofa,
+  MdTitle,
+  RxSpaceBetweenHorizontally,
+  TiTick,
+} from "@/misc/icons";
 
 const defaultWorkout = {
   id: "0",
