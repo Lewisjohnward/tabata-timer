@@ -53,13 +53,18 @@ const reducer = (filter: Filter, action: Action) => {
 };
 
 const filterWorkouts = (filter: Filter, workouts: WorkoutObj[]) => {
-  return filter.color != ""
-    ? workouts.filter(({ color }) => color == filter.color)
-    : filter.filterFavorites
-    ? workouts.filter(({ favourite }) => favourite)
-    : filter.filterString != ""
-    ? workouts.filter(({ title }) => title.includes(filter.filterString))
-    : workouts;
+  return workouts
+    .filter(({ color }) => {
+      return filter.color != "" ? color == filter.color : true;
+    })
+    .filter(({ favourite }) => {
+      return filter.filterFavorites ? favourite : true;
+    })
+    .filter(({ title }) => {
+      return filter.filterString != ""
+        ? title.includes(filter.filterString)
+        : true;
+    });
 };
 
 const useFilter = (workouts: WorkoutObj[]) => {
