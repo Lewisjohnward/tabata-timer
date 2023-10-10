@@ -47,9 +47,6 @@ const reducer = (filter: Filter, action: Action) => {
         ...filter,
         [key]: value,
       };
-    case "SEARCH":
-      console.log("SEARCH");
-      return filter;
     default:
       return filter;
   }
@@ -61,7 +58,7 @@ const filterWorkouts = (filter: Filter, workouts: WorkoutObj[]) => {
     : filter.filterFavorites
     ? workouts.filter(({ favourite }) => favourite)
     : filter.filterString != ""
-    ? workouts
+    ? workouts.filter(({ title }) => title.includes(filter.filterString))
     : workouts;
 };
 

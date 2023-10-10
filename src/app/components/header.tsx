@@ -18,7 +18,7 @@ import {
 const SearchBar = ({ dispatch }: { dispatch: any }) => {
   const handleInput = (e: any) => {
     dispatch({
-      type: "SEARCH",
+      type: "UPDATE",
       payload: { key: "filterString", value: e.target.value },
     });
   };
