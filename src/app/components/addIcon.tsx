@@ -1,8 +1,7 @@
 "use client";
 import { useState, useEffect, SetStateAction } from "react";
-import { AiOutlineOrderedList } from "react-icons/ai";
+import { AiOutlineOrderedList } from "@/misc/icons";
 import clsx from "clsx";
-import Modal from "./modal";
 import Link from "next/link";
 import UserMessageModal from "./userMessageModal";
 

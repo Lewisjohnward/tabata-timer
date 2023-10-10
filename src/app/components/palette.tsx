@@ -1,5 +1,5 @@
 import Modal from "./modal";
-import { TiTick } from "react-icons/ti";
+import { TiTick } from "@/misc/icons";
 
 type PaletteProps = {
   closePalette: () => void;

@@ -1,5 +1,4 @@
 "use client";
-import { BsFillPencilFill } from "react-icons/bs";
 import {
   AiFillCopy,
   AiFillDelete,
@@ -7,9 +6,10 @@ import {
   AiFillSetting,
   AiFillStar,
   AiOutlineStar,
-} from "react-icons/ai";
+  BsFillPencilFill,
+  FaStickyNote,
+} from "@/misc/icons";
 import Modal from "./modal";
-import { FaStickyNote } from "react-icons/fa";
 
 const MenuItem = ({
   children,
