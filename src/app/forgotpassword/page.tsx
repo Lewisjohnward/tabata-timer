@@ -1,7 +1,12 @@
+"use client";
 import AuthLayout from "@/components/authLayout";
 import BackButton from "@/components/backButton";
+import { useSearchParams } from "next/navigation";
 
 const ForgotPassword = () => {
+  const searchParams = useSearchParams();
+  const message = searchParams.get("message");
+
   return (
     <AuthLayout>
       <BackButton />
@@ -25,12 +30,17 @@ const ForgotPassword = () => {
           required
         />
         <button
-          formAction="/auth/sign-up"
+          formAction="/auth/reset-password"
           className="bg-gray-500 rounded px-4 py-2 text-white mb-2 hover:bg-gray-500 font-bold"
         >
           Reset password
         </button>
       </form>
+      {message && (
+        <p className="mt-4 p-4 bg-neutral-900 text-neutral-300 text-center">
+          {message}
+        </p>
+      )}
     </AuthLayout>
   );
 };
