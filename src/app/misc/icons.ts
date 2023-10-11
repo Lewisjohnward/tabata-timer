@@ -1,6 +1,7 @@
 import {
   AiOutlineClose,
   AiOutlineStar,
+  AiOutlineMail,
   AiOutlineOrderedList,
   AiFillEye,
   AiFillMinusCircle,
@@ -56,6 +57,7 @@ export {
   AiFillCopy,
   AiOutlineStar,
   AiFillDelete,
+  AiOutlineMail,
   AiFillLock,
   AiOutlineOrderedList,
   AiOutlineSearch,
