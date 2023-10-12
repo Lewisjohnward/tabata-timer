@@ -28,10 +28,7 @@ const Page = () => {
       <h1 className="text-xl font-bold my-4 text-center">
         Reset your password
       </h1>
-      <p className="text-sm mb-4">
-        Tell us the email address associated with your Tabata Timer account, and
-        we’ll send you an email with a link to reset your password.
-      </p>
+      <p className="text-sm mb-4 text-center">Enter new password</p>
       <form
         className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
         onSubmit={handleUpdatePassword}
@@ -45,7 +42,7 @@ const Page = () => {
           required
         />
         <button
-          className="px-4 py-2 mb-2 text-white font-bold hover:bg-gray-500"
+          className="px-4 py-2 mb-2 text-white font-bold rounded hover:bg-gray-500"
           style={{ backgroundColor: color }}
         >
           Reset password
