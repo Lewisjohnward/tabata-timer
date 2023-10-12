@@ -3,7 +3,7 @@ import { colors } from "@/misc/colors";
 import AuthLayout from "@/components/authLayout";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { FormEvent } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const color = colors[Math.floor(Math.random() * colors.length)];
 
@@ -13,24 +13,20 @@ interface FormData {
 
 const Page = () => {
   const supabase = createClientComponentClient();
+  const router = useRouter();
 
   const handleUpdatePassword = async (e: FormEvent<HTMLFormElement>) => {
-    redirectMe();
-    //try {
-    //  const { password } = e.target as typeof e.target & FormData;
-    //  e.preventDefault();
-    //  const { error } = await supabase.auth.updateUser({
-    //    password: password.value,
-    //  });
-    //  console.log(error);
-    //  redirect("/");
-    //} catch (error) {
-    //  console.log(error);
-    //}
-  };
-
-  const redirectMe = () => {
-    redirect("/");
+    try {
+      const { password } = e.target as typeof e.target & FormData;
+      e.preventDefault();
+      const { error } = await supabase.auth.updateUser({
+        password: password.value,
+      });
+      console.log(error);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
