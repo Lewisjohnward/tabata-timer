@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Messages from "./messages";
 import AuthLayout from "@/components/authLayout";
+import { colors } from "@/misc/colors";
+
+const color = colors[Math.floor(Math.random() * colors.length)];
 
 export default function Login() {
   return (
@@ -45,7 +48,10 @@ export default function Login() {
             <p className="text-sm pr-1">?</p>
           </div>
         </div>
-        <button className="bg-gray-500 rounded px-4 py-2 text-white mb-2 hover:bg-gray-500 font-bold">
+        <button
+          className="px-4 py-2 mb-2 text-white font-bold rounded hover:bg-gray-500"
+          style={{ backgroundColor: color }}
+        >
           Sign In
         </button>
         <Messages />

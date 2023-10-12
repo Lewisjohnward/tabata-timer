@@ -7,7 +7,9 @@ import { AiOutlineMail, BiArrowBack } from "@/misc/icons";
 import { colors } from "@/misc/colors";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-const color = colors[Math.floor(Math.random() * colors.length)];
+const random = (array: string[]) => {
+  return array[Math.floor(Math.random() * array.length)];
+};
 
 interface FormData {
   email: { value: string };
@@ -56,7 +58,7 @@ const ForgotPassword = () => {
                 </p>
                 <button
                   className="px-4 rounded-lg text-white"
-                  style={{ backgroundColor: color }}
+                  style={{ backgroundColor: random(colors) }}
                   onClick={toggleSuccess}
                 >
                   Try Another Email
@@ -85,7 +87,10 @@ const ForgotPassword = () => {
                 pattern=".+@.+\.com"
                 required
               />
-              <button className="bg-gray-500 rounded px-4 py-2 text-white mb-2 hover:bg-gray-500 font-bold">
+              <button
+                className="px-4 py-2 mb-2 text-white font-bold rounded hover:bg-gray-500"
+                style={{ backgroundColor: random(colors) }}
+              >
                 Reset password
               </button>
             </form>
