@@ -1,4 +1,5 @@
 import {
+  AiOutlineUser,
   AiOutlineClose,
   AiOutlineStar,
   AiOutlineMail,
@@ -56,6 +57,7 @@ export {
   AiFillUnlock,
   AiFillCopy,
   AiOutlineStar,
+  AiOutlineUser,
   AiFillDelete,
   AiOutlineMail,
   AiFillLock,
