@@ -52,12 +52,12 @@ const ForgotPassword = () => {
                   provided has been verified.
                 </p>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <p className="text-sm">
                   Didn't receive an email? Check your spam folder or
                 </p>
                 <button
-                  className="px-4 rounded-lg text-white"
+                  className="px-4 py-1 rounded-lg text-white"
                   style={{ backgroundColor: random(colors) }}
                   onClick={toggleSuccess}
                 >
