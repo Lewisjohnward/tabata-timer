@@ -14,7 +14,7 @@ export default function Login() {
       </p>
       <form
         className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
-        action="/auth/sign-in"
+        action="/api/auth/sign-in"
         method="post"
       >
         <input
