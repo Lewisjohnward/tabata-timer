@@ -10,7 +10,11 @@ const Signup = () => {
   return (
     <AuthLayout>
       <BackButton />
-      <h1 className="text-xl font-bold mt-4 mb-8">Sign up</h1>
+      <h1 className="text-xl font-bold mt-4 mb-4">Sign up</h1>
+      <p className="mb-4">
+        By continuing, you agree to our User Agreement and acknowledge that you
+        understand the Privacy Policy.
+      </p>
       <form
         className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
         action="/auth/sign-up"
