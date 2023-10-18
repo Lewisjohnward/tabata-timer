@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { colors } from "@/misc/colors";
 import clsx from "clsx";
+import { FaSpinner } from "react-icons/fa";
 const color = colors[Math.floor(Math.random() * colors.length)];
 
 interface FormData {
@@ -33,7 +34,7 @@ const reducer = (passwordState: any, action: any) => {
 
 const Page = () => {
   const [passwordState, dispatch] = useReducer(reducer, initPasswordState);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(false);
   const router = useRouter();
   const supabase = createClientComponentClient();
 
@@ -53,6 +54,7 @@ const Page = () => {
 
   useEffect(() => {
     const getUser = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -70,59 +72,68 @@ const Page = () => {
 
   return (
     <>
-      <h1 className="text-xl font-bold my-4 text-center">
-        Reset your password
-      </h1>
-      <p className="text-sm mb-4 text-center">Enter new password</p>
-      <form
-        className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
-        onSubmit={handleUpdatePassword}
-      >
-        <div className="space-y-2">
-          <input
-            className="rounded-md px-4 py-2 border focus:outline focus:outline-2 focus:invalid:outline-red-500 focus:valid:outline-green-500"
-            type="password"
-            id="password"
-            name="passwordA"
-            placeholder="password"
-            pattern=".{8,}"
-            onChange={handleChange}
-            required
-          />
-          <p className="text-xs text-gray-600">
-            Minimum 8 characters in length
-          </p>
+      {user ? (
+        <>
+          <h1 className="text-xl font-bold my-4 text-center">
+            Reset your password
+          </h1>
+          <p className="text-sm mb-4 text-center">Enter new password</p>
+          <form
+            className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
+            onSubmit={handleUpdatePassword}
+          >
+            <div className="space-y-2">
+              <input
+                className="rounded-md px-4 py-2 border focus:outline focus:outline-2 focus:invalid:outline-red-500 focus:valid:outline-green-500"
+                type="password"
+                id="password"
+                name="passwordA"
+                placeholder="password"
+                pattern=".{8,}"
+                onChange={handleChange}
+                required
+              />
+              <p className="text-xs text-gray-600">
+                Minimum 8 characters in length
+              </p>
+            </div>
+            <div className="space-y-2">
+              <input
+                className={clsx(
+                  "rounded-md px-4 py-2 border focus:outline focus:outline-2 focus:invalid:outline-red-500",
+                  passwordState.passwordsMatch
+                    ? "focus:valid:outline-green-500"
+                    : "focus:valid:outline-red-500"
+                )}
+                type="password"
+                id="password"
+                name="passwordB"
+                placeholder="confirm password"
+                pattern=".{8,}"
+                onChange={handleChange}
+                required
+              />
+              <p className="text-xs text-gray-600">
+                Minimum 8 characters in length
+              </p>
+            </div>
+            <button
+              className="px-4 py-2 mb-2 text-white font-bold rounded hover:bg-gray-500 disabled:text-opacity-50"
+              disabled={
+                !passwordState.passwordsMatch ||
+                !passwordState.passwordValidated
+              }
+              style={{ backgroundColor: color }}
+            >
+              Reset password
+            </button>
+          </form>
+        </>
+      ) : (
+        <div className="w-[300px] h-[200px] flex justify-center items-center">
+          <FaSpinner className="text-8xl text-sky-500 animate-spin" />
         </div>
-        <div className="space-y-2">
-          <input
-            className={clsx(
-              "rounded-md px-4 py-2 border focus:outline focus:outline-2 focus:invalid:outline-red-500",
-              passwordState.passwordsMatch
-                ? "focus:valid:outline-green-500"
-                : "focus:valid:outline-red-500"
-            )}
-            type="password"
-            id="password"
-            name="passwordB"
-            placeholder="confirm password"
-            pattern=".{8,}"
-            onChange={handleChange}
-            required
-          />
-          <p className="text-xs text-gray-600">
-            Minimum 8 characters in length
-          </p>
-        </div>
-        <button
-          className="px-4 py-2 mb-2 text-white font-bold rounded hover:bg-gray-500 disabled:text-opacity-50"
-          disabled={
-            !passwordState.passwordsMatch || !passwordState.passwordValidated
-          }
-          style={{ backgroundColor: color }}
-        >
-          Reset password
-        </button>
-      </form>
+      )}
     </>
   );
 };
