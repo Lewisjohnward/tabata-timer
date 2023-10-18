@@ -1,7 +1,6 @@
 "use client";
 import { colors } from "@/misc/colors";
 import clsx from "clsx";
-import AuthLayout from "@/components/authLayout";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useReducer, useState, FormEvent, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
@@ -60,7 +59,7 @@ const Page = () => {
   };
 
   return (
-    <AuthLayout>
+    <>
       <h1 className="text-xl font-bold my-4 text-center">
         Reset your password
       </h1>
@@ -114,7 +113,7 @@ const Page = () => {
           Reset password
         </button>
       </form>
-    </AuthLayout>
+    </>
   );
 };
 

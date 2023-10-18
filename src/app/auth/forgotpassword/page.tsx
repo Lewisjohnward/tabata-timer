@@ -1,11 +1,10 @@
 "use client";
-import AuthLayout from "@/components/authLayout";
-import BackButton from "@/components/backButton";
 import { FormEvent } from "react";
 import { useState } from "react";
 import { AiOutlineMail, BiArrowBack } from "@/misc/icons";
 import { colors } from "@/misc/colors";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import BackButton from "@/components/backButton";
 
 const random = (array: string[]) => {
   return array[Math.floor(Math.random() * array.length)];
@@ -33,8 +32,9 @@ const ForgotPassword = () => {
   };
 
   return (
-    <AuthLayout>
+    <>
       <div className="min-w-[300px]">
+        <BackButton />
         {success ? (
           <>
             <button
@@ -68,7 +68,6 @@ const ForgotPassword = () => {
           </>
         ) : (
           <>
-            <BackButton />
             <h1 className="text-xl font-bold my-4 ">Reset your password</h1>
             <p className="text-sm mb-4">
               Tell us the email address associated with your Tabata Timer
@@ -97,7 +96,7 @@ const ForgotPassword = () => {
           </>
         )}
       </div>
-    </AuthLayout>
+    </>
   );
 };
 

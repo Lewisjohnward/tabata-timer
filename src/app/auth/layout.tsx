@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 
-const AuthLayout = ({ children }: { children: ReactNode }) => {
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="relative h-screen flex justify-center items-center bg-[url('/background.png')]">
       <Link
@@ -31,4 +31,4 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default AuthLayout;
+export default Layout;

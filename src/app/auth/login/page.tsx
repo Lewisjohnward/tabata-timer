@@ -1,13 +1,12 @@
 import Link from "next/link";
 import Messages from "./messages";
-import AuthLayout from "@/components/authLayout";
 import { colors } from "@/misc/colors";
 
 const color = colors[Math.floor(Math.random() * colors.length)];
 
 export default function Login() {
   return (
-    <AuthLayout>
+    <>
       <h1 className="text-xl font-bold mb-4">Log In</h1>
       <p className="mb-4">
         By continuing, you agree to our User Agreement and acknowledge that you
@@ -60,6 +59,6 @@ export default function Login() {
         </button>
         <Messages />
       </form>
-    </AuthLayout>
+    </>
   );
 }

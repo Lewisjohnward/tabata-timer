@@ -1,5 +1,4 @@
 "use client";
-import AuthLayout from "@/components/authLayout";
 import BackButton from "@/components/backButton";
 import { useSearchParams } from "next/navigation";
 
@@ -8,7 +7,7 @@ const Signup = () => {
   const error = searchParams.get("error");
   const message = searchParams.get("message");
   return (
-    <AuthLayout>
+    <>
       <BackButton />
       <h1 className="text-xl font-bold mt-4 mb-4">Sign up</h1>
       <p className="mb-4">
@@ -53,7 +52,7 @@ const Signup = () => {
           {message}
         </p>
       )}
-    </AuthLayout>
+    </>
   );
 };
 
