@@ -1,5 +1,4 @@
 "use client";
-import AuthLayout from "@/components/authLayout";
 import BackButton from "@/components/backButton";
 import { useSearchParams } from "next/navigation";
 
@@ -8,9 +7,13 @@ const Signup = () => {
   const error = searchParams.get("error");
   const message = searchParams.get("message");
   return (
-    <AuthLayout>
+    <>
       <BackButton />
-      <h1 className="text-xl font-bold mt-4 mb-8">Sign up</h1>
+      <h1 className="text-xl font-bold mt-4 mb-4">Sign up</h1>
+      <p className="mb-4">
+        By continuing, you agree to our User Agreement and acknowledge that you
+        understand the Privacy Policy.
+      </p>
       <form
         className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
         action="/auth/sign-up"
@@ -32,6 +35,14 @@ const Signup = () => {
           placeholder="password"
           required
         />
+        <input
+          className="rounded-md px-4 py-2 border"
+          id="password"
+          type="password"
+          name="password"
+          placeholder="confirm password"
+          required
+        />
         <button className="bg-gray-500 rounded px-4 py-2 text-white mb-2 hover:bg-gray-500 font-bold">
           Sign up
         </button>
@@ -41,7 +52,7 @@ const Signup = () => {
           {message}
         </p>
       )}
-    </AuthLayout>
+    </>
   );
 };
 

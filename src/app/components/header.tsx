@@ -82,7 +82,7 @@ const Header = ({
           {user ? (
             <>
               <p className="text-md">{`Hey, ${user}!`}</p>
-              <form action="/auth/sign-out" method="post">
+              <form action="/api/auth/sign-out" method="post">
                 <button className="relative bg-black/20 rounded px-4 py-2">
                   Logout
                 </button>
@@ -90,7 +90,7 @@ const Header = ({
             </>
           ) : (
             <Link
-              href="/login"
+              href="/auth/login"
               className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
             >
               Login/Sign up

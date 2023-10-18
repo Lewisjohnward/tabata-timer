@@ -45,6 +45,7 @@ import {
   FaStepForward,
   FaWalking,
   FaStickyNote,
+  FaSpinner,
 } from "react-icons/fa";
 import { BiArrowBack } from "react-icons/bi";
 import { GiWeightLiftingUp, GiSofa } from "react-icons/gi";
@@ -91,6 +92,7 @@ export {
   FaStepBackward,
   FaStepForward,
   FaStickyNote,
+  FaSpinner,
   MdTitle,
   MdExpandLess,
   MdExpandMore,
