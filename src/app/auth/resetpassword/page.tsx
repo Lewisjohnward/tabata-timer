@@ -54,7 +54,6 @@ const Page = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       const {
         data: { user },
       } = await supabase.auth.getUser();
