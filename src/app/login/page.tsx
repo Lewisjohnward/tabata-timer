@@ -8,12 +8,16 @@ const color = colors[Math.floor(Math.random() * colors.length)];
 export default function Login() {
   return (
     <AuthLayout>
+      <h1 className="text-xl font-bold mb-4">Log In</h1>
+      <p className="mb-4">
+        By continuing, you agree to our User Agreement and acknowledge that you
+        understand the Privacy Policy.
+      </p>
       <form
         className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
         action="/auth/sign-in"
         method="post"
       >
-        <h1 className="text-xl font-bold">Log In</h1>
         <input
           className="rounded-md px-4 py-2 border"
           id="email"
