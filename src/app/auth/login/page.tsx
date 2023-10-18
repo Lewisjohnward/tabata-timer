@@ -37,14 +37,14 @@ export default function Login() {
         <div className="space-y-4">
           <div className="flex">
             <p className="text-sm pr-1">New to Tabata Timer?</p>
-            <Link href="/signup" className="text-blue-500 text-sm">
+            <Link href="/auth/signup" className="text-blue-500 text-sm">
               Sign up
             </Link>
           </div>
           <div className="flex">
             <p className="text-sm pr-1">Forgot your</p>
             <Link
-              href="/forgotpassword"
+              href="/auth/forgotpassword"
               className="text-blue-500 text-sm hover:underline"
             >
               password
