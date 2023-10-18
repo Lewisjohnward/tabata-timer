@@ -1,10 +1,9 @@
 "use client";
+import { useReducer, useEffect, useState, FormEvent, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { colors } from "@/misc/colors";
 import clsx from "clsx";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useReducer, useState, FormEvent, ChangeEvent } from "react";
-import { useRouter } from "next/navigation";
-
 const color = colors[Math.floor(Math.random() * colors.length)];
 
 interface FormData {
@@ -34,8 +33,9 @@ const reducer = (passwordState: any, action: any) => {
 
 const Page = () => {
   const [passwordState, dispatch] = useReducer(reducer, initPasswordState);
-  const supabase = createClientComponentClient();
+  const [user, setUser] = useState(null);
   const router = useRouter();
+  const supabase = createClientComponentClient();
 
   const handleUpdatePassword = async (e: FormEvent<HTMLFormElement>) => {
     try {
@@ -50,6 +50,16 @@ const Page = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) router.push("/auth/login");
+    };
+    getUser();
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
