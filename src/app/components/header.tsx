@@ -112,9 +112,9 @@ const Header = ({
         >
           <SearchBar dispatch={dispatch} />
           <div className="flex gap-6 text-2xl">
-            <Button>
+            <Link href="/settings">
               <MdSettings />
-            </Button>
+            </Link>
             <Button
               onClickEvent={() =>
                 filter.color == ""
