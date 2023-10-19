@@ -38,6 +38,7 @@ import {
   MdExpandMore,
   MdSettings,
   MdTitle,
+  MdSportsGymnastics,
 } from "react-icons/md";
 import {
   FaEllipsisV,
@@ -51,6 +52,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { GiWeightLiftingUp, GiSofa } from "react-icons/gi";
 import { RxSpaceBetweenHorizontally } from "react-icons/rx";
 import { TiTick } from "react-icons/ti";
+import { LiaDumbbellSolid } from "react-icons/lia";
 
 export {
   AiFillHome,
@@ -99,4 +101,6 @@ export {
   MdSettings,
   RxSpaceBetweenHorizontally,
   TiTick,
+  MdSportsGymnastics,
+  LiaDumbbellSolid,
 };
