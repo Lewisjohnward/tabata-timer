@@ -31,7 +31,7 @@ const SearchBar = ({ dispatch }: { dispatch: any }) => {
       <input
         type="text"
         onChange={handleInput}
-        className="text-md text-gray-400 outline-none"
+        className="w-full text-md text-gray-400 outline-none"
       />
     </div>
   );
@@ -111,7 +111,7 @@ const Header = ({
           style={{ backgroundColor: filter.color }}
         >
           <SearchBar dispatch={dispatch} />
-          <div className="flex gap-6 text-2xl">
+          <div className="flex items-center gap-6 text-2xl">
             <Link href="/settings">
               <MdSettings />
             </Link>
