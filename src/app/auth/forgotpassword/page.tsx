@@ -23,7 +23,6 @@ const ForgotPassword = () => {
     e.preventDefault();
     const { error } = await supabase.auth.resetPasswordForEmail(email.value);
     console.log(error);
-
     toggleSuccess();
   };
 
@@ -33,7 +32,7 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <div className="min-w-[300px]">
+      <div className="min-w-[280px]">
         <BackButton />
         {success ? (
           <>
