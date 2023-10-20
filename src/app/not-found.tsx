@@ -1,26 +1,12 @@
-import {
-  GiWeightLiftingUp,
-  MdSportsGymnastics,
-  LiaDumbbellSolid,
-  BiArrowBack,
-} from "@/misc/icons";
+import { BiArrowBack } from "@/misc/icons";
 import Link from "next/link";
-
-const Icons = [
-  <GiWeightLiftingUp />,
-  <MdSportsGymnastics />,
-  <LiaDumbbellSolid />,
-];
-
-const random = Icons[Math.floor(Math.random() * Icons.length)];
 
 const NotFound = () => {
   return (
     <div className="h-[100dvh] flex flex-col items-center justify-center">
-      <div className="flex justify-center items-center gap-4">
-        <p className="text-[250px] leading-none">404</p>
+      <div className="flex flex-col justify-center items-center gap-4">
+        <p className="text-[150px] md:text-[250px] leading-none">404</p>
         <div className="max-w-[300px] flex flex-col items-center gap-4">
-          <div className="text-[200px]">{random}</div>
           <p>
             Sorry, we can't find that page! Don't worry though, return home
             using the button.
