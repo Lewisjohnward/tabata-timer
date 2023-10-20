@@ -131,7 +131,9 @@ const Header = ({
               dispatch({ type: "TOGGLE", payload: { key: "expandedMenu" } })
             }
           >
-            {!filter.expandedMenu ? <MdExpandMore /> : <MdExpandLess />}
+            <span className="text-2xl">
+              {!filter.expandedMenu ? <MdExpandMore /> : <MdExpandLess />}
+            </span>
           </Button>
         </div>
       </div>
