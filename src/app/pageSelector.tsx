@@ -2,6 +2,7 @@
 import { useState } from "react";
 import defaultWorkouts from "@/misc/defaultWorkouts";
 import { ActiveWorkout, AddWorkout, Home } from "@/pages";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 const PageSelector = ({
   user,
@@ -15,8 +16,28 @@ const PageSelector = ({
   const [activeWorkout, setActiveWorkout] = useState({} as WorkoutObj);
   const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
 
+  const handleDragEnd = (result: DropResult) => {
+    const { destination, source } = result;
+    if (
+      !destination ||
+      (destination.droppableId === source.droppableId &&
+        destination.index === source.index)
+    )
+      return;
+
+    let add,
+      previous = workouts;
+
+    add = workouts[source.index];
+    previous.splice(source.index, 1);
+
+    previous.splice(destination.index, 0, add);
+
+    setWorkouts([...previous]);
+  };
+
   return (
-    <>
+    <DragDropContext onDragEnd={handleDragEnd}>
       {view == "home" && (
         <Home
           user={user}
@@ -38,7 +59,7 @@ const PageSelector = ({
           setWorkoutToEdit={setWorkoutToEdit}
         />
       )}
-    </>
+    </DragDropContext>
   );
 };
 export default PageSelector;

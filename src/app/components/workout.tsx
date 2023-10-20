@@ -8,6 +8,8 @@ import Menu from "./menu";
 import Summary from "./summary";
 import Link from "next/link";
 import UserMessageModal from "./userMessageModal";
+import { Draggable } from "react-beautiful-dnd";
+import clsx from "clsx";
 
 const ExpandedWorkoutView = ({ workout }: { workout: WorkoutObj }) => {
   return (
@@ -24,6 +26,7 @@ const ExpandedWorkoutView = ({ workout }: { workout: WorkoutObj }) => {
 
 type Props = {
   user: string | undefined;
+  index: number;
   expandedWorkout: boolean;
   setView: React.Dispatch<SetStateAction<string>>;
   setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
@@ -34,6 +37,7 @@ type Props = {
 
 const Workout = ({
   user,
+  index,
   expandedWorkout,
   setView,
   workout,
@@ -50,73 +54,82 @@ const Workout = ({
     setWorkouts
   );
   return (
-    <>
-      <div
-        className="relative flex items-center gap-2 p-4 text-white rounded-lg"
-        style={{ backgroundColor: `${workout.color}` }}
-      >
-        <RxDragHandleDots1 className="text-2xl" />
-        <div className="flex flex-grow space-between">
-          <div className="space-y-2">
-            <h3 className="font-bold text-3xl">{workout.title}</h3>
-            {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
-            <p className="text-md lg:text-lg">
-              {`Total: ${convertTime(workout.totalTime)} - ${
-                workout.intervals
-              } intervals`}
-            </p>
-          </div>
-          <div className="flex-grow flex justify-end gap-4 text-2xl [&>button]:text-4xl">
-            <button>
-              <BsFillPlayFill onClick={menu.handleActivateWorkout} />
-            </button>
-            {workout.favourite && (
-              <AiFillStar className="absolute top-2 right-2 text-sm" />
+    <Draggable draggableId={workout.id} index={index} key={workout.id}>
+      {(provided, snapshot) => (
+        <div ref={provided.innerRef} {...provided.draggableProps}>
+          <div
+            className={clsx(
+              "relative flex items-center gap-2 p-4 text-white rounded-lg",
+              snapshot.isDragging && "shadow-lg"
             )}
-            <div className="relative flex justify-center items-center">
-              <button>
-                <FaEllipsisV onClick={menu.toggleMenu} />
-              </button>
-              {menu.menuOpen && (
-                <Menu
-                  duplicateWorkout={menu.duplicateWorkout}
-                  toggleFavorite={menu.toggleFavorite}
-                  favorite={workout.favourite}
-                  deleteWorkout={menu.deleteWorkout}
-                  closeMenu={() => menu.setMenuOpen(false)}
-                  yPosition={menu.yPosition}
-                  handleEdit={menu.handleEdit}
-                  handlePreview={menu.handlePreview}
-                />
-              )}
-              {menu.summaryOpen && (
-                <Summary
-                  setSummaryVisible={menu.setSummaryOpen}
-                  workout={workout}
-                  color={workout.color}
-                />
-              )}
+            style={{ backgroundColor: `${workout.color}` }}
+          >
+            <div {...provided.dragHandleProps}>
+              <RxDragHandleDots1 className="text-2xl" />
+            </div>
+            <div className="flex flex-grow space-between">
+              <div className="space-y-2">
+                <h3 className="font-bold text-3xl">{workout.title}</h3>
+                {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
+                <p className="text-md lg:text-lg">
+                  {`Total: ${convertTime(workout.totalTime)} - ${
+                    workout.intervals
+                  } intervals`}
+                </p>
+              </div>
+              <div className="flex-grow flex justify-end gap-4 text-2xl [&>button]:text-4xl">
+                <button>
+                  <BsFillPlayFill onClick={menu.handleActivateWorkout} />
+                </button>
+                {workout.favourite && (
+                  <AiFillStar className="absolute top-2 right-2 text-sm" />
+                )}
+                <div className="relative flex justify-center items-center">
+                  <button>
+                    <FaEllipsisV onClick={menu.toggleMenu} />
+                  </button>
+                  {menu.menuOpen && (
+                    <Menu
+                      duplicateWorkout={menu.duplicateWorkout}
+                      toggleFavorite={menu.toggleFavorite}
+                      favorite={workout.favourite}
+                      deleteWorkout={menu.deleteWorkout}
+                      closeMenu={() => menu.setMenuOpen(false)}
+                      yPosition={menu.yPosition}
+                      handleEdit={menu.handleEdit}
+                      handlePreview={menu.handlePreview}
+                    />
+                  )}
+                  {menu.summaryOpen && (
+                    <Summary
+                      setSummaryVisible={menu.setSummaryOpen}
+                      workout={workout}
+                      color={workout.color}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
           </div>
+          {menu.displayModal && (
+            <UserMessageModal
+              closePortal={() => {
+                menu.setDisplayModal(false);
+                menu.setMenuOpen(false);
+              }}
+            >
+              <p>Login to modify workouts</p>
+              <Link
+                href="/login"
+                className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
+              >
+                Login/Sign up
+              </Link>
+            </UserMessageModal>
+          )}
         </div>
-      </div>
-      {menu.displayModal && (
-        <UserMessageModal
-          closePortal={() => {
-            menu.setDisplayModal(false);
-            menu.setMenuOpen(false);
-          }}
-        >
-          <p>Login to modify workouts</p>
-          <Link
-            href="/login"
-            className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
-          >
-            Login/Sign up
-          </Link>
-        </UserMessageModal>
       )}
-    </>
+    </Draggable>
   );
 };
 
