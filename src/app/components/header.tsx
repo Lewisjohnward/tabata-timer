@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ReactNode, SetStateAction } from "react";
+import { ChangeEvent, FormEvent, ReactNode, SetStateAction } from "react";
 import Palette from "./palette";
 import {
   AiOutlineSearch,
@@ -13,27 +13,57 @@ import {
   MdExpandLess,
   MdExpandMore,
   MdSettings,
+  TiDelete,
 } from "@/misc/icons";
+import clsx from "clsx";
 
-const SearchBar = ({ dispatch }: { dispatch: any }) => {
-  const handleInput = (e: any) => {
+const SearchBar = ({
+  dispatch,
+  filterString,
+}: {
+  dispatch: React.Dispatch<{
+    type: string;
+    payload: { key: string; value: string };
+  }>;
+  filterString: string;
+}) => {
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: "UPDATE",
       payload: { key: "filterString", value: e.target.value },
     });
   };
 
+  const handleClear = () => {
+    dispatch({
+      type: "UPDATE",
+      payload: { key: "filterString", value: "" },
+    });
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => e.preventDefault();
+
   return (
-    <div className="flex items-center px-2 bg-white rounded cursor-pointer">
-      <button>
-        <AiOutlineSearch className="text-gray-400" />
-      </button>
+    <form
+      className="flex items-center px-2 bg-white rounded cursor-pointer"
+      onSubmit={handleSubmit}
+    >
+      <AiOutlineSearch className="text-4xl lg:text-2xl text-gray-400" />
       <input
         type="text"
+        value={filterString}
         onChange={handleInput}
         className="w-full text-md text-gray-400 outline-none"
       />
-    </div>
+      <button onClick={handleClear}>
+        <TiDelete
+          className={clsx(
+            "text-4xl lg:text-2xl text-gray-400",
+            filterString == "" && "hidden"
+          )}
+        />
+      </button>
+    </form>
   );
 };
 
@@ -110,7 +140,7 @@ const Header = ({
           className="flex justify-end gap-4 px-4 py-2 bg-gray-400 text-white text-xl lg:pr-20"
           style={{ backgroundColor: filter.color }}
         >
-          <SearchBar dispatch={dispatch} />
+          <SearchBar filterString={filter.filterString} dispatch={dispatch} />
           <div className="flex items-center gap-6 text-2xl">
             <Link href="/settings">
               <MdSettings />

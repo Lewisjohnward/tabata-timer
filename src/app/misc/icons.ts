@@ -48,6 +48,7 @@ import {
   FaStickyNote,
   FaSpinner,
 } from "react-icons/fa";
+import { TiDelete } from "react-icons/ti";
 import { BiArrowBack } from "react-icons/bi";
 import { GiWeightLiftingUp, GiSofa } from "react-icons/gi";
 import { RxSpaceBetweenHorizontally } from "react-icons/rx";
@@ -101,6 +102,7 @@ export {
   MdSettings,
   RxSpaceBetweenHorizontally,
   TiTick,
+  TiDelete,
   MdSportsGymnastics,
   LiaDumbbellSolid,
 };
