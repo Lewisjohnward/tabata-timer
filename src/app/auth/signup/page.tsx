@@ -1,11 +1,30 @@
 "use client";
 import BackButton from "@/components/backButton";
-import { useSearchParams } from "next/navigation";
+import { ChangeEvent } from "react";
+import { create } from "zustand";
+
+type Store = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  modifyField: (field: string, value: string) => void;
+};
+
+const useStore = create<Store>()((set) => ({
+  email: "",
+  password: "",
+  confirmPassword: "",
+  modifyField: (field, value) => set(() => ({ [field]: value })),
+}));
 
 const Signup = () => {
-  const searchParams = useSearchParams();
-  const error = searchParams.get("error");
-  const message = searchParams.get("message");
+  const { email, password, confirmPassword, modifyField } = useStore();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+    modifyField(name, e.target.value);
+  };
+
   return (
     <>
       <BackButton />
@@ -23,35 +42,46 @@ const Signup = () => {
           className="rounded-md px-4 py-2 border"
           id="email"
           name="email"
+          value={email}
+          onChange={handleChange}
           placeholder="email"
           pattern=".+@.+\..+"
           required
         />
-        <input
-          className="rounded-md px-4 py-2 border"
-          id="password"
-          type="password"
-          name="password"
-          placeholder="password"
-          required
-        />
-        <input
-          className="rounded-md px-4 py-2 border"
-          id="password"
-          type="password"
-          name="password"
-          placeholder="confirm password"
-          required
-        />
+        <div>
+          <input
+            className="w-full rounded-md px-4 py-2 border"
+            id="password"
+            type="password"
+            value={password}
+            onChange={handleChange}
+            name="password"
+            placeholder="password"
+            required
+          />
+          <p className="text-xs text-gray-600">
+            Minimum 8 characters in length
+          </p>
+        </div>
+        <div>
+          <input
+            className="w-full rounded-md px-4 py-2 border"
+            id="confirmPassword"
+            type="password"
+            value={confirmPassword}
+            onChange={handleChange}
+            name="confirmPassword"
+            placeholder="confirm password"
+            required
+          />
+          <p className="text-xs text-gray-600">
+            Minimum 8 characters in length
+          </p>
+        </div>
         <button className="bg-gray-500 rounded px-4 py-2 text-white mb-2 hover:bg-gray-500 font-bold">
           Sign up
         </button>
       </form>
-      {message && (
-        <p className="mt-4 p-4 bg-neutral-900 text-neutral-300 text-center">
-          {message}
-        </p>
-      )}
     </>
   );
 };
