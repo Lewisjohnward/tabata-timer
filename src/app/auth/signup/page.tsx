@@ -1,14 +1,14 @@
 "use client";
 import BackButton from "@/components/backButton";
-import { ChangeEvent } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import { create } from "zustand";
 
-type Store = {
+interface Store {
   email: string;
   password: string;
   confirmPassword: string;
   modifyField: (field: string, value: string) => void;
-};
+}
 
 const useStore = create<Store>()((set) => ({
   email: "",
@@ -21,8 +21,13 @@ const Signup = () => {
   const { email, password, confirmPassword, modifyField } = useStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.target;
-    modifyField(name, e.target.value);
+    const { name, value } = e.target;
+    modifyField(name, value);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("submit");
   };
 
   return (
@@ -35,8 +40,7 @@ const Signup = () => {
       </p>
       <form
         className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
-        action="/auth/sign-up"
-        method="post"
+        onSubmit={handleSubmit}
       >
         <input
           className="rounded-md px-4 py-2 border"
