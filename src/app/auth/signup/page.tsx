@@ -18,21 +18,23 @@ const useStore = create<Store>()((set) => ({
 }));
 
 const Signup = () => {
-  const { email, password, confirmPassword, modifyField } = useStore();
+  const { email, password, confirmPassword, modifyField, passwordsValidated } =
+    useStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     modifyField(name, value);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submit");
+    //console.log("submit");
   };
 
   return (
     <>
       <BackButton />
+      <button onClick={handleSubmit}>submit</button>
       <h1 className="text-xl font-bold mt-4 mb-4">Sign up</h1>
       <p className="mb-4">
         By continuing, you agree to our User Agreement and acknowledge that you
