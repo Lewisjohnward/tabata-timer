@@ -88,7 +88,9 @@ interface ResetPasswordStore {
 export const resetPasswordStore = create<ResetPasswordStore>()((set, get) => ({
   password: "",
   confirmPassword: "",
-  modifyField: (field, value) => set(() => ({ [field]: value })),
+  modifyField: (field, value) => {
+    set(() => ({ [field]: value }));
+  },
   passwordValidated: () => {
     const { password } = get();
     return password.length >= PASSWORD_LENGTH;

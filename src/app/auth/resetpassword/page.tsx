@@ -1,49 +1,14 @@
 "use client";
-import {
-  useReducer,
-  useEffect,
-  useState,
-  FormEvent,
-  ChangeEvent,
-  SyntheticEvent,
-} from "react";
+import { useEffect, ChangeEvent, SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { resetPasswordStore } from "../store/credentialsStore";
 import { colors } from "@/misc/colors";
 import clsx from "clsx";
 import { FaSpinner } from "react-icons/fa";
 const color = colors[Math.floor(Math.random() * colors.length)];
 
-interface FormData {
-  password: { value: string };
-}
-
-const initPasswordState = {
-  passwordA: "",
-  passwordB: "",
-  passwordValidated: false,
-  passwordsMatch: false,
-};
-
-const reducer = (passwordState: any, action: any) => {
-  switch (action.type) {
-    case "UPDATE":
-      return {
-        ...passwordState,
-        [action.payload.key]: action.payload.value,
-        passwordValidated: action.payload.value.length >= 8,
-        passwordsMatch: passwordState.passwordA == action.payload.value,
-      };
-    default:
-      return passwordState;
-  }
-};
-
 const Page = () => {
-  const [passwordState, dispatch] = useReducer(reducer, initPasswordState);
   const router = useRouter();
-  const supabase = createClientComponentClient();
   const {
     password,
     confirmPassword,
@@ -83,7 +48,7 @@ const Page = () => {
   }, [user]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    modifyField(e.target.name, e.target.value);
+    modifyField(e);
   };
 
   return (
