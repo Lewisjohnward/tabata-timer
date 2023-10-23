@@ -1,7 +1,6 @@
 "use client";
-import { useEffect, ChangeEvent, SyntheticEvent } from "react";
+import { useEffect, SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { resetPasswordStore } from "../store/credentialsStore";
 import { colors } from "@/misc/colors";
 import clsx from "clsx";
@@ -25,18 +24,9 @@ const Page = () => {
 
   const handleUpdatePassword = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const target = e.target as typeof e.target & {
-      password: { value: string };
-    };
-    const password = target.password.value;
-
-    try {
-      toggleLoading();
-      updatePassword(password);
-      router.push("/");
-    } catch (error) {
-      console.log(error);
-    }
+    toggleLoading();
+    updatePassword(e);
+    router.push("/");
   };
 
   useEffect(() => {

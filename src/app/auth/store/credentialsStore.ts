@@ -1,6 +1,6 @@
 import { create, StateCreator } from "zustand";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { ChangeEvent } from "react";
+import { ChangeEvent, SyntheticEvent } from "react";
 
 const PASSWORD_LENGTH = 8;
 
@@ -83,7 +83,7 @@ interface ResetPasswordStore {
   toggleLoading: () => void;
   user: any;
   getUser: () => void;
-  updatePassword: (password: string) => void;
+  updatePassword: (e: SyntheticEvent) => void;
 }
 
 export const resetPasswordStore = create<ResetPasswordStore>()((set, get) => ({
@@ -110,8 +110,13 @@ export const resetPasswordStore = create<ResetPasswordStore>()((set, get) => ({
   },
   loading: false,
   toggleLoading: () => set((state) => ({ loading: !state.loading })),
-  updatePassword: async (password: string) => {
+  updatePassword: async (e) => {
     const supabase = createClientComponentClient();
+    const target = e.target as typeof e.target & {
+      password: { value: string };
+    };
+    const password = target.password.value;
+
     const { error } = await supabase.auth.updateUser({ password });
     console.log(error);
   },
