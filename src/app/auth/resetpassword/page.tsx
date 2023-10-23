@@ -1,7 +1,15 @@
 "use client";
-import { useReducer, useEffect, useState, FormEvent, ChangeEvent } from "react";
+import {
+  useReducer,
+  useEffect,
+  useState,
+  FormEvent,
+  ChangeEvent,
+  SyntheticEvent,
+} from "react";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { resetPasswordStore } from "../store/credentialsStore";
 import { colors } from "@/misc/colors";
 import clsx from "clsx";
 import { FaSpinner } from "react-icons/fa";
@@ -34,18 +42,31 @@ const reducer = (passwordState: any, action: any) => {
 
 const Page = () => {
   const [passwordState, dispatch] = useReducer(reducer, initPasswordState);
-  const [user, setUser] = useState(true);
   const router = useRouter();
   const supabase = createClientComponentClient();
+  const {
+    password,
+    confirmPassword,
+    modifyField,
+    passwordValidated,
+    passwordsValidated,
+    user,
+    getUser,
+    updatePassword,
+    loading,
+    toggleLoading,
+  } = resetPasswordStore();
 
-  const handleUpdatePassword = async (e: FormEvent<HTMLFormElement>) => {
+  const handleUpdatePassword = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const password = e.target.passwordA.value;
+    const target = e.target as typeof e.target & {
+      password: { value: string };
+    };
+    const password = target.password.value;
+
     try {
-      e.preventDefault();
-      const { error } = await supabase.auth.updateUser({
-        password: password,
-      });
+      toggleLoading();
+      updatePassword(password);
       router.push("/");
     } catch (error) {
       console.log(error);
@@ -53,27 +74,21 @@ const Page = () => {
   };
 
   useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      console.log(user);
-      if (!user) router.push("/auth/login");
-      else setUser(true);
-    };
+    toggleLoading();
     getUser();
   }, []);
 
+  useEffect(() => {
+    if (!user) router.push("/auth/login");
+  }, [user]);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: "UPDATE",
-      payload: { key: e.target.name, value: e.target.value },
-    });
+    modifyField(e.target.name, e.target.value);
   };
 
   return (
     <>
-      {user ? (
+      {user && !loading && (
         <>
           <h1 className="text-xl font-bold my-4 text-center">
             Reset your password
@@ -88,10 +103,11 @@ const Page = () => {
                 className="rounded-md px-4 py-2 border focus:outline focus:outline-2 focus:invalid:outline-red-500 focus:valid:outline-green-500"
                 type="password"
                 id="password"
-                name="passwordA"
+                name="password"
                 placeholder="password"
                 pattern=".{8,}"
                 onChange={handleChange}
+                value={password}
                 required
               />
               <p className="text-xs text-gray-600">
@@ -102,16 +118,17 @@ const Page = () => {
               <input
                 className={clsx(
                   "rounded-md px-4 py-2 border focus:outline focus:outline-2 focus:invalid:outline-red-500",
-                  passwordState.passwordsMatch
+                  !passwordValidated
                     ? "focus:valid:outline-green-500"
                     : "focus:valid:outline-red-500"
                 )}
                 type="password"
-                id="password"
-                name="passwordB"
+                id="confirmPassword"
+                name="confirmPassword"
                 placeholder="confirm password"
                 pattern=".{8,}"
                 onChange={handleChange}
+                value={confirmPassword}
                 required
               />
               <p className="text-xs text-gray-600">
@@ -120,17 +137,15 @@ const Page = () => {
             </div>
             <button
               className="px-4 py-2 mb-2 text-white font-bold rounded hover:bg-gray-500 disabled:text-opacity-50"
-              disabled={
-                !passwordState.passwordsMatch ||
-                !passwordState.passwordValidated
-              }
+              disabled={!passwordsValidated()}
               style={{ backgroundColor: color }}
             >
               Reset password
             </button>
           </form>
         </>
-      ) : (
+      )}
+      {loading && (
         <div className="w-[300px] h-[200px] flex justify-center items-center">
           <FaSpinner className="text-8xl text-sky-500 animate-spin" />
         </div>

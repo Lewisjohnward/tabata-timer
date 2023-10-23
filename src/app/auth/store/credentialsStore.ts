@@ -1,4 +1,5 @@
 import { create, StateCreator } from "zustand";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const PASSWORD_LENGTH = 8;
 
@@ -69,4 +70,46 @@ export const useCredentialsStore = create<
   ...createEmailSlice(...a),
   ...createPasswordsSlice(...a),
   ...createModifySlice(...a),
+}));
+
+interface ResetPasswordStore {
+  password: string;
+  confirmPassword: string;
+  modifyField: (field: string, value: string) => void;
+  passwordValidated: () => boolean;
+  passwordsValidated: () => boolean;
+  loading: boolean;
+  toggleLoading: () => void;
+  user: any;
+  getUser: () => void;
+  updatePassword: (password: string) => void;
+}
+
+export const resetPasswordStore = create<ResetPasswordStore>()((set, get) => ({
+  password: "",
+  confirmPassword: "",
+  modifyField: (field, value) => set(() => ({ [field]: value })),
+  passwordValidated: () => {
+    const { password } = get();
+    return password.length >= PASSWORD_LENGTH;
+  },
+  passwordsValidated: () => {
+    const { password, confirmPassword } = get();
+    return password == confirmPassword && password.length >= PASSWORD_LENGTH;
+  },
+  user: {},
+  getUser: async () => {
+    const supabase = createClientComponentClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    set(() => ({ user }));
+  },
+  loading: false,
+  toggleLoading: () => set((state) => ({ loading: !state.loading })),
+  updatePassword: async (password: string) => {
+    const supabase = createClientComponentClient();
+    const { error } = await supabase.auth.updateUser({ password });
+    console.log(error);
+  },
 }));
