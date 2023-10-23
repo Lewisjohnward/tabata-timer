@@ -1,25 +1,11 @@
 "use client";
 import BackButton from "@/components/backButton";
 import { ChangeEvent, FormEvent } from "react";
-import { create } from "zustand";
-
-interface Store {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  modifyField: (field: string, value: string) => void;
-}
-
-const useStore = create<Store>()((set) => ({
-  email: "",
-  password: "",
-  confirmPassword: "",
-  modifyField: (field, value) => set(() => ({ [field]: value })),
-}));
+import { credentialsStore } from "@/auth/store/credentialsStore";
 
 const Signup = () => {
   const { email, password, confirmPassword, modifyField, passwordsValidated } =
-    useStore();
+    credentialsStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,7 +13,10 @@ const Signup = () => {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    console.log("submit");
     e.preventDefault();
+    if (!passwordsValidated()) return;
+    console.log("submitting credentials");
     //console.log("submit");
   };
 
@@ -41,7 +30,7 @@ const Signup = () => {
         understand the Privacy Policy.
       </p>
       <form
-        className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
+        className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&_input]:outline-none"
         onSubmit={handleSubmit}
       >
         <input
