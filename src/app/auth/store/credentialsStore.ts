@@ -77,7 +77,7 @@ export const useCredentialsStore = create<
 
 /***** reset password *****/
 
-interface ResetPasswordStore {
+interface UseResetPasswordStore {
   password: string;
   confirmPassword: string;
   modifyField: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -90,7 +90,7 @@ interface ResetPasswordStore {
   updatePassword: (e: SyntheticEvent) => void;
 }
 
-export const useResetPasswordStore = create<ResetPasswordStore>()(
+export const useResetPasswordStore = create<UseResetPasswordStore>()(
   (set, get) => ({
     password: "",
     confirmPassword: "",
