@@ -1,44 +1,32 @@
 "use client";
-import { FormEvent } from "react";
+import { AiOutlineMail, BiArrowBack, FaSpinner } from "@/misc/icons";
 import { useState } from "react";
-import { AiOutlineMail, BiArrowBack } from "@/misc/icons";
+
 import { colors } from "@/misc/colors";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import BackButton from "@/components/backButton";
+import { useForgotPasswordStore } from "../store/credentialsStore";
 
 const random = (array: string[]) => {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-interface FormData {
-  email: { value: string };
-}
-
 const ForgotPassword = () => {
-  const [success, setSuccess] = useState(false);
-  const supabase = createClientComponentClient();
+  const { email, modify, sendResetEmail, loading, success, toggle } =
+    useForgotPasswordStore();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    const { email } = e.target as typeof e.target & FormData;
-    e.preventDefault();
-    const { error } = await supabase.auth.resetPasswordForEmail(email.value);
-    console.log(error);
-    toggleSuccess();
-  };
-
-  const toggleSuccess = () => {
-    setSuccess((prev) => !prev);
+  const handleRetry = () => {
+    toggle("success");
   };
 
   return (
     <>
       <div className="min-w-[280px]">
         <BackButton />
-        {success ? (
+        {success && (
           <>
             <button
               className="absolute top-2 left-2 text-xl p-2 hover:bg-gray-200 rounded-full"
-              onClick={toggleSuccess}
+              onClick={handleRetry}
             >
               <BiArrowBack />
             </button>
@@ -58,14 +46,15 @@ const ForgotPassword = () => {
                 <button
                   className="px-4 py-1 rounded-lg text-white"
                   style={{ backgroundColor: random(colors) }}
-                  onClick={toggleSuccess}
+                  onClick={handleRetry}
                 >
                   Try Another Email
                 </button>
               </div>
             </div>
           </>
-        ) : (
+        )}{" "}
+        {!success && !loading && (
           <>
             <h1 className="text-xl font-bold my-4 ">Reset your password</h1>
             <p className="text-sm mb-4">
@@ -75,13 +64,15 @@ const ForgotPassword = () => {
             </p>
             <form
               className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&>input]:outline-none"
-              onSubmit={handleSubmit}
+              onSubmit={sendResetEmail}
             >
               <input
                 className="rounded-md px-4 py-2 border"
                 id="email"
                 name="email"
                 placeholder="email"
+                value={email}
+                onChange={modify}
                 pattern=".+@.+\.com"
                 required
               />
@@ -93,6 +84,11 @@ const ForgotPassword = () => {
               </button>
             </form>
           </>
+        )}
+        {loading && (
+          <div className="w-[300px] h-[200px] flex justify-center items-center">
+            <FaSpinner className="text-8xl text-sky-500 animate-spin" />
+          </div>
         )}
       </div>
     </>

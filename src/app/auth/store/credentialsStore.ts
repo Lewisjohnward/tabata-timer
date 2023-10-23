@@ -75,6 +75,37 @@ export const useCredentialsStore = create<
 
 /***** forgot password *****/
 
+interface UseForgotPasswordStore {
+  email: string;
+  modify: (e: ChangeEvent<HTMLInputElement>) => void;
+  sendResetEmail: (e: SyntheticEvent) => void;
+  loading: boolean;
+  success: boolean;
+  toggle: (value: "loading" | "success") => void;
+}
+
+export const useForgotPasswordStore = create<UseForgotPasswordStore>()(
+  (set, get) => ({
+    email: "",
+    modify: (e) => {
+      set(() => ({ [e.target.name]: e.target.value }));
+    },
+    sendResetEmail: async (e) => {
+      const { email, toggle } = get();
+      e.preventDefault();
+      toggle("loading");
+      const supabase = createClientComponentClient();
+      const { error } = await supabase.auth.resetPasswordForEmail(email);
+      console.log(error);
+      toggle("loading");
+      toggle("success");
+    },
+    loading: false,
+    success: false,
+    toggle: (value) => set((state) => ({ [value]: !state[value] })),
+  })
+);
+
 /***** reset password *****/
 
 interface UseResetPasswordStore {

@@ -20,7 +20,7 @@ const Page = () => {
     updatePassword,
     loading,
     toggleLoading,
-  } = useresetPasswordStore();
+  } = useResetPasswordStore();
 
   const handleUpdatePassword = async (e: SyntheticEvent) => {
     e.preventDefault();
