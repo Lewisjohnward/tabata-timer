@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, ChangeEvent, SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { resetPasswordStore } from "../store/credentialsStore";
 import { colors } from "@/misc/colors";
 import clsx from "clsx";
@@ -48,7 +49,7 @@ const Page = () => {
   }, [user]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    modifyField(e);
+    modifyField(e.target.name, e.target.value);
   };
 
   return (
