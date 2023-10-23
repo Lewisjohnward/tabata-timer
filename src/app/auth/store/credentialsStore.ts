@@ -1,5 +1,6 @@
 import { create, StateCreator } from "zustand";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { ChangeEvent } from "react";
 
 const PASSWORD_LENGTH = 8;
 
@@ -75,7 +76,7 @@ export const useCredentialsStore = create<
 interface ResetPasswordStore {
   password: string;
   confirmPassword: string;
-  modifyField: (field: string, value: string) => void;
+  modifyField: (e: ChangeEvent<HTMLInputElement>) => void;
   passwordValidated: () => boolean;
   passwordsValidated: () => boolean;
   loading: boolean;
@@ -88,8 +89,8 @@ interface ResetPasswordStore {
 export const resetPasswordStore = create<ResetPasswordStore>()((set, get) => ({
   password: "",
   confirmPassword: "",
-  modifyField: (field, value) => {
-    set(() => ({ [field]: value }));
+  modifyField: (e) => {
+    set(() => ({ [e.target.name]: e.target.value }));
   },
   passwordValidated: () => {
     const { password } = get();

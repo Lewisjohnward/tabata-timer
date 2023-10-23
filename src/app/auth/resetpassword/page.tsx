@@ -48,10 +48,6 @@ const Page = () => {
     if (!user) router.push("/auth/login");
   }, [user]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    modifyField(e.target.name, e.target.value);
-  };
-
   return (
     <>
       {user && !loading && (
@@ -72,7 +68,7 @@ const Page = () => {
                 name="password"
                 placeholder="password"
                 pattern=".{8,}"
-                onChange={handleChange}
+                onChange={modifyField}
                 value={password}
                 required
               />
@@ -93,7 +89,7 @@ const Page = () => {
                 name="confirmPassword"
                 placeholder="confirm password"
                 pattern=".{8,}"
-                onChange={handleChange}
+                onChange={modifyField}
                 value={confirmPassword}
                 required
               />
