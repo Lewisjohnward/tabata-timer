@@ -34,18 +34,18 @@ const reducer = (passwordState: any, action: any) => {
 
 const Page = () => {
   const [passwordState, dispatch] = useReducer(reducer, initPasswordState);
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
   const router = useRouter();
   const supabase = createClientComponentClient();
 
   const handleUpdatePassword = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const password = e.target.passwordA.value;
     try {
-      const { password } = e.target as typeof e.target & FormData;
       e.preventDefault();
       const { error } = await supabase.auth.updateUser({
-        password: password.value,
+        password: password,
       });
-      console.log(error);
       router.push("/");
     } catch (error) {
       console.log(error);
@@ -57,6 +57,7 @@ const Page = () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
+      console.log(user);
       if (!user) router.push("/auth/login");
       else setUser(true);
     };
