@@ -1,11 +1,11 @@
 "use client";
 import BackButton from "@/components/backButton";
 import { ChangeEvent, FormEvent } from "react";
-import { credentialsStore } from "@/auth/store/credentialsStore";
+import { useCredentialsStore } from "@/auth/store/credentialsStore";
 
 const Signup = () => {
   const { email, password, confirmPassword, modifyField, passwordsValidated } =
-    credentialsStore();
+    useCredentialsStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,7 +23,6 @@ const Signup = () => {
   return (
     <>
       <BackButton />
-      <button onClick={handleSubmit}>submit</button>
       <h1 className="text-xl font-bold mt-4 mb-4">Sign up</h1>
       <p className="mb-4">
         By continuing, you agree to our User Agreement and acknowledge that you
