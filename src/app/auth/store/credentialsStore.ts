@@ -73,6 +73,10 @@ export const useCredentialsStore = create<
   ...createModifySlice(...a),
 }));
 
+/***** forgot password *****/
+
+/***** reset password *****/
+
 interface ResetPasswordStore {
   password: string;
   confirmPassword: string;
@@ -86,38 +90,40 @@ interface ResetPasswordStore {
   updatePassword: (e: SyntheticEvent) => void;
 }
 
-export const resetPasswordStore = create<ResetPasswordStore>()((set, get) => ({
-  password: "",
-  confirmPassword: "",
-  modifyField: (e) => {
-    set(() => ({ [e.target.name]: e.target.value }));
-  },
-  passwordValidated: () => {
-    const { password } = get();
-    return password.length >= PASSWORD_LENGTH;
-  },
-  passwordsValidated: () => {
-    const { password, confirmPassword } = get();
-    return password == confirmPassword && password.length >= PASSWORD_LENGTH;
-  },
-  user: {},
-  getUser: async () => {
-    const supabase = createClientComponentClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    set(() => ({ user }));
-  },
-  loading: false,
-  toggleLoading: () => set((state) => ({ loading: !state.loading })),
-  updatePassword: async (e) => {
-    const supabase = createClientComponentClient();
-    const target = e.target as typeof e.target & {
-      password: { value: string };
-    };
-    const password = target.password.value;
+export const useResetPasswordStore = create<ResetPasswordStore>()(
+  (set, get) => ({
+    password: "",
+    confirmPassword: "",
+    modifyField: (e) => {
+      set(() => ({ [e.target.name]: e.target.value }));
+    },
+    passwordValidated: () => {
+      const { password } = get();
+      return password.length >= PASSWORD_LENGTH;
+    },
+    passwordsValidated: () => {
+      const { password, confirmPassword } = get();
+      return password == confirmPassword && password.length >= PASSWORD_LENGTH;
+    },
+    user: {},
+    getUser: async () => {
+      const supabase = createClientComponentClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      set(() => ({ user }));
+    },
+    loading: false,
+    toggleLoading: () => set((state) => ({ loading: !state.loading })),
+    updatePassword: async (e) => {
+      const supabase = createClientComponentClient();
+      const target = e.target as typeof e.target & {
+        password: { value: string };
+      };
+      const password = target.password.value;
 
-    const { error } = await supabase.auth.updateUser({ password });
-    console.log(error);
-  },
-}));
+      const { error } = await supabase.auth.updateUser({ password });
+      console.log(error);
+    },
+  })
+);

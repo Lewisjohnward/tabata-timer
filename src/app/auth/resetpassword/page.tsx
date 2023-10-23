@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
-import { resetPasswordStore } from "../store/credentialsStore";
+import { useResetPasswordStore } from "../store/credentialsStore";
 import { colors } from "@/misc/colors";
 import clsx from "clsx";
 import { FaSpinner } from "react-icons/fa";
@@ -20,7 +20,7 @@ const Page = () => {
     updatePassword,
     loading,
     toggleLoading,
-  } = resetPasswordStore();
+  } = useresetPasswordStore();
 
   const handleUpdatePassword = async (e: SyntheticEvent) => {
     e.preventDefault();
