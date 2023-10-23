@@ -2,10 +2,17 @@
 import BackButton from "@/components/backButton";
 import { ChangeEvent, FormEvent } from "react";
 import { useCredentialsStore } from "@/auth/store/credentialsStore";
+import clsx from "clsx";
 
 const Signup = () => {
-  const { email, password, confirmPassword, modifyField, passwordsValidated } =
-    useCredentialsStore();
+  const {
+    email,
+    password,
+    confirmPassword,
+    modifyField,
+    passwordValidated,
+    passwordsValidated,
+  } = useCredentialsStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,7 +51,12 @@ const Signup = () => {
         />
         <div>
           <input
-            className="w-full rounded-md px-4 py-2 border"
+            className={clsx(
+              "w-full rounded-md px-4 py-2 border",
+              passwordValidated()
+                ? "focus:border-green-500"
+                : "focus:border-red-500"
+            )}
             id="password"
             type="password"
             value={password}
@@ -59,7 +71,12 @@ const Signup = () => {
         </div>
         <div>
           <input
-            className="w-full rounded-md px-4 py-2 border"
+            className={clsx(
+              "w-full rounded-md px-4 py-2 border",
+              passwordsValidated()
+                ? "focus:border-green-500"
+                : "focus:border-red-500"
+            )}
             id="confirmPassword"
             type="password"
             value={confirmPassword}

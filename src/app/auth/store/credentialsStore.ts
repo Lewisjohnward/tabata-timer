@@ -11,6 +11,7 @@ interface EmailSlice {
 interface PasswordsSlice {
   password: string;
   confirmPassword: string;
+  passwordValidated: () => boolean;
   passwordsValidated: () => boolean;
 }
 
@@ -30,6 +31,10 @@ const createPasswordsSlice: StateCreator<
 > = (_, get) => ({
   password: "",
   confirmPassword: "",
+  passwordValidated: () => {
+    const { password } = get();
+    return password.length >= PASSWORD_LENGTH;
+  },
   passwordsValidated: () => {
     const { password, confirmPassword } = get();
     return password == confirmPassword && password.length >= PASSWORD_LENGTH;
