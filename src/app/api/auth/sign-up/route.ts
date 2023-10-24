@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
-  console.log("SIGN UP ROUTE");
   const requestUrl = new URL(request.url);
   const formData = await request.formData();
   const email = String(formData.get("email"));
@@ -20,21 +19,6 @@ export async function POST(request: Request) {
     },
   });
 
-  if (error) {
-    return NextResponse.redirect(
-      `${requestUrl.origin}/login?error=Could not authenticate user`,
-      {
-        // a 301 status is required to redirect from a POST to a GET route
-        status: 301,
-      }
-    );
-  }
-
-  return NextResponse.redirect(
-    `${requestUrl.origin}/signup?message=Check email to continue sign up process`,
-    {
-      // a 301 status is required to redirect from a POST to a GET route
-      status: 301,
-    }
-  );
+  if (error) return NextResponse.json({ error: "Server error" });
+  return NextResponse.json({ success: "true" });
 }

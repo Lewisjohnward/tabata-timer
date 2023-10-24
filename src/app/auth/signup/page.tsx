@@ -1,10 +1,12 @@
 "use client";
 import BackButton from "@/components/backButton";
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useCredentialsStore } from "@/auth/store/credentialsStore";
 import clsx from "clsx";
+import { FaSpinner } from "react-icons/fa";
 
 const Signup = () => {
+  const [loading, setLoading] = useState(false);
   const {
     email,
     password,
@@ -20,23 +22,33 @@ const Signup = () => {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    console.log("submit");
     e.preventDefault();
-    if (!passwordsValidated()) {
-      console.log("passwords not validated");
-      return;
-    }
-    console.log("hello");
-    console.log(e);
-    console.log("submitting credentials");
-    fetch("/api/auth/sign-up", { method: "POST" })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-    //console.log("submit");
+    if (!passwordsValidated()) return;
+
+    const formData = new FormData();
+    formData.append("email", e.currentTarget.email.value);
+    formData.append("password", e.currentTarget.password.value);
+
+    setLoading(true);
+    const res = await fetch("/api/auth/sign-up", {
+      method: "POST",
+      body: formData,
+    });
+    setLoading(false);
+    const data = await res.json();
+    console.log(data);
+
+    // Add success
+    // Add failure
   };
 
   return (
     <>
+      {loading && (
+        <div className="w-[300px] h-[200px] flex justify-center items-center">
+          <FaSpinner className="text-8xl text-sky-500 animate-spin" />
+        </div>
+      )}
       <BackButton />
       <h1 className="text-xl font-bold mt-4 mb-4">Sign up</h1>
       <p className="mb-4">
