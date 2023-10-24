@@ -1,4 +1,7 @@
 "use client";
+import { colors } from "@/misc/colors";
+
+const color = colors[Math.floor(Math.random() * colors.length)];
 
 import { useSearchParams } from "next/navigation";
 
@@ -9,12 +12,18 @@ export default function Messages() {
   return (
     <>
       {error && (
-        <p className="mt-4 p-4 bg-neutral-900 text-neutral-300 text-center">
+        <p
+          className="p-4 bg-neutral-900 text-white font-bold text-center rounded"
+          style={{ backgroundColor: color }}
+        >
           {error}
         </p>
       )}
       {message && (
-        <p className="mt-4 p-4 bg-neutral-900 text-neutral-300 text-center">
+        <p
+          className="p-4 bg-neutral-900 text-white font-bold text-center rounded"
+          style={{ backgroundColor: color }}
+        >
           {message}
         </p>
       )}
