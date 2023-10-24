@@ -22,8 +22,16 @@ const Signup = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     console.log("submit");
     e.preventDefault();
-    if (!passwordsValidated()) return;
+    if (!passwordsValidated()) {
+      console.log("passwords not validated");
+      return;
+    }
+    console.log("hello");
+    console.log(e);
     console.log("submitting credentials");
+    fetch("/api/auth/sign-up", { method: "POST" })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
     //console.log("submit");
   };
 
