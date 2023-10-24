@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { FaSpinner } from "react-icons/fa";
 
 const Signup = () => {
-  const [loading, setLoading] = useState(false);
+  const [view, setView] = useState("");
   const {
     email,
     password,
@@ -29,92 +29,101 @@ const Signup = () => {
     formData.append("email", e.currentTarget.email.value);
     formData.append("password", e.currentTarget.password.value);
 
-    setLoading(true);
+    setView("loading");
     const res = await fetch("/api/auth/sign-up", {
       method: "POST",
       body: formData,
     });
-    setLoading(false);
     const data = await res.json();
-    console.log(data);
-
-    // Add success
+    if (data.success) setView("success");
     // Add failure
   };
 
-  return (
-    <>
-      {loading && (
+  switch (view) {
+    case "loading":
+      return (
         <div className="w-[300px] h-[200px] flex justify-center items-center">
           <FaSpinner className="text-8xl text-sky-500 animate-spin" />
         </div>
-      )}
-      <BackButton />
-      <h1 className="text-xl font-bold mt-4 mb-4">Sign up</h1>
-      <p className="mb-4">
-        By continuing, you agree to our User Agreement and acknowledge that you
-        understand the Privacy Policy.
-      </p>
-      <form
-        className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&_input]:outline-none"
-        onSubmit={handleSubmit}
-      >
-        <input
-          className="rounded-md px-4 py-2 border"
-          id="email"
-          name="email"
-          value={email}
-          onChange={handleChange}
-          placeholder="email"
-          pattern=".+@.+\..+"
-          required
-        />
-        <div>
-          <input
-            className={clsx(
-              "w-full rounded-md px-4 py-2 border",
-              passwordValidated()
-                ? "focus:border-green-500"
-                : "focus:border-red-500"
-            )}
-            id="password"
-            type="password"
-            value={password}
-            onChange={handleChange}
-            name="password"
-            placeholder="password"
-            required
-          />
-          <p className="text-xs text-gray-600">
-            Minimum 8 characters in length
-          </p>
+      );
+    case "success":
+      return (
+        <div className="w-[300px] h-[200px] flex justify-center items-center">
+          Success! Please confirm your email address using the email we've sent
+          you
         </div>
-        <div>
-          <input
-            className={clsx(
-              "w-full rounded-md px-4 py-2 border",
-              passwordsValidated()
-                ? "focus:border-green-500"
-                : "focus:border-red-500"
-            )}
-            id="confirmPassword"
-            type="password"
-            value={confirmPassword}
-            onChange={handleChange}
-            name="confirmPassword"
-            placeholder="confirm password"
-            required
-          />
-          <p className="text-xs text-gray-600">
-            Minimum 8 characters in length
+      );
+    default:
+      return (
+        <>
+          <BackButton />
+          <h1 className="text-xl font-bold mt-4 mb-4">Sign up</h1>
+          <p className="mb-4">
+            By continuing, you agree to our User Agreement and acknowledge that
+            you understand the Privacy Policy.
           </p>
-        </div>
-        <button className="bg-gray-500 rounded px-4 py-2 text-white mb-2 hover:bg-gray-500 font-bold">
-          Sign up
-        </button>
-      </form>
-    </>
-  );
+          <form
+            className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground [&_input]:outline-none"
+            onSubmit={handleSubmit}
+          >
+            <input
+              className="rounded-md px-4 py-2 border"
+              id="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              placeholder="email"
+              pattern=".+@.+\..+"
+              required
+            />
+            <div>
+              <input
+                className={clsx(
+                  "w-full rounded-md px-4 py-2 border",
+                  passwordValidated()
+                    ? "focus:border-green-500"
+                    : "focus:border-red-500"
+                )}
+                id="password"
+                type="password"
+                value={password}
+                onChange={handleChange}
+                name="password"
+                placeholder="password"
+                required
+              />
+              <p className="text-xs text-gray-600">
+                Minimum 8 characters in length
+              </p>
+            </div>
+            <div>
+              <input
+                className={clsx(
+                  "w-full rounded-md px-4 py-2 border",
+                  passwordsValidated()
+                    ? "focus:border-green-500"
+                    : "focus:border-red-500"
+                )}
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={handleChange}
+                name="confirmPassword"
+                placeholder="confirm password"
+                required
+              />
+              <p className="text-xs text-gray-600">
+                Minimum 8 characters in length
+              </p>
+            </div>
+            <button className="bg-gray-500 rounded px-4 py-2 text-white mb-2 hover:bg-gray-500 font-bold">
+              Sign up
+            </button>
+          </form>
+        </>
+      );
+  }
 };
+//  );
 
 export default Signup;
