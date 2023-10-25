@@ -5,7 +5,6 @@ import { colors } from "@/misc/colors";
 import BackButton from "@/components/backButton";
 import { useForgotPasswordStore } from "../store/credentialsStore";
 import { Spinner } from "@/components/spinner";
-import { useState } from "react";
 
 const random = (array: string[]) => {
   return array[Math.floor(Math.random() * array.length)];
@@ -80,7 +79,7 @@ const ForgotPassword = () => {
             />
             <button
               className="px-4 py-2 mb-2 text-white font-bold rounded hover:bg-gray-500"
-              style={{ backgroundColor: random(colors) }}
+              style={{ backgroundColor: "#ea580c" }}
             >
               Reset password
             </button>
