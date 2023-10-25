@@ -3,7 +3,7 @@ import BackButton from "@/components/backButton";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useCredentialsStore } from "@/auth/store/credentialsStore";
 import clsx from "clsx";
-import { FaSpinner } from "react-icons/fa";
+import { Spinner } from "@/components/spinner";
 
 const Signup = () => {
   const [view, setView] = useState("");
@@ -41,11 +41,7 @@ const Signup = () => {
 
   switch (view) {
     case "loading":
-      return (
-        <div className="w-[300px] h-[200px] flex justify-center items-center">
-          <FaSpinner className="text-8xl text-sky-500 animate-spin" />
-        </div>
-      );
+      return <Spinner />;
     case "success":
       return (
         <div className="w-[300px] h-[200px] flex justify-center items-center">

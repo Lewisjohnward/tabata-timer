@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useResetPasswordStore } from "../store/credentialsStore";
 import { colors } from "@/misc/colors";
 import clsx from "clsx";
-import { FaSpinner } from "react-icons/fa";
+import { Spinner } from "@/components/spinner";
 const color = colors[Math.floor(Math.random() * colors.length)];
 
 const Page = () => {
@@ -97,11 +97,7 @@ const Page = () => {
           </form>
         </>
       )}
-      {loading && (
-        <div className="w-[300px] h-[200px] flex justify-center items-center">
-          <FaSpinner className="text-8xl text-sky-500 animate-spin" />
-        </div>
-      )}
+      {loading && <Spinner />}
     </>
   );
 };

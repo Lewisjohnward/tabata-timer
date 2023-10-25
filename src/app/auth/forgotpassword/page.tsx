@@ -1,10 +1,10 @@
 "use client";
-import { AiOutlineMail, BiArrowBack, FaSpinner } from "@/misc/icons";
-import { useState } from "react";
+import { AiOutlineMail, BiArrowBack } from "@/misc/icons";
 
 import { colors } from "@/misc/colors";
 import BackButton from "@/components/backButton";
 import { useForgotPasswordStore } from "../store/credentialsStore";
+import { Spinner } from "@/components/spinner";
 
 const random = (array: string[]) => {
   return array[Math.floor(Math.random() * array.length)];
@@ -85,11 +85,7 @@ const ForgotPassword = () => {
             </form>
           </>
         )}
-        {loading && (
-          <div className="w-[300px] h-[200px] flex justify-center items-center">
-            <FaSpinner className="text-8xl text-sky-500 animate-spin" />
-          </div>
-        )}
+        {loading && <Spinner />}
       </div>
     </>
   );
