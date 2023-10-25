@@ -77,6 +77,8 @@ export const useCredentialsStore = create<
 
 interface UseForgotPasswordStore {
   email: string;
+  view: string;
+  setView: (view: string) => void;
   modify: (e: ChangeEvent<HTMLInputElement>) => void;
   sendResetEmail: (e: SyntheticEvent) => void;
   loading: boolean;
@@ -87,18 +89,20 @@ interface UseForgotPasswordStore {
 export const useForgotPasswordStore = create<UseForgotPasswordStore>()(
   (set, get) => ({
     email: "",
+
     modify: (e) => {
       set(() => ({ [e.target.name]: e.target.value }));
     },
+    view: "",
+    setView: (view: string) => ({ view }),
     sendResetEmail: async (e) => {
-      const { email, toggle } = get();
+      const { email, setView } = get();
       e.preventDefault();
-      toggle("loading");
+      setView("loading");
       const supabase = createClientComponentClient();
       const { error } = await supabase.auth.resetPasswordForEmail(email);
       console.log(error);
-      toggle("loading");
-      toggle("success");
+      setView("success");
     },
     loading: false,
     success: false,
