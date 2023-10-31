@@ -59,8 +59,8 @@ const Workout = ({
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <div
             className={clsx(
-              "relative flex items-center gap-2 p-4 text-white rounded-lg",
-              snapshot.isDragging && "shadow-lg"
+              "relative flex items-center gap-2 p-4 text-white rounded",
+              snapshot.isDragging && "shadow-2xl"
             )}
             style={{ backgroundColor: `${workout.color}` }}
           >
