@@ -102,7 +102,7 @@ const Header = ({
   return (
     <>
       <div
-        className="flex justify-between gap-2 bg-gray-400 px-2 py-4 lg:px-20 text-white"
+        className="sticky top-0 z-50 flex justify-between gap-2 bg-gray-400 px-2 py-4 lg:px-20 text-white shadow-xl"
         style={{ backgroundColor: filter.color }}
       >
         <div className="flex items-center space-y-4">
