@@ -30,21 +30,22 @@ const Home = ({
   const headerRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
-    const divs = workoutsRef.current?.children[0];
-    console.log(divs?.children[0].style.backgroundColor);
-    const color = divs?.children[0].style.backgroundColor;
-    if (headerRef.current) headerRef.current.style.backgroundColor = color;
-    console.log(divs?.children[0].style.backgroundColor);
+    const divs = workoutsRef.current?.children;
+    const header = headerRef.current;
+    const headerHeight = header?.getBoundingClientRect().bottom;
+    if (!headerHeight || !divs) return;
+    for (const div of divs) {
+      const top = div.getBoundingClientRect().top;
+      const bottom = div.getBoundingClientRect().bottom;
+      if (top <= headerHeight && bottom >= headerHeight) {
+        const color = div.children[0].style.backgroundColor;
+        header.style.backgroundColor = color;
+      }
+    }
   };
 
   return (
     <div className="relative h-screen overflow-scroll" onScroll={handleClick}>
-      <button
-        className="absolute top-0 left-0 p-4 bg-red-200 h-48 w-48 z-50"
-        onClick={handleClick}
-      >
-        hello
-      </button>
       <div
         className="sticky top-0 z-50 flex justify-between gap-2 px-2 py-4 bg-gray-400 lg:px-20 text-white shadow-xl"
         ref={headerRef}
