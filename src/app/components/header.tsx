@@ -101,41 +101,36 @@ const Header = ({
 }: Props) => {
   return (
     <>
-      <div
-        className="sticky top-0 z-50 flex justify-between gap-2 bg-gray-400 px-2 py-4 lg:px-20 text-white shadow-xl"
-        style={{ backgroundColor: filter.color }}
-      >
-        <div className="flex items-center space-y-4">
-          <h1 className="text-xl">Workouts: {filteredWorkouts.length}</h1>
-        </div>
-        <div className="flex items-center gap-6">
-          {user ? (
-            <>
-              <p className="text-md">{`Hey, ${user}!`}</p>
-              <form action="/api/auth/sign-out" method="post">
-                <button className="relative bg-black/20 rounded px-4 py-2">
-                  Logout
-                </button>
-              </form>
-            </>
-          ) : (
-            <Link
-              href="/auth/login"
-              className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
-            >
-              Login/Sign up
-            </Link>
-          )}
-          <Button
-            onClickEvent={() =>
-              dispatch({ type: "TOGGLE", payload: { key: "expandedMenu" } })
-            }
+      <div className="flex items-center space-y-4">
+        <h1 className="text-xl">Workouts: {filteredWorkouts.length}</h1>
+      </div>
+      <div className="flex items-center gap-6">
+        {user ? (
+          <>
+            <p className="text-md">{`Hey, ${user}!`}</p>
+            <form action="/api/auth/sign-out" method="post">
+              <button className="relative bg-black/20 rounded px-4 py-2">
+                Logout
+              </button>
+            </form>
+          </>
+        ) : (
+          <Link
+            href="/auth/login"
+            className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
           >
-            <span className="text-2xl">
-              {!filter.expandedMenu ? <MdExpandMore /> : <MdExpandLess />}
-            </span>
-          </Button>
-        </div>
+            Login/Sign up
+          </Link>
+        )}
+        <Button
+          onClickEvent={() =>
+            dispatch({ type: "TOGGLE", payload: { key: "expandedMenu" } })
+          }
+        >
+          <span className="text-2xl">
+            {!filter.expandedMenu ? <MdExpandMore /> : <MdExpandLess />}
+          </span>
+        </Button>
       </div>
       {filter.expandedMenu && (
         <div
