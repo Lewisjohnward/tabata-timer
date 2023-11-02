@@ -107,7 +107,7 @@ const Header = ({
       <div className="flex items-center gap-6">
         {user ? (
           <>
-            <p className="hidden md:text-md">{`Hey, ${user}!`}</p>
+            <p className="hidden md:block text-md">{`Hey, ${user}!`}</p>
             <form action="/api/auth/sign-out" method="post">
               <button className="relative bg-black/20 rounded px-4 py-2">
                 Logout
