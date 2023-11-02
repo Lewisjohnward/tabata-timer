@@ -101,40 +101,40 @@ const Header = ({
 }: Props) => {
   return (
     <>
-      <div className="flex items-center space-y-4">
+      <div className="flex justify-between items-center bg-inherit">
         <h1 className="text-xl">Workouts: {filteredWorkouts.length}</h1>
-      </div>
-      <div className="flex items-center gap-6">
-        {user ? (
-          <>
-            <p className="hidden md:block text-md">{`Hey, ${user}!`}</p>
-            <form action="/api/auth/sign-out" method="post">
-              <button className="relative bg-black/20 rounded px-4 py-2">
-                Logout
-              </button>
-            </form>
-          </>
-        ) : (
-          <Link
-            href="/auth/login"
-            className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
+        <div className="flex items-center gap-6">
+          {user ? (
+            <>
+              <p className="hidden md:block text-md">{`Hey, ${user}!`}</p>
+              <form action="/api/auth/sign-out" method="post">
+                <button className="relative bg-black/20 rounded px-4 py-2">
+                  Logout
+                </button>
+              </form>
+            </>
+          ) : (
+            <Link
+              href="/auth/login"
+              className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
+            >
+              Login/Sign up
+            </Link>
+          )}
+          <Button
+            onClickEvent={() =>
+              dispatch({ type: "TOGGLE", payload: { key: "expandedMenu" } })
+            }
           >
-            Login/Sign up
-          </Link>
-        )}
-        <Button
-          onClickEvent={() =>
-            dispatch({ type: "TOGGLE", payload: { key: "expandedMenu" } })
-          }
-        >
-          <span className="text-2xl">
-            {!filter.expandedMenu ? <MdExpandMore /> : <MdExpandLess />}
-          </span>
-        </Button>
+            <span className="text-2xl">
+              {!filter.expandedMenu ? <MdExpandMore /> : <MdExpandLess />}
+            </span>
+          </Button>
+        </div>
       </div>
       {filter.expandedMenu && (
         <div
-          className="flex justify-end gap-4 px-4 py-2 bg-gray-400 text-white text-xl lg:pr-20"
+          className="flex justify-end gap-4 py-2 bg-inherit text-white text-xl"
           style={{ backgroundColor: filter.color }}
         >
           <SearchBar filterString={filter.filterString} dispatch={dispatch} />

@@ -48,7 +48,7 @@ const Home = ({
   return (
     <div className="relative h-screen overflow-scroll" onScroll={handleScroll}>
       <div
-        className="sticky top-0 z-50 flex justify-between gap-2 px-2 py-4 bg-gray-400 lg:px-20 text-white shadow-xl"
+        className="sticky top-0 z-50 px-2 py-2 space-y-2 bg-gray-400 lg:px-20 text-white shadow-xl"
         ref={headerRef}
       >
         <Header
