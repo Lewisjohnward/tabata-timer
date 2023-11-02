@@ -6,7 +6,7 @@ import PageSelector from "./pageSelector";
 export const dynamic = "force-dynamic";
 
 export const viewport: Viewport = {
-  themeColor: "black",
+  themeColor: "white",
 };
 
 export default async function Page() {

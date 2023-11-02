@@ -1,5 +1,5 @@
 "use client";
-import { SetStateAction, useRef } from "react";
+import { SetStateAction, useRef, useEffect } from "react";
 import useFilter from "@/hooks/useFilter";
 import AddIcon from "@/components/addIcon";
 import Header from "@/components/header";
@@ -32,6 +32,13 @@ const Home = ({
   const initColor =
     filteredWorkouts.length != 0 ? filteredWorkouts[0].color : "#aaaaaa";
 
+  useEffect(() => {
+    const themeColor: HTMLMetaElement | null = document.querySelector(
+      'meta[name="theme-color"]'
+    );
+    if (themeColor != null) themeColor.content = initColor;
+  }, []);
+
   const handleScroll = () => {
     const divs = workoutsRef.current?.children;
     const header = headerRef.current;
@@ -44,6 +51,10 @@ const Home = ({
         const div = divs[i].children[0] as HTMLDivElement;
         const color = div.style.backgroundColor;
         header.style.backgroundColor = color;
+        const themeColor: HTMLMetaElement | null = document.querySelector(
+          'meta[name="theme-color"]'
+        );
+        if (themeColor != null) themeColor.content = color;
       }
     }
   };
