@@ -28,7 +28,6 @@ const Home = ({
 
   const workoutsRef = useRef<HTMLDivElement>();
   const headerRef = useRef<HTMLDivElement>(null);
-  console.log(filteredWorkouts);
 
   const initColor =
     filteredWorkouts.length != 0 ? filteredWorkouts[0].color : "#aaaaaa";
