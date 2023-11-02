@@ -28,6 +28,10 @@ const Home = ({
 
   const workoutsRef = useRef<HTMLDivElement>();
   const headerRef = useRef<HTMLDivElement>(null);
+  console.log(filteredWorkouts);
+
+  const initColor =
+    filteredWorkouts.length != 0 ? filteredWorkouts[0].color : "#aaaaaa";
 
   const handleScroll = () => {
     const divs = workoutsRef.current?.children;
@@ -49,6 +53,7 @@ const Home = ({
     <div className="relative h-screen overflow-scroll" onScroll={handleScroll}>
       <div
         className="sticky top-0 z-50 px-2 py-2 space-y-2 bg-gray-400 lg:px-20 text-white shadow-xl"
+        style={{ backgroundColor: initColor }}
         ref={headerRef}
       >
         <Header
