@@ -1,8 +1,13 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Viewport } from "next";
 import { cookies } from "next/headers";
 import PageSelector from "./pageSelector";
 
 export const dynamic = "force-dynamic";
+
+export const viewport: Viewport = {
+  themeColor: "black",
+};
 
 export default async function Page() {
   const supabase = createServerComponentClient({ cookies });
