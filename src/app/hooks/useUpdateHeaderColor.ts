@@ -44,10 +44,10 @@ export const useUpdateHeaderColor = (
     updateHeader(workoutsRef, headerRef);
   };
 
+  const initColor = workouts.length != 0 ? workouts[0].color : "#aaaaaa";
   useEffect(() => {
-    const initColor = workouts.length != 0 ? workouts[0].color : "#aaaaaa";
     updateThemeColor(initColor);
     updateBackgroundColor(headerRef, initColor);
   }, []);
-  return { updateColor };
+  return { initColor, updateColor };
 };
