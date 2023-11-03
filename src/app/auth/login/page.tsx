@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Messages from "./messages";
+import Messages from "@/auth/login/messages";
 import { colors } from "@/misc/colors";
 
 const color = colors[Math.floor(Math.random() * colors.length)];
