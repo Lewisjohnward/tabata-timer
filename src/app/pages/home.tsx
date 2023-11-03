@@ -1,10 +1,11 @@
 "use client";
-import { SetStateAction, useRef, useEffect } from "react";
+import { SetStateAction, useRef } from "react";
 import useFilter from "@/hooks/useFilter";
 import AddIcon from "@/components/addIcon";
 import Header from "@/components/header";
 import Workout from "@/components/workout";
 import { Droppable } from "react-beautiful-dnd";
+import { useUpdateHeaderColor } from "@/hooks/useUpdateHeaderColor";
 
 type HomeProps = {
   user: string | undefined;
@@ -28,42 +29,16 @@ const Home = ({
 
   const workoutsRef = useRef<HTMLDivElement>();
   const headerRef = useRef<HTMLDivElement>(null);
-
-  const initColor =
-    filteredWorkouts.length != 0 ? filteredWorkouts[0].color : "#aaaaaa";
-
-  useEffect(() => {
-    const themeColor: HTMLMetaElement | null = document.querySelector(
-      'meta[name="theme-color"]'
-    );
-    if (themeColor != null) themeColor.content = initColor;
-  }, []);
-
-  const handleScroll = () => {
-    const divs = workoutsRef.current?.children;
-    const header = headerRef.current;
-    const headerHeight = header?.getBoundingClientRect().bottom;
-    if (!headerHeight || !divs) return;
-    for (let i = 0; i < divs.length; i++) {
-      const top = divs[i].getBoundingClientRect().top;
-      const bottom = divs[i].getBoundingClientRect().bottom;
-      if (top <= headerHeight && bottom >= headerHeight) {
-        const div = divs[i].children[0] as HTMLDivElement;
-        const color = div.style.backgroundColor;
-        header.style.backgroundColor = color;
-        const themeColor: HTMLMetaElement | null = document.querySelector(
-          'meta[name="theme-color"]'
-        );
-        if (themeColor != null) themeColor.content = color;
-      }
-    }
-  };
+  const { updateColor } = useUpdateHeaderColor(
+    filteredWorkouts,
+    workoutsRef,
+    headerRef
+  );
 
   return (
-    <div className="relative h-screen overflow-scroll" onScroll={handleScroll}>
+    <div className="relative h-screen overflow-scroll" onScroll={updateColor}>
       <div
         className="sticky top-0 z-50 px-2 py-2 space-y-2 bg-gray-400 lg:px-20 text-white shadow-xl"
-        style={{ backgroundColor: initColor }}
         ref={headerRef}
       >
         <Header
