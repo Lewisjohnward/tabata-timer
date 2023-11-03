@@ -21,6 +21,7 @@ import {
   RxSpaceBetweenHorizontally,
   TiTick,
 } from "@/misc/icons";
+import { updateThemeColor } from "@/hooks/useUpdateHeaderColor";
 
 const defaultWorkout = {
   id: "0",
@@ -127,22 +128,24 @@ const AddWorkout = ({
     setView("home");
   };
 
+  updateThemeColor(state.color);
+
   return (
     <>
-      <div className="relative text-sky-900 pb-4">
+      <div className="relative text-sky-900">
         <div
-          className="px-6 py-4 text-white font-bold"
+          className="px-6 py-4 text-white shadow-xl"
           style={{ backgroundColor: state.color }}
         >
           <div className="space-y-4">
             <div className="flex justify-between items-center gap-4">
               <div className="flex gap-4">
                 <button onClick={cancelAddWorkout}>
-                  <AiOutlineClose className="text-4xl" />
+                  <AiOutlineClose className="text-xl" />
                 </button>
-                <h1 className="text-2xl">Add workout</h1>
+                <h1 className="text-xl">Add workout</h1>
               </div>
-              <div className="flex items-center gap-6 text-3xl">
+              <div className="flex items-center gap-4 text-2xl">
                 <button onClick={() => setSummaryVisible(true)}>
                   <AiFillEye />
                 </button>
@@ -154,13 +157,13 @@ const AddWorkout = ({
                 </button>
               </div>
             </div>
-            <p className="text-center text-2xl">
+            <p className="text-center text-xl">
               {`${convertTime(state.totalTime)}. ${state.intervals} intervals`}
             </p>
           </div>
         </div>
 
-        <div className="pr-4 pt-4 space-y-4 text-2xl">
+        <div className="px-4 pt-4 space-y-4 text-xl">
           <TextInput
             icon={<MdTitle />}
             label={"Title"}

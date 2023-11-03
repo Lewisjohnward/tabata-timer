@@ -19,7 +19,7 @@ const NumberInput = ({
 }: NumberInputProps) => {
   return (
     <div className="flex">
-      <div className="flex justify-center items-center text-6xl pl-2">
+      <div className="flex justify-center items-center text-4xl pl-2">
         {icon}
       </div>
       <div className="flex-grow ml-4 space-y-2 text-center border-b-[1px] border-black pb-2">
@@ -35,11 +35,11 @@ const NumberInput = ({
               });
             }}
           >
-            <AiFillMinusCircle className="text-5xl" />
+            <AiFillMinusCircle className="text-4xl" />
           </button>
           <input
             className={clsx(
-              "w-full text-center bg-transparent focus:outline-none text-2xl"
+              "w-full text-center bg-transparent focus:outline-none text-xl"
             )}
             type={"text"}
             value={value}
@@ -65,7 +65,7 @@ const NumberInput = ({
               });
             }}
           >
-            <AiFillPlusCircle className="text-5xl" />
+            <AiFillPlusCircle className="text-4xl" />
           </button>
         </div>
       </div>
@@ -83,7 +83,7 @@ type TextInputProps = {
 export const TextInput = ({ icon, label, value, dispatch }: TextInputProps) => {
   return (
     <div className="flex">
-      <div className="flex justify-center items-center text-6xl pl-2">
+      <div className="flex justify-center items-center text-4xl pl-2">
         {icon}
       </div>
       <div className="flex-grow ml-4 space-y-2 text-center border-b-[1px] border-black pb-2">
