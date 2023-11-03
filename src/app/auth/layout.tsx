@@ -1,7 +1,17 @@
 import { ReactNode } from "react";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { NextResponse } from "next/server";
+import { redirect } from "next/navigation";
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = async ({ children }: { children: ReactNode }) => {
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) redirect("/");
+
   return (
     <div className="h-[100dvh] relative p-4 space-y-4 flex justify-center items-center bg-[url('/background.png')]">
       <Link
