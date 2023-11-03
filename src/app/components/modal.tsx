@@ -16,7 +16,7 @@ const Modal = ({ children, closePortal }: Props) => {
 
   return createPortal(
     <div
-      className="absolute top-0 w-full h-screen flex justify-center items-center"
+      className="absolute z-50 top-0 w-full h-screen flex justify-center items-center"
       onClick={close}
     >
       {children}

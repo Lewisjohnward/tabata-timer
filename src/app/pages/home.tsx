@@ -38,7 +38,7 @@ const Home = ({
   return (
     <div className="relative h-screen overflow-scroll" onScroll={updateColor}>
       <div
-        className="sticky top-0 z-50 px-2 py-2 space-y-2 lg:px-20 text-white shadow-xl"
+        className="sticky top-0 z-10 px-2 py-2 space-y-2 lg:px-20 text-white shadow-xl"
         style={{ backgroundColor: initColor }}
         ref={headerRef}
       >
