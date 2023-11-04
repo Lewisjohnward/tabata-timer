@@ -46,6 +46,7 @@ const reducer = (filter: Filter, action: Action) => {
       return {
         ...filter,
         [key]: value,
+        filterFavorites: false,
       };
     default:
       return filter;
@@ -72,7 +73,7 @@ const useFilter = (workouts: WorkoutObj[]) => {
 
   const filteredWorkouts = filterWorkouts(filter, workouts);
 
-  const favouriteCount = workouts.filter(
+  const favouriteCount = filteredWorkouts.filter(
     (workout) => workout.favourite == true
   ).length;
 
