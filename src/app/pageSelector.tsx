@@ -3,6 +3,7 @@ import { useState } from "react";
 import defaultWorkouts from "@/misc/defaultWorkouts";
 import { ActiveWorkout, AddWorkout, Home } from "@/pages";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { updateThemeColor } from "@/hooks/useUpdateHeaderColor";
 
 const PageSelector = ({
   user,
@@ -34,6 +35,7 @@ const PageSelector = ({
     previous.splice(destination.index, 0, add);
 
     setWorkouts([...previous]);
+    updateThemeColor(previous[0].color);
   };
 
   return (

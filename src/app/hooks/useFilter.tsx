@@ -1,6 +1,7 @@
 "use client";
 import { useReducer } from "react";
 import { colors } from "@/misc/colors";
+import { updateThemeColor } from "./useUpdateHeaderColor";
 
 const filterInit = {
   color: "",
@@ -72,6 +73,7 @@ const useFilter = (workouts: WorkoutObj[]) => {
   const [filter, dispatch] = useReducer(reducer, filterInit);
 
   const filteredWorkouts = filterWorkouts(filter, workouts);
+  if (filteredWorkouts.length != 0) updateThemeColor(filteredWorkouts[0].color);
 
   const favouriteCount = filteredWorkouts.filter(
     (workout) => workout.favourite == true
