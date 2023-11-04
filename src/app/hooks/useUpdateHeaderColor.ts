@@ -29,6 +29,7 @@ const updateHeader = (
     if (top <= headerHeight && bottom >= headerHeight) {
       const div = divs[i].children[0] as HTMLDivElement;
       const color = div.style.backgroundColor;
+
       updateBackgroundColor(headerRef, color);
       updateThemeColor(color);
     }

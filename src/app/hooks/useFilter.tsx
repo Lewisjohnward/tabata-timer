@@ -72,6 +72,10 @@ const useFilter = (workouts: WorkoutObj[]) => {
 
   const filteredWorkouts = filterWorkouts(filter, workouts);
 
+  const favouriteCount = workouts.filter(
+    (workout) => workout.favourite == true
+  ).length;
+
   const colorCount = colors.map((color) => {
     const number = workouts.filter((workout) => color == workout.color).length;
     return {
@@ -83,6 +87,7 @@ const useFilter = (workouts: WorkoutObj[]) => {
   return {
     filteredWorkouts,
     colorCount,
+    favouriteCount,
     filter,
     dispatch,
   };

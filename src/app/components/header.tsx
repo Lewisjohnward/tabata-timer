@@ -70,14 +70,17 @@ const SearchBar = ({
 const Button = ({
   children,
   onClickEvent,
+  isDisabled,
 }: {
   children: ReactNode;
   onClickEvent?: React.Dispatch<SetStateAction<boolean>>;
+  isDisabled?: boolean;
 }) => {
   return (
     <button
       className="hover:text-white/40"
       onClick={() => onClickEvent != undefined && onClickEvent(true)}
+      disabled={isDisabled}
     >
       {children}
     </button>
@@ -90,6 +93,7 @@ type Props = {
   filteredWorkouts: any;
   colorCount: { color: string; number: number }[];
   user: string | undefined;
+  favouriteCount: number;
 };
 
 const Header = ({
@@ -97,6 +101,7 @@ const Header = ({
   dispatch,
   filteredWorkouts,
   colorCount,
+  favouriteCount,
   user,
 }: Props) => {
   return (
@@ -164,6 +169,7 @@ const Header = ({
                   payload: { key: "filterFavorites" },
                 })
               }
+              isDisabled={favouriteCount == 0}
             >
               {filter.filterFavorites ? <BsStarFill /> : <BsStar />}
             </Button>

@@ -24,7 +24,7 @@ const Home = ({
   setWorkoutToEdit,
   setView,
 }: HomeProps) => {
-  const { filter, dispatch, filteredWorkouts, colorCount } =
+  const { filter, dispatch, filteredWorkouts, favouriteCount, colorCount } =
     useFilter(workouts);
 
   const workoutsRef = useRef<HTMLDivElement>();
@@ -47,6 +47,7 @@ const Home = ({
           dispatch={dispatch}
           filteredWorkouts={filteredWorkouts}
           colorCount={colorCount}
+          favouriteCount={favouriteCount}
           user={user}
         />
       </div>
