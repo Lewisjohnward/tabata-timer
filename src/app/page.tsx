@@ -1,5 +1,5 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Viewport } from "next";
+import { Viewport } from "next/dist/lib/metadata/types/extra-types";
 import { cookies } from "next/headers";
 import PageSelector from "./pageSelector";
 
