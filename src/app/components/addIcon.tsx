@@ -4,13 +4,14 @@ import { AiOutlineOrderedList } from "@/misc/icons";
 import clsx from "clsx";
 import Link from "next/link";
 import UserMessageModal from "./userMessageModal";
+import { useStore } from "@/stores/useWorkoutsStore";
 
 type Props = {
-  setView: React.Dispatch<SetStateAction<string>>;
   user: string | undefined;
 };
 
-const AddIcon = ({ setView, user }: Props) => {
+const AddIcon = ({ user }: Props) => {
+  const { setView } = useStore();
   const [open, setOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [newWorkout, setNewWorkout] = useState(true);

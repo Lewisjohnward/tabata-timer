@@ -22,6 +22,7 @@ import {
   TiTick,
 } from "@/misc/icons";
 import { updateThemeColor } from "@/hooks/useUpdateHeaderColor";
+import { useStore } from "@/stores/useWorkoutsStore";
 
 const defaultWorkout = {
   id: "0",
@@ -78,18 +79,11 @@ const inputArray = [
 ];
 
 type Props = {
-  setView: React.Dispatch<SetStateAction<string>>;
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
-  workoutToEdit: WorkoutObj | null;
-  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
 };
 
-const AddWorkout = ({
-  setView,
-  setWorkouts,
-  workoutToEdit,
-  setWorkoutToEdit,
-}: Props) => {
+const AddWorkout = ({ setWorkouts }: Props) => {
+  const { setView, workoutToEdit, setWorkoutToEdit } = useStore();
   const { state, dispatch } = useCreateWorkout(
     workoutToEdit || { ...defaultWorkout }
   );

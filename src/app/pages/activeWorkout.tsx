@@ -12,21 +12,19 @@ import {
 } from "@/misc/icons";
 import useInterval from "@/hooks/useTimer";
 import UserMessageModal from "@/components/userMessageModal";
+import { useStore } from "@/stores/useWorkoutsStore";
 
-type Props = {
-  setView: React.Dispatch<SetStateAction<string>>;
-  workout: WorkoutObj;
-};
+const ActiveWorkout = () => {
+  const setView = useStore((state) => state.setView);
+  const activeWorkout = useStore((state) => state.activeWorkout);
 
-const ActiveWorkout = ({ setView, workout }: Props) => {
   const startWhistleRef = useRef<HTMLAudioElement>(null);
   const beepRef = useRef<HTMLAudioElement>(null);
   const endWhistleRef = useRef<HTMLAudioElement>(null);
   const endBellRef = useRef<HTMLAudioElement>(null);
 
   const intervalManager = useInterval(
-    setView,
-    workout,
+    activeWorkout,
     startWhistleRef,
     beepRef,
     endWhistleRef,

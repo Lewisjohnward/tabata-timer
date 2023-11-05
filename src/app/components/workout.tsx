@@ -10,6 +10,7 @@ import Link from "next/link";
 import UserMessageModal from "./userMessageModal";
 import { Draggable } from "react-beautiful-dnd";
 import clsx from "clsx";
+import { useStore } from "@/stores/useWorkoutsStore";
 
 const ExpandedWorkoutView = ({ workout }: { workout: WorkoutObj }) => {
   return (
@@ -28,31 +29,18 @@ type Props = {
   user: string | undefined;
   index: number;
   expandedWorkout: boolean;
-  setView: React.Dispatch<SetStateAction<string>>;
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
   workout: WorkoutObj;
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
-  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
 };
 
 const Workout = ({
   user,
   index,
   expandedWorkout,
-  setView,
   workout,
   setWorkouts,
-  setActiveWorkout,
-  setWorkoutToEdit,
 }: Props) => {
-  const menu = useMenu(
-    user,
-    setView,
-    setActiveWorkout,
-    setWorkoutToEdit,
-    workout,
-    setWorkouts
-  );
+  const menu = useMenu(user, workout, setWorkouts);
   return (
     <Draggable draggableId={workout.id} index={index} key={workout.id}>
       {(provided, snapshot) => (

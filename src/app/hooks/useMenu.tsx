@@ -2,15 +2,14 @@
 import { MouseEvent, SetStateAction, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { v4 as uuidv4 } from "uuid";
+import { useStore } from "@/stores/useWorkoutsStore";
 
 const useMenu = (
   user: string | undefined,
-  setView: React.Dispatch<SetStateAction<string>>,
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>,
-  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>,
   workout: WorkoutObj,
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>
 ) => {
+  const { setView, setActiveWorkout, setWorkoutToEdit } = useStore();
   const [displayModal, setDisplayModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);

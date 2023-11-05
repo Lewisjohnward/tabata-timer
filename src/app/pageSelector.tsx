@@ -4,6 +4,8 @@ import defaultWorkouts from "@/misc/defaultWorkouts";
 import { ActiveWorkout, AddWorkout, Home } from "@/pages";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { updateThemeColor } from "@/hooks/useUpdateHeaderColor";
+import { createBearStore, useStore } from "@/stores/useWorkoutsStore";
+import { useStore as _useStore } from "zustand";
 
 const PageSelector = ({
   user,
@@ -12,10 +14,17 @@ const PageSelector = ({
   user: string | undefined;
   data: WorkoutObj[];
 }) => {
-  const [view, setView] = useState("home");
+  const view = useStore((state) => state.view);
+  //const workouts = useStore((state) => state.workouts);
+  //const setWorkouts = useStore((state) => state.setWorkouts);
+  //setWorkouts(data);
+
+  const store = createBearStore({ bears: 5 });
+  const bears = _useStore(store, (state) => state.bears);
+  console.log(bears);
+
+  ///////////////////
   const [workouts, setWorkouts] = useState(user ? data : defaultWorkouts);
-  const [activeWorkout, setActiveWorkout] = useState({} as WorkoutObj);
-  const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -37,30 +46,15 @@ const PageSelector = ({
     setWorkouts([...previous]);
     updateThemeColor(previous[0].color);
   };
+  ///////////////////
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       {view == "home" && (
-        <Home
-          user={user}
-          workouts={workouts}
-          setWorkouts={setWorkouts}
-          setView={setView}
-          setActiveWorkout={setActiveWorkout}
-          setWorkoutToEdit={setWorkoutToEdit}
-        />
+        <Home user={user} workouts={workouts} setWorkouts={setWorkouts} />
       )}
-      {view == "activeworkout" && (
-        <ActiveWorkout setView={setView} workout={activeWorkout} />
-      )}
-      {view == "addworkout" && (
-        <AddWorkout
-          setView={setView}
-          setWorkouts={setWorkouts}
-          workoutToEdit={workoutToEdit}
-          setWorkoutToEdit={setWorkoutToEdit}
-        />
-      )}
+      {view == "activeworkout" && <ActiveWorkout />}
+      {view == "addworkout" && <AddWorkout setWorkouts={setWorkouts} />}
     </DragDropContext>
   );
 };

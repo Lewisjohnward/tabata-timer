@@ -14,19 +14,9 @@ type HomeProps = {
   user: string | undefined;
   workouts: WorkoutObj[];
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
-  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
-  setView: React.Dispatch<SetStateAction<string>>;
 };
 
-const Home = ({
-  user,
-  workouts,
-  setWorkouts,
-  setActiveWorkout,
-  setWorkoutToEdit,
-  setView,
-}: HomeProps) => {
+const Home = ({ user, workouts, setWorkouts }: HomeProps) => {
   const { filter, dispatch, filteredWorkouts, favouriteCount, colorCount } =
     useFilter(workouts);
 
@@ -69,22 +59,19 @@ const Home = ({
           >
             {filteredWorkouts.map((workout, index) => (
               <Workout
+                key={workout.id}
                 user={user}
                 index={index}
-                key={workout.id}
                 expandedWorkout={filter.expandedWorkouts}
-                setView={setView}
                 workout={workout}
                 setWorkouts={setWorkouts}
-                setActiveWorkout={setActiveWorkout}
-                setWorkoutToEdit={setWorkoutToEdit}
               />
             ))}
             {provided.placeholder}
           </div>
         )}
       </Droppable>
-      <AddIcon setView={setView} user={user} />
+      <AddIcon user={user} />
     </div>
   );
 };

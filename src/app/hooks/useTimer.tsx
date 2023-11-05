@@ -35,14 +35,13 @@ const calculateNextPosition = (
 };
 
 const useInterval = (
-  setView: React.Dispatch<SetStateAction<string>>,
-  workoutObj: WorkoutObj,
+  workoutObj: WorkoutObj | null,
   startWhistleRef: RefObject<HTMLAudioElement>,
   beepRef: RefObject<HTMLAudioElement>,
   endWhistleRef: RefObject<HTMLAudioElement>,
   endBellRef: RefObject<HTMLAudioElement>
 ) => {
-  const intervalArray = generateArray(workoutObj);
+  const intervalArray = generateArray(workoutObj as WorkoutObj);
   const [remainingTime, setRemainingTime] = useState(
     calculateTotalTime(intervalArray)
   );
