@@ -21,7 +21,6 @@ const PageSelector = ({
 
   const store = createBearStore({ bears: 5 });
   const bears = _useStore(store, (state) => state.bears);
-  console.log(bears);
 
   ///////////////////
   const [workouts, setWorkouts] = useState(user ? data : defaultWorkouts);
