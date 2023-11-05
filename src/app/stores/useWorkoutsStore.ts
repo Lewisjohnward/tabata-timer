@@ -49,7 +49,7 @@ interface BearState extends BearProps {
   addBear: () => void;
 }
 
-type BearStore = ReturnType<typeof createBearStore>;
+export type BearStore = ReturnType<typeof createBearStore>;
 
 const createBearStore = (initProps?: Partial<BearProps>) => {
   const DEFAULT_PROPS: BearProps = {

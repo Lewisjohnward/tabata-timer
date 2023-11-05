@@ -1,5 +1,5 @@
 "use client";
-import { SetStateAction, useEffect, useRef } from "react";
+import { SetStateAction, useContext, useEffect, useRef } from "react";
 import useFilter from "@/hooks/useFilter";
 import AddIcon from "@/components/addIcon";
 import Header from "@/components/header";
@@ -9,6 +9,8 @@ import {
   updateThemeColor,
   useUpdateHeaderColor,
 } from "@/hooks/useUpdateHeaderColor";
+import { BearContext } from "@/pageSelector";
+import { useStore } from "zustand";
 
 type HomeProps = {
   user: string | undefined;
@@ -17,6 +19,10 @@ type HomeProps = {
 };
 
 const Home = ({ user, workouts, setWorkouts }: HomeProps) => {
+  const store = useContext(BearContext);
+  if (!store) throw new Error("Missing BeatContext.Provider in the tree");
+  const bears = useStore(store, (state) => state.bears);
+
   const { filter, dispatch, filteredWorkouts, favouriteCount, colorCount } =
     useFilter(workouts);
 

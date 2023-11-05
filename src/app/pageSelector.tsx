@@ -1,11 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useState, createContext, useRef } from "react";
 import defaultWorkouts from "@/misc/defaultWorkouts";
 import { ActiveWorkout, AddWorkout, Home } from "@/pages";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { updateThemeColor } from "@/hooks/useUpdateHeaderColor";
-import { createBearStore, useStore } from "@/stores/useWorkoutsStore";
+import {
+  BearStore,
+  createBearStore,
+  useStore,
+} from "@/stores/useWorkoutsStore";
 import { useStore as _useStore } from "zustand";
+
+export const BearContext = createContext<BearStore | null>(null);
 
 const PageSelector = ({
   user,
@@ -19,7 +25,7 @@ const PageSelector = ({
   //const setWorkouts = useStore((state) => state.setWorkouts);
   //setWorkouts(data);
 
-  const store = createBearStore({ bears: 5 });
+  const store = useRef(createBearStore({ bears: 5 })).current;
   const bears = _useStore(store, (state) => state.bears);
 
   ///////////////////
@@ -48,13 +54,15 @@ const PageSelector = ({
   ///////////////////
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      {view == "home" && (
-        <Home user={user} workouts={workouts} setWorkouts={setWorkouts} />
-      )}
-      {view == "activeworkout" && <ActiveWorkout />}
-      {view == "addworkout" && <AddWorkout setWorkouts={setWorkouts} />}
-    </DragDropContext>
+    <BearContext.Provider value={store}>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        {view == "home" && (
+          <Home user={user} workouts={workouts} setWorkouts={setWorkouts} />
+        )}
+        {view == "activeworkout" && <ActiveWorkout />}
+        {view == "addworkout" && <AddWorkout setWorkouts={setWorkouts} />}
+      </DragDropContext>
+    </BearContext.Provider>
   );
 };
 export default PageSelector;
