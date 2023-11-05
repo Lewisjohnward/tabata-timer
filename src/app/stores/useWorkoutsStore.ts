@@ -1,3 +1,4 @@
+import defaultWorkouts from "@/misc/defaultWorkouts";
 import { create } from "zustand";
 interface WorkoutStore {
   workouts: WorkoutObj[];
@@ -5,8 +6,11 @@ interface WorkoutStore {
 }
 
 const useWorkoutsStore = create<WorkoutStore>()((set) => ({
-  workouts: [],
-  setWorkouts: (workouts) => set(() => ({ workouts })),
+  workouts: defaultWorkouts,
+  setWorkouts: (workouts) => {
+    console.log("set workouts");
+    set(() => ({ workouts }));
+  },
 }));
 
 export { useWorkoutsStore };
