@@ -1,14 +1,11 @@
 "use client";
-import { SetStateAction, useEffect, useRef } from "react";
+import { SetStateAction, useRef } from "react";
 import useFilter from "@/hooks/useFilter";
 import AddIcon from "@/components/addIcon";
 import Header from "@/components/header";
 import Workout from "@/components/workout";
 import { Droppable } from "react-beautiful-dnd";
-import {
-  updateThemeColor,
-  useUpdateHeaderColor,
-} from "@/hooks/useUpdateHeaderColor";
+import { useUpdateHeaderColor } from "@/hooks/useUpdateHeaderColor";
 
 type HomeProps = {
   user: string | undefined;
