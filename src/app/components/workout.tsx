@@ -29,7 +29,7 @@ type Props = {
   index: number;
   expandedWorkout: boolean;
   setView: React.Dispatch<SetStateAction<string>>;
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
+  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj | null>>;
   workout: WorkoutObj;
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;

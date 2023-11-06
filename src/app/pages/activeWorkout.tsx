@@ -15,7 +15,7 @@ import UserMessageModal from "@/components/userMessageModal";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;
-  workout: WorkoutObj;
+  workout: WorkoutObj | null;
 };
 
 const ActiveWorkout = ({ setView, workout }: Props) => {
@@ -25,13 +25,13 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
   const endBellRef = useRef<HTMLAudioElement>(null);
 
   const intervalManager = useInterval(
-    setView,
     workout,
     startWhistleRef,
     beepRef,
     endWhistleRef,
     endBellRef
   );
+
   return (
     <>
       <div

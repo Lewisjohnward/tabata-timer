@@ -11,7 +11,7 @@ type HomeProps = {
   user: string | undefined;
   workouts: WorkoutObj[];
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>;
+  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj | null>>;
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
   setView: React.Dispatch<SetStateAction<string>>;
 };

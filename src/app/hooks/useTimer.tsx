@@ -1,5 +1,5 @@
 "use client";
-import { RefObject, SetStateAction, useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import convertTime from "@/helpers/convertTime";
 import generateArray from "@/helpers/generateArray";
 import calculateTotalTime from "@/helpers/calculateTotalTime";
@@ -35,14 +35,14 @@ const calculateNextPosition = (
 };
 
 const useInterval = (
-  setView: React.Dispatch<SetStateAction<string>>,
-  workoutObj: WorkoutObj,
+  workout: WorkoutObj | null,
   startWhistleRef: RefObject<HTMLAudioElement>,
   beepRef: RefObject<HTMLAudioElement>,
   endWhistleRef: RefObject<HTMLAudioElement>,
   endBellRef: RefObject<HTMLAudioElement>
 ) => {
-  const intervalArray = generateArray(workoutObj);
+  if (!workout) throw new Error("There is no active workout");
+  const intervalArray = generateArray(workout);
   const [remainingTime, setRemainingTime] = useState(
     calculateTotalTime(intervalArray)
   );

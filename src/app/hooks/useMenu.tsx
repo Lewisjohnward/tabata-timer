@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 const useMenu = (
   user: string | undefined,
   setView: React.Dispatch<SetStateAction<string>>,
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj>>,
+  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj | null>>,
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>,
   workout: WorkoutObj,
   setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>

@@ -1,9 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import defaultWorkouts from "@/misc/defaultWorkouts";
 import { ActiveWorkout, AddWorkout, Home } from "@/pages";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { updateThemeColor } from "@/helpers/updateThemeColor";
+
+//interface TabataState {
+//    view: "home" | "addworkout" | "activeworkout"
+//    workouts: WorkoutObj[]
+//    activeWorkout:
+//}
+//
+//
+//const reducer = (state: ) => {
+//    s
+//}
+//
+//const useTabata = () => {
+//    const {state, dispatch} = useReducer(, initializerArg, initializer)
+//}
 
 const PageSelector = ({
   user,
@@ -14,7 +29,7 @@ const PageSelector = ({
 }) => {
   const [view, setView] = useState("home");
   const [workouts, setWorkouts] = useState(user ? data : defaultWorkouts);
-  const [activeWorkout, setActiveWorkout] = useState({} as WorkoutObj);
+  const [activeWorkout, setActiveWorkout] = useState<WorkoutObj | null>(null);
   const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
 
   const handleDragEnd = (result: DropResult) => {
