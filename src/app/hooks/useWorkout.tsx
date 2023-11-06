@@ -5,6 +5,7 @@ import calculateTotalTime from "@/helpers/calculateTotalTime";
 import generateArray from "@/helpers/generateArray";
 import { v4 as uuidv4 } from "uuid";
 import { colors } from "@/misc/colors";
+import { updateThemeColor } from "@/helpers/updateThemeColor";
 
 type Payload = {
   key: keyof WorkoutObj;
@@ -64,6 +65,8 @@ const initWorkout = (workout: WorkoutObj) => {
 
 const useCreateWorkout = (workout: WorkoutObj) => {
   const [state, dispatch] = useReducer(reducer, workout, initWorkout);
+
+  updateThemeColor(state.color);
 
   return {
     state,

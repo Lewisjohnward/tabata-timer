@@ -21,7 +21,6 @@ import {
   RxSpaceBetweenHorizontally,
   TiTick,
 } from "@/misc/icons";
-import { updateThemeColor } from "@/helpers/updateThemeColor";
 
 const defaultWorkout = {
   id: "0",
@@ -127,8 +126,6 @@ const AddWorkout = ({
     setWorkoutToEdit(null);
     setView("home");
   };
-
-  updateThemeColor(state.color);
 
   return (
     <>
