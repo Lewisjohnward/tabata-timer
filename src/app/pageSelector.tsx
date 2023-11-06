@@ -3,7 +3,7 @@ import { useState } from "react";
 import defaultWorkouts from "@/misc/defaultWorkouts";
 import { ActiveWorkout, AddWorkout, Home } from "@/pages";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { updateThemeColor } from "@/hooks/useUpdateHeaderColor";
+import { updateThemeColor } from "@/helpers/updateThemeColor";
 
 const PageSelector = ({
   user,

@@ -21,7 +21,7 @@ import {
   RxSpaceBetweenHorizontally,
   TiTick,
 } from "@/misc/icons";
-import { updateThemeColor } from "@/hooks/useUpdateHeaderColor";
+import { updateThemeColor } from "@/helpers/updateThemeColor";
 
 const defaultWorkout = {
   id: "0",

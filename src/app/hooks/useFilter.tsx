@@ -1,7 +1,7 @@
 "use client";
 import { useReducer } from "react";
 import { colors } from "@/misc/colors";
-import { updateThemeColor } from "./useUpdateHeaderColor";
+import { updateThemeColor } from "@/helpers/updateThemeColor";
 
 const filterInit = {
   color: "",

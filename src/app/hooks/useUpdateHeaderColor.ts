@@ -1,11 +1,5 @@
 import { MutableRefObject, useEffect } from "react";
-
-export const updateThemeColor = (color: string) => {
-  const themeColor: HTMLMetaElement | null = document.querySelector(
-    'meta[name="theme-color"]'
-  );
-  if (themeColor != null) themeColor.content = color;
-};
+import { updateThemeColor } from "@/helpers/updateThemeColor";
 
 const updateBackgroundColor = (
   ref: MutableRefObject<HTMLDivElement | null>,

@@ -3,7 +3,7 @@ import { RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import convertTime from "@/helpers/convertTime";
 import generateArray from "@/helpers/generateArray";
 import calculateTotalTime from "@/helpers/calculateTotalTime";
-import { updateThemeColor } from "./useUpdateHeaderColor";
+import { updateThemeColor } from "@/helpers/updateThemeColor";
 
 const getBackgroundColor = (intervalType: string) => {
   switch (intervalType) {
