@@ -46,4 +46,20 @@ const defaultWorkouts = [
   },
 ];
 
+export const templateWorkout = {
+  id: "0",
+  title: "Bicep curls",
+  favourite: false,
+  totalTime: 0,
+  intervals: 0,
+  color: "#dc2626",
+  prepare: 10,
+  work: 30,
+  rest: 10,
+  cycles: 1,
+  sets: 1,
+  restBetweenSets: 0,
+  cooldown: 10,
+};
+
 export default defaultWorkouts;

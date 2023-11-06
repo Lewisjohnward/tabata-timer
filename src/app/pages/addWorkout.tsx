@@ -21,22 +21,7 @@ import {
   RxSpaceBetweenHorizontally,
   TiTick,
 } from "@/misc/icons";
-
-const defaultWorkout = {
-  id: "0",
-  title: "Bicep curls",
-  favourite: false,
-  totalTime: 0,
-  intervals: 0,
-  color: "#dc2626",
-  prepare: 10,
-  work: 30,
-  rest: 10,
-  cycles: 1,
-  sets: 1,
-  restBetweenSets: 0,
-  cooldown: 10,
-};
+import { templateWorkout } from "@/misc/defaultWorkouts";
 
 const inputArray = [
   {
@@ -90,7 +75,7 @@ const AddWorkout = ({
   setWorkoutToEdit,
 }: Props) => {
   const { state, dispatch } = useCreateWorkout(
-    workoutToEdit || { ...defaultWorkout }
+    workoutToEdit || { ...templateWorkout }
   );
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
