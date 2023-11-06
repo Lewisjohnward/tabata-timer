@@ -74,8 +74,9 @@ const AddWorkout = ({
   workoutToEdit,
   setWorkoutToEdit,
 }: Props) => {
-  const { state, dispatch } = useCreateWorkout(
-    workoutToEdit || { ...templateWorkout }
+  const { state, dispatch, createWorkout } = useCreateWorkout(
+    workoutToEdit || { ...templateWorkout },
+    setView
   );
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
@@ -115,6 +116,7 @@ const AddWorkout = ({
   return (
     <>
       <div className="relative text-sky-900">
+        <button onClick={createWorkout}>test</button>
         <div
           className="px-6 py-4 text-white shadow-xl"
           style={{ backgroundColor: state.color }}

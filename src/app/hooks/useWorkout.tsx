@@ -1,5 +1,5 @@
 "use client";
-import { useReducer } from "react";
+import { SetStateAction, useReducer } from "react";
 import calculateIntervals from "@/helpers/calculateIntervals";
 import calculateTotalTime from "@/helpers/calculateTotalTime";
 import generateArray from "@/helpers/generateArray";
@@ -63,12 +63,22 @@ const initWorkout = (workout: WorkoutObj) => {
   return calculateIntervalsTime(workout);
 };
 
-const useCreateWorkout = (workout: WorkoutObj) => {
+const useCreateWorkout = (
+  workout: WorkoutObj,
+  setView: React.Dispatch<SetStateAction<string>>
+) => {
   const [state, dispatch] = useReducer(reducer, workout, initWorkout);
+
+  const createWorkout = () => {
+    setView("home");
+    console.log(state);
+    console.log("create workout");
+  };
 
   updateThemeColor(state.color);
 
   return {
+    createWorkout,
     state,
     dispatch,
   };
