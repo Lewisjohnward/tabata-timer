@@ -29,6 +29,7 @@ const Home = ({
 
   const { filter, dispatch, filteredWorkouts, favouriteCount, colorCount } =
     useFilter(workouts);
+
   const { initColor, updateColor } = useUpdateHeaderColor(
     filteredWorkouts,
     workoutsRef,

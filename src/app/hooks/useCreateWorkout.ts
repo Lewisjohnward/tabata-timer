@@ -1,11 +1,12 @@
 "use client";
-import { SetStateAction, useReducer } from "react";
+import { useReducer } from "react";
 import calculateIntervals from "@/helpers/calculateIntervals";
 import calculateTotalTime from "@/helpers/calculateTotalTime";
 import generateArray from "@/helpers/generateArray";
 import { v4 as uuidv4 } from "uuid";
 import { colors } from "@/misc/colors";
 import { updateThemeColor } from "@/helpers/updateThemeColor";
+import { templateWorkout } from "@/misc/defaultWorkouts";
 
 type Payload = {
   key: keyof WorkoutObj;
@@ -54,7 +55,9 @@ const calculateIntervalsTime = (workout: WorkoutObj) => {
   return workout;
 };
 
-const initWorkout = (workout: WorkoutObj) => {
+const initWorkout = (workout: WorkoutObj | null) => {
+  if (!workout) workout = templateWorkout;
+
   if (workout.id === "0") {
     workout.id = uuidv4();
     workout.color = colors[Math.floor(Math.random() * colors.length)];
@@ -63,22 +66,12 @@ const initWorkout = (workout: WorkoutObj) => {
   return calculateIntervalsTime(workout);
 };
 
-const useCreateWorkout = (
-  workout: WorkoutObj,
-  setView: React.Dispatch<SetStateAction<string>>
-) => {
+const useCreateWorkout = (workout: WorkoutObj | null) => {
   const [state, dispatch] = useReducer(reducer, workout, initWorkout);
-
-  const createWorkout = () => {
-    setView("home");
-    console.log(state);
-    console.log("create workout");
-  };
 
   updateThemeColor(state.color);
 
   return {
-    createWorkout,
     state,
     dispatch,
   };

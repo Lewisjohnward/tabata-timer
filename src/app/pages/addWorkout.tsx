@@ -1,8 +1,8 @@
 "use client";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { SetStateAction, useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import NumberInput, { TextInput } from "@/components/input";
-import useCreateWorkout from "@/hooks/useWorkout";
+import useCreateWorkout from "@/hooks/useCreateWorkout";
 import convertTime from "@/helpers/convertTime";
 import Summary from "@/components/summary";
 import Palette from "@/components/palette";
@@ -21,7 +21,6 @@ import {
   RxSpaceBetweenHorizontally,
   TiTick,
 } from "@/misc/icons";
-import { templateWorkout } from "@/misc/defaultWorkouts";
 
 const inputArray = [
   {
@@ -74,10 +73,7 @@ const AddWorkout = ({
   workoutToEdit,
   setWorkoutToEdit,
 }: Props) => {
-  const { state, dispatch, createWorkout } = useCreateWorkout(
-    workoutToEdit || { ...templateWorkout },
-    setView
-  );
+  const { state, dispatch } = useCreateWorkout(workoutToEdit);
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
   const supabase = createClientComponentClient();
@@ -116,7 +112,6 @@ const AddWorkout = ({
   return (
     <>
       <div className="relative text-sky-900">
-        <button onClick={createWorkout}>test</button>
         <div
           className="px-6 py-4 text-white shadow-xl"
           style={{ backgroundColor: state.color }}
