@@ -24,11 +24,11 @@ const Home = ({
   setWorkoutToEdit,
   setView,
 }: HomeProps) => {
-  const { filter, dispatch, filteredWorkouts, favouriteCount, colorCount } =
-    useFilter(workouts);
-
   const workoutsRef = useRef<HTMLDivElement>();
   const headerRef = useRef<HTMLDivElement>(null);
+
+  const { filter, dispatch, filteredWorkouts, favouriteCount, colorCount } =
+    useFilter(workouts);
   const { initColor, updateColor } = useUpdateHeaderColor(
     filteredWorkouts,
     workoutsRef,
