@@ -30,16 +30,17 @@ const updateHeader = (
   }
 };
 
-export const useUpdateHeaderColor = (
+export const useHeaderColor = (
   workouts: WorkoutObj[],
   workoutsRef: MutableRefObject<HTMLDivElement | undefined>,
-  headerRef: MutableRefObject<HTMLDivElement | null>
+  headerRef: MutableRefObject<HTMLDivElement | null>,
+  color: string
 ) => {
   const updateColor = () => {
     updateHeader(workoutsRef, headerRef);
   };
 
-  const initColor = workouts.length != 0 ? workouts[0].color : "#aaaaaa";
+  const initColor = workouts.length != 0 ? workouts[0].color : color;
   useEffect(() => {
     updateThemeColor(initColor);
     updateBackgroundColor(headerRef, initColor);

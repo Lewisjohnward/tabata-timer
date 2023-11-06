@@ -5,7 +5,7 @@ import AddIcon from "@/components/addIcon";
 import Header from "@/components/header";
 import Workout from "@/components/workout";
 import { Droppable } from "react-beautiful-dnd";
-import { useUpdateHeaderColor } from "@/hooks/useUpdateHeaderColor";
+import { useHeaderColor } from "@/hooks/useUpdateHeaderColor";
 
 type HomeProps = {
   user: string | undefined;
@@ -30,10 +30,11 @@ const Home = ({
   const { filter, dispatch, filteredWorkouts, favouriteCount, colorCount } =
     useFilter(workouts);
 
-  const { initColor, updateColor } = useUpdateHeaderColor(
+  const { initColor, updateColor } = useHeaderColor(
     filteredWorkouts,
     workoutsRef,
-    headerRef
+    headerRef,
+    filter.color
   );
 
   return (
