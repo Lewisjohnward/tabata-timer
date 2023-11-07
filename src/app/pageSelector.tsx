@@ -9,41 +9,16 @@ const PageSelector = ({
   user: string | undefined;
   data: WorkoutObj[];
 }) => {
-  const {
-    view,
-    setView,
-    workouts,
-    setWorkouts,
-    activeWorkout,
-    setActiveWorkout,
-    workoutToEdit,
-    setWorkoutToEdit,
-    handleDragEnd,
-  } = useTabata({ data });
+  const tabata = useTabata({ data });
+  const { view } = tabata;
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      {view == "home" && (
-        <Home
-          user={user}
-          workouts={workouts}
-          setWorkouts={setWorkouts}
-          setView={setView}
-          setActiveWorkout={setActiveWorkout}
-          setWorkoutToEdit={setWorkoutToEdit}
-        />
-      )}
-      {view == "activeworkout" && (
-        <ActiveWorkout setView={setView} workout={activeWorkout} />
-      )}
-      {view == "addworkout" && (
-        <AddWorkout
-          setView={setView}
-          setWorkouts={setWorkouts}
-          workoutToEdit={workoutToEdit}
-          setWorkoutToEdit={setWorkoutToEdit}
-        />
-      )}
+    <DragDropContext onDragEnd={tabata.handleDragEnd}>
+      {tabata.view == "home" && <Home user={user} tabata={tabata} />}
+
+      {view == "activeworkout" && <ActiveWorkout tabata={tabata} />}
+
+      {view == "addworkout" && <AddWorkout tabata={tabata} />}
     </DragDropContext>
   );
 };

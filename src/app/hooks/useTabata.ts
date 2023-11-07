@@ -2,6 +2,7 @@ import { useReducer, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { updateThemeColor } from "@/helpers/updateThemeColor";
 import defaultWorkouts from "@/misc/defaultWorkouts";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface UseTabata {
   data: WorkoutObj[];
@@ -25,6 +26,7 @@ const useTabata = ({ data }: UseTabata) => {
   const [workouts, setWorkouts] = useState(data ? data : defaultWorkouts);
   const [activeWorkout, setActiveWorkout] = useState<WorkoutObj | null>(null);
   const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
+  const supabase = createClientComponentClient();
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -47,6 +49,30 @@ const useTabata = ({ data }: UseTabata) => {
     updateThemeColor(previous[0].color);
   };
 
+  const createWorkout = async (createdWorkout: WorkoutObj) => {
+    if (workoutToEdit) {
+      const { error } = await supabase
+        .from("workouts")
+        .update(createdWorkout)
+        .eq("id", workoutToEdit.id);
+      console.log(error);
+      setWorkouts((prev) => {
+        const index = prev.findIndex(
+          (prevWorkout) => prevWorkout.id === createdWorkout.id
+        );
+        const newWorkoutArr = prev.filter(({ id }) => id != workoutToEdit.id);
+        newWorkoutArr.splice(index, 0, createdWorkout);
+        return newWorkoutArr;
+      });
+      setWorkoutToEdit(null);
+    } else {
+      const { error } = await supabase.from("workouts").insert(createdWorkout);
+      console.log("Error - add Workout: ", error);
+      setWorkouts((prev) => [...prev, { ...createdWorkout }]);
+    }
+    setView("home");
+  };
+
   return {
     view,
     setView,
@@ -57,6 +83,7 @@ const useTabata = ({ data }: UseTabata) => {
     workoutToEdit,
     setWorkoutToEdit,
     handleDragEnd,
+    createWorkout,
   };
 };
 

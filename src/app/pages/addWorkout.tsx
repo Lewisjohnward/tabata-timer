@@ -1,5 +1,5 @@
 "use client";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import NumberInput, { TextInput } from "@/components/input";
 import useCreateWorkout from "@/hooks/useCreateWorkout";
@@ -61,52 +61,19 @@ const inputArray = [
 ];
 
 type Props = {
-  setView: React.Dispatch<SetStateAction<string>>;
-  setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
-  workoutToEdit: WorkoutObj | null;
-  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
+  tabata: Tabata;
 };
 
-const AddWorkout = ({
-  setView,
-  setWorkouts,
-  workoutToEdit,
-  setWorkoutToEdit,
-}: Props) => {
-  const { state, dispatch } = useCreateWorkout(workoutToEdit);
+const AddWorkout = ({ tabata }: Props) => {
+  const { state, dispatch } = useCreateWorkout(tabata.workoutToEdit);
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);
-  const supabase = createClientComponentClient();
 
   document.body.style.overflow = "scroll";
 
-  const handleCreateWorkout = async () => {
-    if (workoutToEdit) {
-      const { error } = await supabase
-        .from("workouts")
-        .update(state)
-        .eq("id", workoutToEdit.id);
-      console.log(error);
-      setWorkouts((prev) => {
-        const index = prev.findIndex(
-          (prevWorkout) => prevWorkout.id === state.id
-        );
-        const newWorkoutArr = prev.filter(({ id }) => id != workoutToEdit.id);
-        newWorkoutArr.splice(index, 0, state);
-        return newWorkoutArr;
-      });
-      setWorkoutToEdit(null);
-    } else {
-      const { error } = await supabase.from("workouts").insert(state);
-      console.log("Error - add Workout: ", error);
-      setWorkouts((prev) => [...prev, { ...state }]);
-    }
-    setView("home");
-  };
-
   const cancelAddWorkout = () => {
-    setWorkoutToEdit(null);
-    setView("home");
+    tabata.setWorkoutToEdit(null);
+    tabata.setView("home");
   };
 
   return (
@@ -131,7 +98,11 @@ const AddWorkout = ({
                 <button className="" onClick={() => setPaletteVisible(true)}>
                   <BsFillPaletteFill />
                 </button>
-                <button onClick={handleCreateWorkout}>
+                <button
+                  onClick={() => {
+                    tabata.createWorkout(state);
+                  }}
+                >
                   <TiTick />
                 </button>
               </div>

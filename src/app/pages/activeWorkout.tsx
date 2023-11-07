@@ -14,18 +14,17 @@ import useInterval from "@/hooks/useTimer";
 import UserMessageModal from "@/components/userMessageModal";
 
 type Props = {
-  setView: React.Dispatch<SetStateAction<string>>;
-  workout: WorkoutObj | null;
+  tabata: Tabata;
 };
 
-const ActiveWorkout = ({ setView, workout }: Props) => {
+const ActiveWorkout = ({ tabata }: Props) => {
   const startWhistleRef = useRef<HTMLAudioElement>(null);
   const beepRef = useRef<HTMLAudioElement>(null);
   const endWhistleRef = useRef<HTMLAudioElement>(null);
   const endBellRef = useRef<HTMLAudioElement>(null);
 
   const intervalManager = useInterval(
-    workout,
+    tabata.activeWorkout,
     startWhistleRef,
     beepRef,
     endWhistleRef,
@@ -62,7 +61,7 @@ const ActiveWorkout = ({ setView, workout }: Props) => {
           <div className="flex gap-8">
             <button
               className="bg-green-500 rounded-md py-2 px-4 text-white"
-              onClick={() => setView("home")}
+              onClick={() => tabata.setView("home")}
             >
               Yes
             </button>

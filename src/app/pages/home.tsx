@@ -9,25 +9,14 @@ import { useHeaderColor } from "@/hooks/useUpdateHeaderColor";
 
 type HomeProps = {
   user: string | undefined;
-  workouts: WorkoutObj[];
-  setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj | null>>;
-  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
-  setView: React.Dispatch<SetStateAction<string>>;
+  tabata: Tabata;
 };
 
-const Home = ({
-  user,
-  workouts,
-  setWorkouts,
-  setActiveWorkout,
-  setWorkoutToEdit,
-  setView,
-}: HomeProps) => {
+const Home = ({ user, tabata }: HomeProps) => {
   const workoutsRef = useRef<HTMLDivElement>();
   const headerRef = useRef<HTMLDivElement>(null);
 
-  const { filterState, dispatch, filter } = useFilter(workouts);
+  const { filterState, dispatch, filter } = useFilter(tabata.workouts);
 
   const { initColor, updateColor } = useHeaderColor(
     filter.filteredWorkouts,
@@ -69,18 +58,18 @@ const Home = ({
                 index={index}
                 key={workout.id}
                 expandedWorkout={filterState.expandedWorkouts}
-                setView={setView}
+                setView={tabata.setView}
                 workout={workout}
-                setWorkouts={setWorkouts}
-                setActiveWorkout={setActiveWorkout}
-                setWorkoutToEdit={setWorkoutToEdit}
+                setWorkouts={tabata.setWorkouts}
+                setActiveWorkout={tabata.setActiveWorkout}
+                setWorkoutToEdit={tabata.setWorkoutToEdit}
               />
             ))}
             {provided.placeholder}
           </div>
         )}
       </Droppable>
-      <AddIcon setView={setView} user={user} />
+      <AddIcon setView={tabata.setView} user={user} />
     </div>
   );
 };
