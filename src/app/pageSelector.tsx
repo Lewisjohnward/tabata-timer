@@ -1,7 +1,7 @@
 "use client";
-import { ActiveWorkout, AddWorkout, Home } from "@/pages";
 import { DragDropContext } from "react-beautiful-dnd";
-import { useTabata } from "./hooks/useTabata";
+import { ActiveWorkout, AddWorkout, Home } from "@/pages";
+import { useTabata } from "@/hooks/useTabata";
 const PageSelector = ({
   user,
   data,
