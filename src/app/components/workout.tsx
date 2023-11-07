@@ -2,12 +2,12 @@
 import { SetStateAction } from "react";
 import { AiFillStar, BsFillPlayFill, FaEllipsisV } from "@/misc/icons";
 import { RxDragHandleDots1 } from "react-icons/rx";
-import useMenu from "../hooks/useMenu";
-import convertTime from "../helpers/convertTime";
-import Menu from "./menu";
-import Summary from "./summary";
+import useMenu from "@/hooks/useMenu";
+import convertTime from "@/helpers/convertTime";
+import Menu from "@/components/menu";
+import Summary from "@/components/summary";
 import Link from "next/link";
-import UserMessageModal from "./userMessageModal";
+import UserMessageModal from "@/components/userMessageModal";
 import { Draggable } from "react-beautiful-dnd";
 import clsx from "clsx";
 

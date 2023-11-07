@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import NumberInput, { TextInput } from "@/components/input";
 import useCreateWorkout from "@/hooks/useCreateWorkout";
 import convertTime from "@/helpers/convertTime";

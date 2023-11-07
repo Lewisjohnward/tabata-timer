@@ -9,7 +9,7 @@ import {
   BsFillPencilFill,
   FaStickyNote,
 } from "@/misc/icons";
-import Modal from "./modal";
+import Modal from "@/components/modal";
 
 const MenuItem = ({
   children,

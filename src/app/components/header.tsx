@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, ReactNode, SetStateAction } from "react";
-import Palette from "./palette";
+import Palette from "@/components/palette";
 import {
   AiOutlineSearch,
   BsArrowsCollapse,

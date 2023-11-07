@@ -1,7 +1,7 @@
 "use client";
 import { MouseEvent, SetStateAction, useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { v4 as uuidv4 } from "uuid";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const useMenu = (
   user: string | undefined,

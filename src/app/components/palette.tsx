@@ -1,4 +1,4 @@
-import Modal from "./modal";
+import Modal from "@/components/modal";
 import { TiTick } from "@/misc/icons";
 
 type PaletteProps = {

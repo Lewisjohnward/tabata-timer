@@ -3,7 +3,7 @@ import { useState, useEffect, SetStateAction } from "react";
 import { AiOutlineOrderedList } from "@/misc/icons";
 import clsx from "clsx";
 import Link from "next/link";
-import UserMessageModal from "./userMessageModal";
+import UserMessageModal from "@/components/userMessageModal";
 
 type Props = {
   setView: React.Dispatch<SetStateAction<string>>;

@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import PageSelector from "./pageSelector";
+import PageSelector from "@/pageSelector";
 
 export const dynamic = "force-dynamic";
 

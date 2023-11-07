@@ -1,5 +1,5 @@
-import generateSummary from "../helpers/generateSummary";
-import Modal from "./modal";
+import generateSummary from "@/helpers/generateSummary";
+import Modal from "@/components/modal";
 
 type SummaryProps = {
   setSummaryVisible: React.Dispatch<React.SetStateAction<boolean>>;

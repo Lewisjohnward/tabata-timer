@@ -1,9 +1,9 @@
 "use client";
 import { useReducer } from "react";
+import { v4 as uuidv4 } from "uuid";
 import calculateIntervals from "@/helpers/calculateIntervals";
 import calculateTotalTime from "@/helpers/calculateTotalTime";
 import generateArray from "@/helpers/generateArray";
-import { v4 as uuidv4 } from "uuid";
 import { colors } from "@/misc/colors";
 import { updateThemeColor } from "@/helpers/updateThemeColor";
 import { templateWorkout } from "@/misc/defaultWorkouts";
