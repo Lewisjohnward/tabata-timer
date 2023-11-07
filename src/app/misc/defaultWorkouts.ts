@@ -1,6 +1,7 @@
 const defaultWorkouts = [
   {
     id: "70660a59-da02-47f3-b13e-137d06a9d240",
+    position: 0,
     title: "Bicep curls",
     favourite: false,
     totalTime: 180,
@@ -16,6 +17,7 @@ const defaultWorkouts = [
   },
   {
     id: "3ad37a36-68e9-49f8-bec0-f3cf8b9eb5c5",
+    position: 1,
     title: "Squats",
     favourite: false,
     totalTime: 260,
@@ -31,6 +33,7 @@ const defaultWorkouts = [
   },
   {
     id: "c723054d-fe44-4f40-b1d8-6f8dbeb56f5d",
+    position: 2,
     title: "Bench press",
     favourite: false,
     totalTime: 420,
@@ -48,6 +51,7 @@ const defaultWorkouts = [
 
 export const templateWorkout = {
   id: "0",
+  position: 0,
   title: "Bicep curls",
   favourite: false,
   totalTime: 0,

@@ -28,31 +28,12 @@ type Props = {
   user: string | undefined;
   index: number;
   expandedWorkout: boolean;
-  setView: React.Dispatch<SetStateAction<string>>;
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj | null>>;
   workout: WorkoutObj;
-  setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>;
-  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
+  tabata: Tabata;
 };
 
-const Workout = ({
-  user,
-  index,
-  expandedWorkout,
-  setView,
-  workout,
-  setWorkouts,
-  setActiveWorkout,
-  setWorkoutToEdit,
-}: Props) => {
-  const menu = useMenu(
-    user,
-    setView,
-    setActiveWorkout,
-    setWorkoutToEdit,
-    workout,
-    setWorkouts
-  );
+const Workout = ({ user, index, expandedWorkout, workout, tabata }: Props) => {
+  const menu = useMenu(user, workout, tabata);
   return (
     <Draggable draggableId={workout.id} index={index} key={workout.id}>
       {(provided, snapshot) => (

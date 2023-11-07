@@ -74,6 +74,7 @@ const useFilter = (workouts: WorkoutObj[]) => {
 
   const filteredWorkouts = filterWorkouts(filterState, workouts);
   if (filteredWorkouts.length != 0) updateThemeColor(filteredWorkouts[0].color);
+  filteredWorkouts.sort((a, b) => a.position - b.position);
 
   const favouriteCount = filteredWorkouts.filter(
     (workout) => workout.favourite == true

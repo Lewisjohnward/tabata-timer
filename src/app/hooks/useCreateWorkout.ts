@@ -56,7 +56,7 @@ const calculateIntervalsTime = (workout: WorkoutObj) => {
 };
 
 const initWorkout = (workout: WorkoutObj | null) => {
-  if (!workout) workout = templateWorkout;
+  if (!workout) workout = { ...templateWorkout };
 
   if (workout.id === "0") {
     workout.id = uuidv4();

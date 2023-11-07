@@ -58,11 +58,8 @@ const Home = ({ user, tabata }: HomeProps) => {
                 index={index}
                 key={workout.id}
                 expandedWorkout={filterState.expandedWorkouts}
-                setView={tabata.setView}
+                tabata={tabata}
                 workout={workout}
-                setWorkouts={tabata.setWorkouts}
-                setActiveWorkout={tabata.setActiveWorkout}
-                setWorkoutToEdit={tabata.setWorkoutToEdit}
               />
             ))}
             {provided.placeholder}

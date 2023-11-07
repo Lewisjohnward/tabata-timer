@@ -5,11 +5,8 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const useMenu = (
   user: string | undefined,
-  setView: React.Dispatch<SetStateAction<string>>,
-  setActiveWorkout: React.Dispatch<SetStateAction<WorkoutObj | null>>,
-  setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>,
   workout: WorkoutObj,
-  setWorkouts: React.Dispatch<SetStateAction<WorkoutObj[]>>
+  tabata: Tabata
 ) => {
   const [displayModal, setDisplayModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,8 +26,8 @@ const useMenu = (
 
   const handleEdit = () => {
     if (user) {
-      setView("addworkout");
-      setWorkoutToEdit(workout);
+      tabata.setView("addworkout");
+      tabata.setWorkoutToEdit(workout);
     } else {
       setDisplayModal(true);
     }
@@ -42,8 +39,8 @@ const useMenu = (
   };
 
   const handleActivateWorkout = () => {
-    setView("activeworkout");
-    setActiveWorkout(workout);
+    tabata.setView("activeworkout");
+    tabata.setActiveWorkout(workout);
   };
 
   const duplicateWorkout = async () => {
@@ -52,7 +49,7 @@ const useMenu = (
       .insert({ ...workout, id: uuidv4() });
     console.log(error);
     const duplicateWorkout = { ...workout, id: uuidv4() };
-    setWorkouts((prev) => [...prev, duplicateWorkout]);
+    tabata.setWorkouts((prev: WorkoutObj[]) => [...prev, duplicateWorkout]);
   };
 
   const deleteWorkout = async () => {
@@ -61,7 +58,7 @@ const useMenu = (
       .delete()
       .eq("id", workout.id);
     console.log(error);
-    setWorkouts((prev) => {
+    tabata.setWorkouts((prev: WorkoutObj[]) => {
       const filteredWorkouts = prev.filter(({ id }) => id != workout.id);
       return filteredWorkouts;
     });
@@ -74,7 +71,7 @@ const useMenu = (
       .eq("id", workout.id);
     console.log(error);
 
-    setWorkouts((prev) => {
+    tabata.setWorkouts((prev: WorkoutObj[]) => {
       const updatedArr = prev.map((d) => {
         if (d.id == workout.id) {
           return { ...workout, favourite: !workout.favourite };

@@ -1,5 +1,6 @@
 interface WorkoutObj {
   id: string;
+  position: number;
   title: string;
   favourite: boolean;
   totalTime: number;
@@ -23,4 +24,5 @@ type Tabata = {
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
   setView: React.Dispatch<SetStateAction<string>>;
   createWorkout: (createdWorkout: WorkoutObj) => void;
+  duplicateWorkout: (workout: WorkoutObj) => void;
 };

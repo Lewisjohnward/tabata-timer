@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { DropResult } from "react-beautiful-dnd";
 import { updateThemeColor } from "@/helpers/updateThemeColor";
 import defaultWorkouts from "@/misc/defaultWorkouts";
@@ -53,11 +54,21 @@ const useTabata = ({ data }: UseTabata) => {
       });
       setWorkoutToEdit(null);
     } else {
+      createdWorkout.position = workouts.length;
       const { error } = await supabase.from("workouts").insert(createdWorkout);
       console.log("Error - add Workout: ", error);
       setWorkouts((prev) => [...prev, { ...createdWorkout }]);
     }
     setView("home");
+  };
+
+  const duplicateWorkout = async (workout: WorkoutObj) => {
+    const { error } = await supabase
+      .from("workouts")
+      .insert({ ...workout, id: uuidv4() });
+    console.log(error);
+    const duplicateWorkout = { ...workout, id: uuidv4() };
+    setWorkouts((prev) => [...prev, duplicateWorkout]);
   };
 
   return {
@@ -71,6 +82,7 @@ const useTabata = ({ data }: UseTabata) => {
     setWorkoutToEdit,
     handleDragEnd,
     createWorkout,
+    duplicateWorkout,
   };
 };
 
