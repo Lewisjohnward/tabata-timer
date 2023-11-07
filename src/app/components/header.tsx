@@ -87,21 +87,37 @@ const Button = ({
   );
 };
 
-type Props = {
-  filter: any;
-  dispatch: React.Dispatch<any>;
-  filteredWorkouts: any;
-  colorCount: { color: string; number: number }[];
-  user: string | undefined;
+type ColorCount = {
+  color: string;
+  number: number;
+};
+
+type Filter = {
+  filteredWorkouts: WorkoutObj[];
   favouriteCount: number;
+  colorCount: ColorCount[];
+};
+
+type FilterState = {
+  color: string;
+  filterString: string;
+  expandedMenu: boolean;
+  filterFavorites: boolean;
+  expandedWorkouts: boolean;
+  paletteVisible: boolean;
+};
+
+type Props = {
+  filterState: FilterState;
+  filter: Filter;
+  dispatch: React.Dispatch<any>;
+  user: string | undefined;
 };
 
 const Header = ({
-  filter,
+  filterState,
+  filter: { filteredWorkouts, favouriteCount, colorCount },
   dispatch,
-  filteredWorkouts,
-  colorCount,
-  favouriteCount,
   user,
 }: Props) => {
   return (
@@ -132,24 +148,27 @@ const Header = ({
             }
           >
             <span className="text-2xl">
-              {!filter.expandedMenu ? <MdExpandMore /> : <MdExpandLess />}
+              {!filterState.expandedMenu ? <MdExpandMore /> : <MdExpandLess />}
             </span>
           </Button>
         </div>
       </div>
-      {filter.expandedMenu && (
+      {filterState.expandedMenu && (
         <div
           className="flex justify-end gap-4 py-2 bg-inherit text-white text-xl"
-          style={{ backgroundColor: filter.color }}
+          style={{ backgroundColor: filterState.color }}
         >
-          <SearchBar filterString={filter.filterString} dispatch={dispatch} />
+          <SearchBar
+            filterString={filterState.filterString}
+            dispatch={dispatch}
+          />
           <div className="flex items-center gap-6 text-2xl">
             <Link href="/settings">
               <MdSettings />
             </Link>
             <Button
               onClickEvent={() =>
-                filter.color == ""
+                filterState.color == ""
                   ? dispatch({
                       type: "TOGGLE",
                       payload: { key: "paletteVisible" },
@@ -160,7 +179,7 @@ const Header = ({
                     })
               }
             >
-              {filter.color != "" ? <BsPaletteFill /> : <BsPalette />}
+              {filterState.color != "" ? <BsPaletteFill /> : <BsPalette />}
             </Button>
             <Button
               onClickEvent={() =>
@@ -171,7 +190,7 @@ const Header = ({
               }
               isDisabled={favouriteCount == 0}
             >
-              {filter.filterFavorites ? <BsStarFill /> : <BsStar />}
+              {filterState.filterFavorites ? <BsStarFill /> : <BsStar />}
             </Button>
             <Button
               onClickEvent={() =>
@@ -181,7 +200,7 @@ const Header = ({
                 })
               }
             >
-              {!filter.expandedWorkouts ? (
+              {!filterState.expandedWorkouts ? (
                 <BsArrowsExpand />
               ) : (
                 <BsArrowsCollapse />
@@ -190,7 +209,7 @@ const Header = ({
           </div>
         </div>
       )}
-      {filter.paletteVisible && (
+      {filterState.paletteVisible && (
         <Palette
           closePalette={() =>
             dispatch({
@@ -199,7 +218,7 @@ const Header = ({
             })
           }
           dispatch={dispatch}
-          selectedColor={filter.filterByColor}
+          selectedColor={filterState.color}
           closeOnSelect={true}
           displaySelection={false}
           displayNumbers={true}

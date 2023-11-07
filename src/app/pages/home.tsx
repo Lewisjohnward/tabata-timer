@@ -27,14 +27,13 @@ const Home = ({
   const workoutsRef = useRef<HTMLDivElement>();
   const headerRef = useRef<HTMLDivElement>(null);
 
-  const { filter, dispatch, filteredWorkouts, favouriteCount, colorCount } =
-    useFilter(workouts);
+  const { filterState, dispatch, filter } = useFilter(workouts);
 
   const { initColor, updateColor } = useHeaderColor(
-    filteredWorkouts,
+    filter.filteredWorkouts,
     workoutsRef,
     headerRef,
-    filter.color
+    filterState.color
   );
 
   return (
@@ -48,11 +47,9 @@ const Home = ({
         ref={headerRef}
       >
         <Header
-          filter={filter}
+          filterState={filterState}
           dispatch={dispatch}
-          filteredWorkouts={filteredWorkouts}
-          colorCount={colorCount}
-          favouriteCount={favouriteCount}
+          filter={filter}
           user={user}
         />
       </div>
@@ -66,12 +63,12 @@ const Home = ({
             }}
             {...provided.droppableProps}
           >
-            {filteredWorkouts.map((workout, index) => (
+            {filter.filteredWorkouts.map((workout, index) => (
               <Workout
                 user={user}
                 index={index}
                 key={workout.id}
-                expandedWorkout={filter.expandedWorkouts}
+                expandedWorkout={filterState.expandedWorkouts}
                 setView={setView}
                 workout={workout}
                 setWorkouts={setWorkouts}

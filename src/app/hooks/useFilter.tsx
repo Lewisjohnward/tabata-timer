@@ -70,9 +70,9 @@ const filterWorkouts = (filter: Filter, workouts: WorkoutObj[]) => {
 };
 
 const useFilter = (workouts: WorkoutObj[]) => {
-  const [filter, dispatch] = useReducer(reducer, filterInit);
+  const [filterState, dispatch] = useReducer(reducer, filterInit);
 
-  const filteredWorkouts = filterWorkouts(filter, workouts);
+  const filteredWorkouts = filterWorkouts(filterState, workouts);
   if (filteredWorkouts.length != 0) updateThemeColor(filteredWorkouts[0].color);
 
   const favouriteCount = filteredWorkouts.filter(
@@ -87,11 +87,15 @@ const useFilter = (workouts: WorkoutObj[]) => {
     };
   });
 
-  return {
+  const filter = {
     filteredWorkouts,
-    colorCount,
     favouriteCount,
+    colorCount,
+  };
+
+  return {
     filter,
+    filterState,
     dispatch,
   };
 };

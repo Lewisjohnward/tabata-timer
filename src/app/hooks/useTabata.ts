@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { updateThemeColor } from "@/helpers/updateThemeColor";
 import defaultWorkouts from "@/misc/defaultWorkouts";
@@ -7,7 +7,20 @@ interface UseTabata {
   data: WorkoutObj[];
 }
 
+// const reducer = (state, { action }) => {
+//   return state;
+// };
+
+// const init = {
+//   view: "home",
+//   workouts: defaultWorkouts,
+//   activeWorkout: null,
+//   workoutToEdit: null,
+// };
+
 const useTabata = ({ data }: UseTabata) => {
+  // const [tabata, tabataDispatch] = useReducer(reducer, init);
+
   const [view, setView] = useState("home");
   const [workouts, setWorkouts] = useState(data ? data : defaultWorkouts);
   const [activeWorkout, setActiveWorkout] = useState<WorkoutObj | null>(null);
