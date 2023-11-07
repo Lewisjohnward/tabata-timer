@@ -2,23 +2,23 @@
 import { DragDropContext } from "react-beautiful-dnd";
 import { ActiveWorkout, AddWorkout, Home } from "@/pages";
 import { useTabata } from "@/hooks/useTabata";
-const PageSelector = ({
-  user,
-  data,
-}: {
+
+type Props = {
   user: string | undefined;
   data: WorkoutObj[];
-}) => {
+};
+
+const PageSelector = ({ user, data }: Props) => {
+  console.log(data);
   const tabata = useTabata({ data });
-  const { view } = tabata;
 
   return (
     <DragDropContext onDragEnd={tabata.handleDragEnd}>
       {tabata.view == "home" && <Home user={user} tabata={tabata} />}
 
-      {view == "activeworkout" && <ActiveWorkout tabata={tabata} />}
+      {tabata.view == "activeworkout" && <ActiveWorkout tabata={tabata} />}
 
-      {view == "addworkout" && <AddWorkout tabata={tabata} />}
+      {tabata.view == "addworkout" && <AddWorkout tabata={tabata} />}
     </DragDropContext>
   );
 };
