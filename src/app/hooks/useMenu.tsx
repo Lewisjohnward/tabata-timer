@@ -1,5 +1,5 @@
 "use client";
-import { MouseEvent, SetStateAction, useState } from "react";
+import { MouseEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
