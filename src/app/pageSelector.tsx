@@ -14,9 +14,7 @@ const PageSelector = ({ user, data }: Props) => {
   return (
     <DragDropContext onDragEnd={tabata.handleDragEnd}>
       {tabata.view == "home" && <Home user={user} tabata={tabata} />}
-
       {tabata.view == "activeworkout" && <ActiveWorkout tabata={tabata} />}
-
       {tabata.view == "addworkout" && <AddWorkout tabata={tabata} />}
     </DragDropContext>
   );
