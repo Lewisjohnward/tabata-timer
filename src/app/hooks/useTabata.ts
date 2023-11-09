@@ -11,10 +11,11 @@ interface UseTabata {
 
 const useTabata = ({ data }: UseTabata) => {
   const [view, setView] = useState("home");
-  const [workouts, setWorkouts] = useState(data ? data : defaultWorkouts);
+  const [workouts, setWorkouts] = useState(data.length != 0  ? data : defaultWorkouts);
   const [activeWorkout, setActiveWorkout] = useState<WorkoutObj | null>(null);
   const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
   const supabase = createClientComponentClient();
+  
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source } = result;

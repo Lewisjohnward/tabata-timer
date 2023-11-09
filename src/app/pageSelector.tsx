@@ -9,7 +9,6 @@ type Props = {
 };
 
 const PageSelector = ({ user, data }: Props) => {
-  console.log(data);
   const tabata = useTabata({ data });
 
   return (
