@@ -40,10 +40,12 @@ export const useHeaderColor = (
     updateHeader(workoutsRef, headerRef);
   };
 
-  const initColor = workouts.length != 0 ? workouts[0].color : color;
+  const initColor =
+    workouts.length != 0 ? workouts[0].color : color ? color : "#0891b2";
   useEffect(() => {
     updateThemeColor(initColor);
     updateBackgroundColor(headerRef, initColor);
   }, []);
+
   return { initColor, updateColor };
 };

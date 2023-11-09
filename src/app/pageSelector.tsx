@@ -9,7 +9,7 @@ type Props = {
 };
 
 const PageSelector = ({ user, data }: Props) => {
-  const tabata = useTabata({ data });
+  const tabata = useTabata({ data, user });
 
   return (
     <DragDropContext onDragEnd={tabata.handleDragEnd}>

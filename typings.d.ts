@@ -24,5 +24,9 @@ type Tabata = {
   setWorkoutToEdit: React.Dispatch<SetStateAction<WorkoutObj | null>>;
   setView: React.Dispatch<SetStateAction<string>>;
   createWorkout: (createdWorkout: WorkoutObj) => void;
-  duplicateWorkout: (workout: WorkoutObj) => void;
+  duplicateWorkout: (id: string) => void;
+  deleteWorkout: (id: string) => void;
+  toggleFavorite: (id: string) => void;
+  activateWorkout: (id: string) => void;
+  editWorkout: (id: string) => void;
 };

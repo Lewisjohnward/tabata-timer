@@ -1,5 +1,4 @@
 "use client";
-import { SetStateAction } from "react";
 import { AiFillStar, BsFillPlayFill, FaEllipsisV } from "@/misc/icons";
 import { RxDragHandleDots1 } from "react-icons/rx";
 import useMenu from "@/hooks/useMenu";

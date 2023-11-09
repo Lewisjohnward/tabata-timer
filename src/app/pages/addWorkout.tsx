@@ -64,6 +64,7 @@ type Props = {
 };
 
 const AddWorkout = ({ tabata }: Props) => {
+  console.log(tabata.workoutToEdit);
   const { state, dispatch } = useCreateWorkout(tabata.workoutToEdit);
   const [summaryVisible, setSummaryVisible] = useState(false);
   const [paletteVisible, setPaletteVisible] = useState(false);

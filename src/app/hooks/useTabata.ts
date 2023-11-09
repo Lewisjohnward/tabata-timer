@@ -7,15 +7,17 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface UseTabata {
   data: WorkoutObj[];
+  user: string | undefined;
 }
 
-const useTabata = ({ data }: UseTabata) => {
-  const [view, setView] = useState("home");
-  const [workouts, setWorkouts] = useState(data.length != 0  ? data : defaultWorkouts);
+const useTabata = ({ data, user }: UseTabata) => {
+  const [view, setView] = useState<"home" | "addworkout" | "activeworkout">(
+    "home"
+  );
+  const [workouts, setWorkouts] = useState(user ? data : defaultWorkouts);
   const [activeWorkout, setActiveWorkout] = useState<WorkoutObj | null>(null);
   const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
   const supabase = createClientComponentClient();
-  
 
   const handleDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -36,6 +38,19 @@ const useTabata = ({ data }: UseTabata) => {
 
     setWorkouts([...previous]);
     updateThemeColor(previous[0].color);
+  };
+
+  const editWorkout = (id: string) => {
+    const [workout] = workouts.filter((workout) => workout.id == id);
+    console.log(workout);
+    setWorkoutToEdit(workout);
+    setView("addworkout");
+  };
+
+  const activateWorkout = (id: string) => {
+    const [workout] = workouts.filter((workout) => workout.id == id);
+    setView("activeworkout");
+    setActiveWorkout(workout);
   };
 
   const createWorkout = async (createdWorkout: WorkoutObj) => {
@@ -63,13 +78,44 @@ const useTabata = ({ data }: UseTabata) => {
     setView("home");
   };
 
-  const duplicateWorkout = async (workout: WorkoutObj) => {
+  const duplicateWorkout = async (id: string) => {
+    const [workoutToDuplicate] = workouts.filter((w) => w.id == id);
+    const duplicateWorkout = { ...workoutToDuplicate };
+    duplicateWorkout.id = uuidv4();
+    duplicateWorkout.title = `${duplicateWorkout.title} copy`;
+
+    const { error } = await supabase.from("workouts").insert(duplicateWorkout);
+    console.log(error);
+    setWorkouts((prev) => [...prev, duplicateWorkout]);
+  };
+
+  const deleteWorkout = async (id: string) => {
+    const { error } = await supabase.from("workouts").delete().eq("id", id);
+    console.log(error);
+    setWorkouts((prev: WorkoutObj[]) => {
+      const filteredWorkouts = prev.filter((prev) => id != prev.id);
+      return filteredWorkouts;
+    });
+  };
+
+  const toggleFavorite = async (id: string) => {
+    const [workout] = workouts.filter((w) => w.id == id);
+    const favourite = !workout.favourite;
+
     const { error } = await supabase
       .from("workouts")
-      .insert({ ...workout, id: uuidv4() });
+      .update({ favourite })
+      .eq("id", id);
     console.log(error);
-    const duplicateWorkout = { ...workout, id: uuidv4() };
-    setWorkouts((prev) => [...prev, duplicateWorkout]);
+
+    setWorkouts((prev: WorkoutObj[]) => {
+      const updatedArr = prev.map((d) => {
+        if (d.id == id) {
+          return { ...workout, favourite };
+        } else return d;
+      });
+      return updatedArr;
+    });
   };
 
   return {
@@ -78,12 +124,16 @@ const useTabata = ({ data }: UseTabata) => {
     workouts,
     setWorkouts,
     activeWorkout,
+    activateWorkout,
     setActiveWorkout,
+    editWorkout,
     workoutToEdit,
     setWorkoutToEdit,
     handleDragEnd,
     createWorkout,
     duplicateWorkout,
+    deleteWorkout,
+    toggleFavorite,
   };
 };
 
