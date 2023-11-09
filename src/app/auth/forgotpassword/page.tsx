@@ -1,9 +1,9 @@
 "use client";
-import { AiOutlineMail, BiArrowBack } from "@/misc/icons";
 
+import { AiOutlineMail, BiArrowBack } from "@/misc/icons";
 import { colors } from "@/misc/colors";
 import BackButton from "@/components/backButton";
-import { useForgotPasswordStore } from "../store/credentialsStore";
+import { useForgotPasswordStore } from "@/auth/store/credentialsStore";
 import { Spinner } from "@/components/spinner";
 
 const random = (array: string[]) => {

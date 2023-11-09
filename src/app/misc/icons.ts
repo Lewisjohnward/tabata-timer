@@ -1,3 +1,4 @@
+import { RxDragHandleDots1 } from "react-icons/rx";
 import {
   AiOutlineUser,
   AiOutlineClose,
@@ -105,4 +106,5 @@ export {
   TiDelete,
   MdSportsGymnastics,
   LiaDumbbellSolid,
+  RxDragHandleDots1,
 };

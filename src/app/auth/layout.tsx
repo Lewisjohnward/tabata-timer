@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { NextResponse } from "next/server";
 import { redirect } from "next/navigation";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
   const supabase = createServerComponentClient({ cookies });

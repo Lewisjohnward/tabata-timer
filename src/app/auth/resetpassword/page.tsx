@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
-import { useResetPasswordStore } from "../store/credentialsStore";
+import { useResetPasswordStore } from "@/auth/store/credentialsStore";
 import clsx from "clsx";
 import { Spinner } from "@/components/spinner";
 

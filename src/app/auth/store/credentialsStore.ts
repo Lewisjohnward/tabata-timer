@@ -1,6 +1,6 @@
+import { ChangeEvent, SyntheticEvent } from "react";
 import { create, StateCreator } from "zustand";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { ChangeEvent, SyntheticEvent } from "react";
 
 const PASSWORD_LENGTH = 8;
 

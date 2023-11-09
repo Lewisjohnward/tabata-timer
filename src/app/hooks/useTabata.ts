@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { DropResult } from "react-beautiful-dnd";
+import { v4 as uuidv4 } from "uuid";
 import { updateThemeColor } from "@/helpers/updateThemeColor";
 import defaultWorkouts from "@/misc/defaultWorkouts";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";

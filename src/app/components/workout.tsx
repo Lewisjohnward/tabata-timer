@@ -1,14 +1,18 @@
 "use client";
-import { AiFillStar, BsFillPlayFill, FaEllipsisV } from "@/misc/icons";
-import { RxDragHandleDots1 } from "react-icons/rx";
+import Link from "next/link";
+import { Draggable } from "react-beautiful-dnd";
+import clsx from "clsx";
+import {
+  AiFillStar,
+  BsFillPlayFill,
+  FaEllipsisV,
+  RxDragHandleDots1,
+} from "@/misc/icons";
 import useMenu from "@/hooks/useMenu";
 import convertTime from "@/helpers/convertTime";
 import Menu from "@/components/menu";
 import Summary from "@/components/summary";
-import Link from "next/link";
 import UserMessageModal from "@/components/userMessageModal";
-import { Draggable } from "react-beautiful-dnd";
-import clsx from "clsx";
 
 const ExpandedWorkoutView = ({ workout }: { workout: WorkoutObj }) => {
   return (

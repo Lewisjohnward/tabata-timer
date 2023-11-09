@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, ReactNode, SetStateAction } from "react";
+import clsx from "clsx";
 import Palette from "@/components/palette";
 import {
   AiOutlineSearch,
@@ -15,7 +16,6 @@ import {
   MdSettings,
   TiDelete,
 } from "@/misc/icons";
-import clsx from "clsx";
 
 const SearchBar = ({
   dispatch,

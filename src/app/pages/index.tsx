@@ -1,5 +1,5 @@
-import ActiveWorkout from "./activeWorkout";
-import AddWorkout from "./addWorkout";
-import Home from "./home";
+import ActiveWorkout from "@/pages/activeWorkout";
+import AddWorkout from "@/pages/addWorkout";
+import Home from "@/pages/home";
 
 export { ActiveWorkout, AddWorkout, Home };

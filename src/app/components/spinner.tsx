@@ -1,4 +1,4 @@
-import { FaSpinner } from "react-icons/fa";
+import { FaSpinner } from "@/misc/icons";
 
 export const Spinner = () => {
   return (

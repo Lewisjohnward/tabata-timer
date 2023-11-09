@@ -1,8 +1,8 @@
 "use client";
-import BackButton from "@/components/backButton";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useCredentialsStore } from "@/auth/store/credentialsStore";
 import clsx from "clsx";
+import BackButton from "@/components/backButton";
+import { useCredentialsStore } from "@/auth/store/credentialsStore";
 import { Spinner } from "@/components/spinner";
 
 const Signup = () => {
