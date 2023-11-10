@@ -71,6 +71,7 @@ const useTabata = ({ data, user }: UseTabata) => {
       setWorkoutToEdit(null);
     } else {
       createdWorkout.position = workouts.length;
+      console.log(createdWorkout);
       const { error } = await supabase.from("workouts").insert(createdWorkout);
       console.log("Error - add Workout: ", error);
       setWorkouts((prev) => [...prev, { ...createdWorkout }]);
@@ -79,10 +80,12 @@ const useTabata = ({ data, user }: UseTabata) => {
   };
 
   const duplicateWorkout = async (id: string) => {
+    console.log(workouts);
     const [workoutToDuplicate] = workouts.filter((w) => w.id == id);
     const duplicateWorkout = { ...workoutToDuplicate };
     duplicateWorkout.id = uuidv4();
     duplicateWorkout.title = `${duplicateWorkout.title} copy`;
+    duplicateWorkout.position = duplicateWorkout.position++;
 
     const { error } = await supabase.from("workouts").insert(duplicateWorkout);
     console.log(error);

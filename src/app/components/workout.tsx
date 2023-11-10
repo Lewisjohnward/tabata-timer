@@ -43,7 +43,7 @@ const Workout = ({ user, index, expandedWorkout, workout, tabata }: Props) => {
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <div
             className={clsx(
-              "relative flex items-center gap-2 p-4 text-white rounded",
+              "relative flex items-center gap-2 p-4 text-white rounded shadow-lg",
               snapshot.isDragging && "shadow-2xl"
             )}
             style={{ backgroundColor: `${workout.color}` }}
@@ -54,6 +54,7 @@ const Workout = ({ user, index, expandedWorkout, workout, tabata }: Props) => {
             <div className="flex flex-grow space-between">
               <div className="space-y-2">
                 <h3 className="font-bold text-3xl">{workout.title}</h3>
+                {workout.position}
                 {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
                 <p className="text-md lg:text-lg">
                   {`Total: ${convertTime(workout.totalTime)} - ${
