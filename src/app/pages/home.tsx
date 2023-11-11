@@ -6,7 +6,6 @@ import AddIcon from "@/components/addIcon";
 import Header from "@/components/header";
 import Workout from "@/components/workout";
 import { useHeaderColor } from "@/hooks/useUpdateHeaderColor";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 type HomeProps = {
   user: string | undefined;
   tabata: Tabata;
@@ -15,7 +14,6 @@ type HomeProps = {
 const Home = ({ user, tabata }: HomeProps) => {
   const workoutsRef = useRef<HTMLDivElement>();
   const headerRef = useRef<HTMLDivElement>(null);
-  const supabase = createClientComponentClient();
 
   const { filterState, dispatch, filter } = useFilter(tabata.workouts);
 
@@ -25,15 +23,6 @@ const Home = ({ user, tabata }: HomeProps) => {
     headerRef,
     filterState.color
   );
-
-  const handleEcho = async () => {
-    const res = await supabase.rpc("increment_positions", {
-      given_position: 2,
-    });
-    console.log(res);
-    console.log(res.data);
-    tabata.setWorkouts((prev: WorkoutObj[]) => [...prev, res.data[0]]);
-  };
 
   return (
     <div
@@ -45,7 +34,6 @@ const Home = ({ user, tabata }: HomeProps) => {
         style={{ backgroundColor: initColor }}
         ref={headerRef}
       >
-        <button onClick={handleEcho}>echo</button>
         <Header
           filterState={filterState}
           dispatch={dispatch}
