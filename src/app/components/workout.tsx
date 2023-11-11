@@ -54,7 +54,6 @@ const Workout = ({ user, index, expandedWorkout, workout, tabata }: Props) => {
             <div className="flex flex-grow space-between">
               <div className="space-y-2">
                 <h3 className="font-bold text-3xl">{workout.title}</h3>
-                {workout.position}
                 {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
                 <p className="text-md lg:text-lg">
                   {`Total: ${convertTime(workout.totalTime)} - ${

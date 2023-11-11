@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
-import { v4 as uuidv4 } from "uuid";
 import { updateThemeColor } from "@/helpers/updateThemeColor";
 import defaultWorkouts from "@/misc/defaultWorkouts";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -9,6 +8,32 @@ interface UseTabata {
   data: WorkoutObj[];
   user: string | undefined;
 }
+
+const rearrangeWorkouts = (
+  source: number,
+  destination: number,
+  workouts: WorkoutObj[]
+) => {
+  if (source > destination) {
+    const updatedWorkouts = workouts.map((workout) => {
+      if (source == workout.position)
+        return { ...workout, position: destination };
+      else if (destination <= workout.position && workout.position < source)
+        return { ...workout, position: workout.position + 1 };
+      else return workout;
+    });
+    return updatedWorkouts;
+  } else {
+    const updatedWorkouts = workouts.map((workout) => {
+      if (source == workout.position)
+        return { ...workout, position: destination };
+      else if (workout.position >= source && workout.position <= destination)
+        return { ...workout, position: workout.position - 1 };
+      else return workout;
+    });
+    return updatedWorkouts;
+  }
+};
 
 const useTabata = ({ data, user }: UseTabata) => {
   const [view, setView] = useState<"home" | "addworkout" | "activeworkout">(
@@ -19,25 +44,29 @@ const useTabata = ({ data, user }: UseTabata) => {
   const [workoutToEdit, setWorkoutToEdit] = useState<WorkoutObj | null>(null);
   const supabase = createClientComponentClient();
 
-  const handleDragEnd = (result: DropResult) => {
+  const handleDragEnd = async (result: DropResult) => {
     const { destination, source } = result;
     if (
       !destination ||
       (destination.droppableId === source.droppableId &&
         destination.index === source.index)
-    )
+    ) {
       return;
+    }
+    const _updatedWorkouts = rearrangeWorkouts(
+      source.index,
+      destination.index,
+      workouts
+    );
 
-    let add,
-      previous = workouts;
-
-    add = workouts[source.index];
-    previous.splice(source.index, 1);
-
-    previous.splice(destination.index, 0, add);
-
-    setWorkouts([...previous]);
-    updateThemeColor(previous[0].color);
+    setWorkouts([..._updatedWorkouts]);
+    updateThemeColor(_updatedWorkouts[0].color);
+    const { data, error } = await supabase
+      .from("workouts")
+      .upsert(_updatedWorkouts)
+      .select();
+    console.log(data);
+    console.log(error);
   };
 
   const editWorkout = (id: string) => {
