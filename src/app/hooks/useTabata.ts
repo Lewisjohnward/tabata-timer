@@ -80,25 +80,20 @@ const useTabata = ({ data, user }: UseTabata) => {
   };
 
   const duplicateWorkout = async (id: string) => {
-    console.log(workouts);
-    const [workoutToDuplicate] = workouts.filter((w) => w.id == id);
-    const duplicateWorkout = { ...workoutToDuplicate };
-    duplicateWorkout.id = uuidv4();
-    duplicateWorkout.title = `${duplicateWorkout.title} copy`;
-    duplicateWorkout.position = duplicateWorkout.position++;
-
-    const { error } = await supabase.from("workouts").insert(duplicateWorkout);
-    console.log(error);
-    setWorkouts((prev) => [...prev, duplicateWorkout]);
+    const { data: workouts, error } = await supabase.rpc("duplicate_workout", {
+      workout_id: id,
+    });
+    if (!error) setWorkouts(workouts);
+    else console.log("duplicate workout error: ", error);
   };
 
   const deleteWorkout = async (id: string) => {
-    const { error } = await supabase.from("workouts").delete().eq("id", id);
-    console.log(error);
-    setWorkouts((prev: WorkoutObj[]) => {
-      const filteredWorkouts = prev.filter((prev) => id != prev.id);
-      return filteredWorkouts;
+    const { data: workouts, error } = await supabase.rpc("delete_workout", {
+      workout_id: id,
     });
+    if (!error) setWorkouts(workouts);
+    else console.log("duplicate workout error: ", error);
+    setWorkouts(workouts);
   };
 
   const toggleFavorite = async (id: string) => {
