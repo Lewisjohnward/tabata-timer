@@ -209,7 +209,7 @@ const Header = ({
           </div>
         </div>
       )}
-      {true && (
+      {filterState.paletteVisible && (
         <Palette
           closePalette={() =>
             dispatch({
