@@ -70,17 +70,14 @@ const SearchBar = ({
 const Button = ({
   children,
   onClickEvent,
-  isDisabled,
 }: {
   children: ReactNode;
   onClickEvent?: React.Dispatch<SetStateAction<boolean>>;
-  isDisabled?: boolean;
 }) => {
   return (
     <button
       className="hover:text-white/40"
       onClick={() => onClickEvent != undefined && onClickEvent(true)}
-      disabled={isDisabled}
     >
       {children}
     </button>
@@ -120,6 +117,7 @@ const Header = ({
   dispatch,
   user,
 }: Props) => {
+  console.log(favouriteCount);
   return (
     <>
       <div className="flex justify-between items-center py-2 bg-inherit">
@@ -183,17 +181,18 @@ const Header = ({
             >
               {filterState.color != "" ? <BsPaletteFill /> : <BsPalette />}
             </Button>
-            <Button
-              onClickEvent={() =>
+            <button
+              className="text-yellow-500"
+              onClick={() =>
                 dispatch({
                   type: "TOGGLE",
                   payload: { key: "filterFavorites" },
                 })
               }
-              isDisabled={favouriteCount == 0}
+              disabled={favouriteCount == 0}
             >
               {filterState.filterFavorites ? <BsStarFill /> : <BsStar />}
-            </Button>
+            </button>
             <Button
               onClickEvent={() =>
                 dispatch({
