@@ -117,7 +117,6 @@ const Header = ({
   dispatch,
   user,
 }: Props) => {
-  console.log(favouriteCount);
   return (
     <>
       <div className="flex justify-between items-center py-2 bg-inherit">
@@ -210,7 +209,7 @@ const Header = ({
           </div>
         </div>
       )}
-      {filterState.paletteVisible && (
+      {true && (
         <Palette
           closePalette={() =>
             dispatch({
