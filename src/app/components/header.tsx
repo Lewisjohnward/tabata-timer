@@ -123,7 +123,9 @@ const Header = ({
   return (
     <>
       <div className="flex justify-between items-center bg-inherit">
-        <h1 className="text-xl">Workouts: {filteredWorkouts.length}</h1>
+        <h1 className="pl-4 lg:p-0 text-3xl lg:text-xl">
+          Workouts: {filteredWorkouts.length}
+        </h1>
         <div className="flex items-center gap-6">
           {user ? (
             <>
@@ -137,7 +139,7 @@ const Header = ({
           ) : (
             <Link
               href="/auth/login"
-              className="bg-black/20 px-4 py-2 rounded shadow hover:bg-black/40"
+              className="bg-black/20 px-4 py-4 rounded shadow hover:bg-black/40"
             >
               Login/Sign up
             </Link>
