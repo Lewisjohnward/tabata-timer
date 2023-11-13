@@ -45,7 +45,7 @@ const SearchBar = ({
 
   return (
     <form
-      className="flex items-center px-2 bg-white rounded cursor-pointer"
+      className="relative flex items-center px-2 bg-white rounded cursor-pointer"
       onSubmit={handleSubmit}
     >
       <AiOutlineSearch className="text-4xl lg:text-2xl text-gray-400" />
@@ -58,7 +58,7 @@ const SearchBar = ({
       <button onClick={handleClear}>
         <TiDelete
           className={clsx(
-            "text-4xl lg:text-2xl text-gray-400",
+            "absolute top-1/2 right-0 -translate-y-1/2 text-4xl lg:text-2xl text-gray-400",
             filterString == "" && "hidden"
           )}
         />
