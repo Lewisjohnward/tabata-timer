@@ -25,23 +25,26 @@ const useMenu = (
     setSummaryOpen(true);
   };
 
+  const handleActivateWorkout = () => {
+    tabata.activateWorkout(workout.id);
+  };
+
   const handleEdit = () => {
     if (user) tabata.editWorkout(workout.id);
     else setDisplayModal(true);
   };
 
-  const handleActivateWorkout = () => {
-    tabata.activateWorkout(workout.id);
-  };
-
   const duplicateWorkout = () => {
-    tabata.duplicateWorkout(workout.id);
+    if (user) tabata.duplicateWorkout(workout.id);
+    else setDisplayModal(true);
   };
   const deleteWorkout = () => {
-    tabata.deleteWorkout(workout.id);
+    if (user) tabata.deleteWorkout(workout.id);
+    else setDisplayModal(true);
   };
   const toggleFavorite = () => {
-    tabata.toggleFavorite(workout.id);
+    if (user) tabata.toggleFavorite(workout.id);
+    else setDisplayModal(true);
   };
 
   return {
