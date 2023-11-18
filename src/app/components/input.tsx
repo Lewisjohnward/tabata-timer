@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
 import { AiFillMinusCircle, AiFillPlusCircle } from "@/misc/icons";
+import { useLongPress } from "@/hooks/useLongPress";
 
 type NumberInputProps = {
   icon: ReactNode;
@@ -17,6 +18,23 @@ const NumberInput = ({
   value,
   dispatch,
 }: NumberInputProps) => {
+  const decrement = () => {
+    dispatch({
+      type: "DECREMENT",
+      payload: { key: property as keyof WorkoutObj },
+    });
+  };
+
+  const increment = () => {
+    dispatch({
+      type: "INCREMENT",
+      payload: { key: property as keyof WorkoutObj },
+    });
+  };
+
+  const longPressEventIncrement = useLongPress(increment);
+  const longPressEventDecrement = useLongPress(decrement);
+
   return (
     <div className="flex">
       <div className="flex justify-center items-center text-4xl pl-2">
@@ -28,12 +46,7 @@ const NumberInput = ({
           <button
             className="disabled:opacity-40"
             disabled={value == 0}
-            onClick={() => {
-              dispatch({
-                type: "DECREMENT",
-                payload: { key: property as keyof WorkoutObj },
-              });
-            }}
+            {...longPressEventDecrement}
           >
             <AiFillMinusCircle className="text-4xl" />
           </button>
@@ -57,14 +70,7 @@ const NumberInput = ({
             }}
           />
 
-          <button
-            onClick={() => {
-              dispatch({
-                type: "INCREMENT",
-                payload: { key: property as keyof WorkoutObj },
-              });
-            }}
-          >
+          <button {...longPressEventIncrement}>
             <AiFillPlusCircle className="text-4xl" />
           </button>
         </div>
