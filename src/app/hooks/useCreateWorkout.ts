@@ -37,6 +37,7 @@ const reducer = (state: WorkoutObj, action: Action) => {
       };
       break;
     case "DECREMENT":
+      if ((state[key] as number) - 1 < 0) break;
       state = {
         ...state,
         [key]: (state[key] as number) - 1,
