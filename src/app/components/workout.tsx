@@ -35,7 +35,14 @@ type Props = {
   tabata: Tabata;
 };
 
+const truncateTitle = (title: string) => {
+  if (title.length < 50) return title;
+  else return `${title.slice(0, 60)}...`;
+};
+
 const Workout = ({ user, index, expandedWorkout, workout, tabata }: Props) => {
+  console.log(`${workout.title.slice(0, 50)}...`);
+
   const menu = useMenu(user, workout, tabata);
   return (
     <Draggable draggableId={workout.id} index={index} key={workout.id}>
@@ -53,7 +60,9 @@ const Workout = ({ user, index, expandedWorkout, workout, tabata }: Props) => {
             </div>
             <div className="flex flex-grow space-between">
               <div className="space-y-2">
-                <h3 className="font-bold text-3xl">{workout.title}</h3>
+                <h3 className="font-bold text-3xl">
+                  {truncateTitle(workout.title)}
+                </h3>
                 {expandedWorkout && <ExpandedWorkoutView workout={workout} />}
                 <p className="text-md lg:text-lg">
                   {`Total: ${convertTime(workout.totalTime)} - ${
