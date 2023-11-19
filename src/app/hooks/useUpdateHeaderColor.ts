@@ -9,10 +9,6 @@ const updateBackgroundColor = (
   ref.current.style.backgroundColor = color;
 };
 
-const getColorBeneath = (top, bottomContainer) => {
-  console.log("hello");
-};
-
 const updateHeader = (
   workoutsRef: MutableRefObject<HTMLDivElement | undefined>,
   headerRef: MutableRefObject<HTMLDivElement | null>
@@ -27,9 +23,7 @@ const updateHeader = (
     if (top <= headerHeight && bottom >= headerHeight) {
       const div = divs[i].children[0] as HTMLDivElement;
       const color = div.style.backgroundColor;
-
-      updateBackgroundColor(headerRef, color);
-      updateThemeColor(color);
+      return color;
     }
   }
 };
@@ -42,9 +36,13 @@ export const useHeaderColor = (
   btnReturnToTopRef: MutableRefObject<HTMLButtonElement | null>
 ) => {
   const updateColor = () => {
-    updateHeader(workoutsRef, headerRef);
-    getColorBeneath(headerRef, workoutsRef);
-    btnReturnToTopRef.current.style.backgroundColor = "red";
+    const color = updateHeader(workoutsRef, headerRef);
+    console.log(color);
+    if (!color) return;
+    updateBackgroundColor(headerRef, color);
+    updateThemeColor(color);
+    if (!btnReturnToTopRef.current) return;
+    btnReturnToTopRef.current.style.backgroundColor = color;
   };
 
   const initColor =

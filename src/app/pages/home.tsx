@@ -79,7 +79,8 @@ const Home = ({ user, tabata }: HomeProps) => {
       </Droppable>
       <AddIcon setView={tabata.setView} user={user} />
       <button
-        className="fixed bottom-2 left-5 p-3 rounded-full shadow-xl bg-blue-200"
+        className="fixed bottom-2 left-5 p-3 rounded-full shadow-[1px_1px_1px_0px_rgba(0,0,0,0.5)]"
+        style={{ backgroundColor: initColor }}
         onClick={handleScrollToTop}
         ref={btnReturnToTopRef}
       >
