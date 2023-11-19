@@ -41,8 +41,6 @@ const truncateTitle = (title: string) => {
 };
 
 const Workout = ({ user, index, expandedWorkout, workout, tabata }: Props) => {
-  console.log(`${workout.title.slice(0, 50)}...`);
-
   const menu = useMenu(user, workout, tabata);
   return (
     <Draggable draggableId={workout.id} index={index} key={workout.id}>
