@@ -13,6 +13,7 @@ import convertTime from "@/helpers/convertTime";
 import Menu from "@/components/menu";
 import Summary from "@/components/summary";
 import UserMessageModal from "@/components/userMessageModal";
+import { truncateTitle } from "@/helpers/truncateTitle";
 
 const ExpandedWorkoutView = ({ workout }: { workout: WorkoutObj }) => {
   return (
@@ -33,11 +34,6 @@ type Props = {
   expandedWorkout: boolean;
   workout: WorkoutObj;
   tabata: Tabata;
-};
-
-const truncateTitle = (title: string) => {
-  if (title.length < 50) return title;
-  else return `${title.slice(0, 60)}...`;
 };
 
 const Workout = ({ user, index, expandedWorkout, workout, tabata }: Props) => {
