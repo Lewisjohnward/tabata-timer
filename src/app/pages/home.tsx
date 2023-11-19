@@ -6,6 +6,7 @@ import AddIcon from "@/components/addIcon";
 import Header from "@/components/header";
 import Workout from "@/components/workout";
 import { useHeaderColor } from "@/hooks/useUpdateHeaderColor";
+import { FaArrowUp } from "@/misc/icons";
 type HomeProps = {
   user: string | undefined;
   tabata: Tabata;
@@ -15,19 +16,30 @@ const Home = ({ user, tabata }: HomeProps) => {
   const workoutsRef = useRef<HTMLDivElement>();
   const headerRef = useRef<HTMLDivElement>(null);
 
+  /////
+  const containerRef = useRef<HTMLDivElement>(null);
+  const btnReturnToTopRef = useRef<HTMLButtonElement>(null);
+
+  const handleScrollToTop = () => {
+    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  /////
+
   const { filterState, dispatch, filter } = useFilter(tabata.workouts);
 
   const { initColor, updateColor } = useHeaderColor(
     filter.filteredWorkouts,
     workoutsRef,
     headerRef,
-    filterState.color
+    filterState.color,
+    btnReturnToTopRef
   );
 
   return (
     <div
       className="relative h-[100dvh] md:h-screen overflow-scroll"
       onScroll={updateColor}
+      ref={containerRef}
     >
       <div
         className="sticky top-0 z-10 px-2 py-2 space-y-2 lg:px-20 text-white shadow-xl"
@@ -66,6 +78,13 @@ const Home = ({ user, tabata }: HomeProps) => {
         )}
       </Droppable>
       <AddIcon setView={tabata.setView} user={user} />
+      <button
+        className="fixed bottom-2 left-5 p-3 rounded-full shadow-xl bg-blue-200"
+        onClick={handleScrollToTop}
+        ref={btnReturnToTopRef}
+      >
+        <FaArrowUp className="text-white" size={30} />
+      </button>
     </div>
   );
 };

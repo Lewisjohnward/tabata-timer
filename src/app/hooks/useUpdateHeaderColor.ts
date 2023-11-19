@@ -9,6 +9,10 @@ const updateBackgroundColor = (
   ref.current.style.backgroundColor = color;
 };
 
+const getColorBeneath = (top, bottomContainer) => {
+  console.log("hello");
+};
+
 const updateHeader = (
   workoutsRef: MutableRefObject<HTMLDivElement | undefined>,
   headerRef: MutableRefObject<HTMLDivElement | null>
@@ -34,10 +38,13 @@ export const useHeaderColor = (
   workouts: WorkoutObj[],
   workoutsRef: MutableRefObject<HTMLDivElement | undefined>,
   headerRef: MutableRefObject<HTMLDivElement | null>,
-  color: string
+  color: string,
+  btnReturnToTopRef: MutableRefObject<HTMLButtonElement | null>
 ) => {
   const updateColor = () => {
     updateHeader(workoutsRef, headerRef);
+    getColorBeneath(headerRef, workoutsRef);
+    btnReturnToTopRef.current.style.backgroundColor = "red";
   };
 
   const initColor =
