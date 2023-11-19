@@ -42,6 +42,8 @@ import {
   MdSportsGymnastics,
 } from "react-icons/md";
 import {
+  FaArrowAltCircleUp,
+  FaArrowUp,
   FaEllipsisV,
   FaStepBackward,
   FaStepForward,
@@ -107,4 +109,6 @@ export {
   MdSportsGymnastics,
   LiaDumbbellSolid,
   RxDragHandleDots1,
+  FaArrowAltCircleUp,
+  FaArrowUp,
 };
