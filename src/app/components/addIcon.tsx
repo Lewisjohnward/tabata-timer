@@ -58,7 +58,7 @@ const AddIcon = ({ setView, user }: Props) => {
           onClick={() => setOpen(false)}
         />
       )}
-      <div className="fixed right-1 bottom-1 md:bottom-2 space-y-2 text-white text-xl md:text-2xl">
+      <div className="fixed right-5 bottom-2 md:bottom-2 space-y-2 text-white text-xl md:text-2xl">
         {open && (
           <div className="flex justify-between items-center gap-4 [&>*]:active:bg-white [&>*]:active:transition-colors [&>*]:active:duration-200">
             <button
