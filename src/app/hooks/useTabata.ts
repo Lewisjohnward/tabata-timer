@@ -61,7 +61,7 @@ const useTabata = ({ data, user }: UseTabata) => {
 
     setWorkouts([..._updatedWorkouts]);
     updateThemeColor(_updatedWorkouts[0].color);
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("workouts")
       .upsert(_updatedWorkouts)
       .select();
