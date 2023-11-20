@@ -65,13 +65,11 @@ const useTabata = ({ data, user }: UseTabata) => {
       .from("workouts")
       .upsert(_updatedWorkouts)
       .select();
-    console.log(data);
     console.log(error);
   };
 
   const editWorkout = (id: string) => {
     const [workout] = workouts.filter((workout) => workout.id == id);
-    console.log(workout);
     setWorkoutToEdit(workout);
     setView("addworkout");
   };
@@ -100,7 +98,6 @@ const useTabata = ({ data, user }: UseTabata) => {
       setWorkoutToEdit(null);
     } else {
       createdWorkout.position = workouts.length;
-      console.log(createdWorkout);
       const { error } = await supabase.from("workouts").insert(createdWorkout);
       console.log("Error - add Workout: ", error);
       setWorkouts((prev) => [...prev, { ...createdWorkout }]);
