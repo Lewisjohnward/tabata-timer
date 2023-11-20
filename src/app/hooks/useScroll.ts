@@ -30,7 +30,7 @@ const updateHeader = (
 
 const atBottom = (container: HTMLDivElement) => {
   const { scrollHeight, clientHeight, scrollTop } = container;
-  return Math.ceil(scrollTop + clientHeight) == scrollHeight;
+  return Math.ceil(scrollTop + clientHeight + 1) >= scrollHeight;
 };
 
 const scrolledTo = (container: HTMLDivElement, position: number) => {
