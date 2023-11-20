@@ -7,6 +7,7 @@ import Header from "@/components/header";
 import Workout from "@/components/workout";
 import { useHeaderColor } from "@/hooks/useUpdateHeaderColor";
 import { FaArrowUp } from "@/misc/icons";
+import clsx from "clsx";
 type HomeProps = {
   user: string | undefined;
   tabata: Tabata;
@@ -15,24 +16,24 @@ type HomeProps = {
 const Home = ({ user, tabata }: HomeProps) => {
   const workoutsRef = useRef<HTMLDivElement>();
   const headerRef = useRef<HTMLDivElement>(null);
-
-  /////
   const containerRef = useRef<HTMLDivElement>(null);
   const btnReturnToTopRef = useRef<HTMLButtonElement>(null);
 
-  const handleScrollToTop = () => {
-    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-  };
-  /////
-
   const { filterState, dispatch, filter } = useFilter(tabata.workouts);
 
-  const { initColor, updateColor } = useHeaderColor(
+  const {
+    initColor,
+    updateColor,
+    returnToTopVisible,
+    scrolledToBottom,
+    handleScrollToTop,
+  } = useHeaderColor(
     filter.filteredWorkouts,
     workoutsRef,
     headerRef,
     filterState.color,
-    btnReturnToTopRef
+    btnReturnToTopRef,
+    containerRef
   );
 
   return (
@@ -79,13 +80,26 @@ const Home = ({ user, tabata }: HomeProps) => {
       </Droppable>
       <AddIcon setView={tabata.setView} user={user} />
       <button
-        className="fixed bottom-2 left-5 p-3 rounded-full shadow-[1px_1px_1px_0px_rgba(0,0,0,0.5)]"
+        className={clsx(
+          "fixed bottom-5 p-3 rounded-full shadow-[1px_1px_1px_0px_rgba(0,0,0,0.5)] transition-all duration-500",
+          returnToTopVisible ? "left-5" : "-left-full"
+        )}
         style={{ backgroundColor: initColor }}
         onClick={handleScrollToTop}
         ref={btnReturnToTopRef}
       >
         <FaArrowUp className="text-white" size={30} />
       </button>
+      <div
+        className={clsx(
+          "px-20 py-4 whitespace-nowrap text-sm md:text-md font-bold text-sky-700 transition-opacity duration-500 uppercase",
+          scrolledToBottom ? "opacity-100" : "opacity-0"
+        )}
+      >
+        <p className="text-center">tap play to start</p>
+        <p className="text-center">three dots to edit or delete</p>
+        <p className="text-center">hold the grid of dots to reorder</p>
+      </div>
     </div>
   );
 };

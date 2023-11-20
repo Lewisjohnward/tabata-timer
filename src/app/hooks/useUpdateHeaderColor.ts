@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect } from "react";
+import { MutableRefObject, useEffect, useState } from "react";
 import { updateThemeColor } from "@/helpers/updateThemeColor";
 
 const updateBackgroundColor = (
@@ -28,16 +28,33 @@ const updateHeader = (
   }
 };
 
+const atBottom = (container: HTMLDivElement) => {
+  const { scrollHeight, clientHeight, scrollTop } = container;
+  return Math.ceil(scrollTop + clientHeight) == scrollHeight;
+};
+
+const scrolledTo = (container: HTMLDivElement, position: number) => {
+  const { scrollTop } = container;
+  return scrollTop > position;
+};
+
 export const useHeaderColor = (
   workouts: WorkoutObj[],
   workoutsRef: MutableRefObject<HTMLDivElement | undefined>,
   headerRef: MutableRefObject<HTMLDivElement | null>,
   color: string,
-  btnReturnToTopRef: MutableRefObject<HTMLButtonElement | null>
+  btnReturnToTopRef: MutableRefObject<HTMLButtonElement | null>,
+  containerRef: MutableRefObject<HTMLDivElement | null>
 ) => {
+  const [returnToTopVisible, setReturnToTopVisible] = useState(false);
+  const [scrolledToBottom, setScrolledToBottom] = useState(false);
+
   const updateColor = () => {
+    if (containerRef.current) {
+      setReturnToTopVisible(scrolledTo(containerRef.current, 250));
+      setScrolledToBottom(atBottom(containerRef.current));
+    }
     const color = updateHeader(workoutsRef, headerRef);
-    console.log(color);
     if (!color) return;
     updateBackgroundColor(headerRef, color);
     updateThemeColor(color);
@@ -52,5 +69,15 @@ export const useHeaderColor = (
     updateBackgroundColor(headerRef, initColor);
   }, []);
 
-  return { initColor, updateColor };
+  const handleScrollToTop = () => {
+    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return {
+    initColor,
+    updateColor,
+    returnToTopVisible,
+    scrolledToBottom,
+    handleScrollToTop,
+  };
 };
