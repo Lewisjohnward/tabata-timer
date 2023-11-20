@@ -34,7 +34,7 @@ const ActiveWorkout = ({ tabata }: Props) => {
   return (
     <>
       <div
-        className="relative flex flex-col gap-5 text-white p-4 h-[100dvh] lg:flex-row lg:justify-center lg:items-center lg:gap-10"
+        className="relative flex flex-col justify-between gap-5 text-white p-4 h-[100dvh] lg:flex-row lg:justify-center lg:items-center lg:gap-10"
         style={{ backgroundColor: intervalManager.color }}
       >
         <CurrentInterval intervalManager={intervalManager} />
@@ -96,7 +96,7 @@ type CurrentIntervalProps = {
 
 const CurrentInterval = ({ intervalManager }: CurrentIntervalProps) => {
   return (
-    <div className="flex flex-col justify-evenly lg:gap-10">
+    <div className="flex-grow flex flex-col justify-evenly gap-4 lg:flex-grow-0 lg:gap-10">
       <div className="flex justify-evenly items-center gap-8 text-4xl lg:text-6xl font-bold">
         <button onClick={() => intervalManager.setLocked((prev) => !prev)}>
           {intervalManager.locked ? <AiFillLock /> : <AiFillUnlock />}
@@ -112,8 +112,8 @@ const CurrentInterval = ({ intervalManager }: CurrentIntervalProps) => {
         </button>
       </div>
 
-      <div className="text-center text-[7rem] md:text-[10rem] lg:text-[15rem] leading-none">
-        {intervalManager.getCurrentIntervalRemainingTime()}
+      <div className="flex-grow flex flex-col justify-center text-center text-[14rem] lg:text-[15rem] leading-none">
+        <p>{intervalManager.getCurrentIntervalRemainingTime()}</p>
       </div>
       <div className="hidden w-full lg:flex justify-evenly gap-4 py-4 text-white text-4xl">
         <NavigationButtons
@@ -148,7 +148,7 @@ const IntervalList = ({ intervals, intervalManager }: IntervalListProps) => {
           <div
             key={id}
             className={clsx(
-              "border-b-[1px] border-white text-center text-2xl lg:text-4xl",
+              "border-b-[1px] border-white text-center text-4xl",
               i == intervalManager.intervalPosition && "bg-black/30 rounded"
             )}
           >
@@ -180,7 +180,7 @@ const NavigationButtons = ({
       <button onClick={previousInterval}>
         <FaStepBackward />
       </button>
-      <p className="lg:w-48 text-center">{intervalPosition}</p>
+      <p className="text-5xl lg:w-48 text-center">{intervalPosition}</p>
       <button onClick={nextInterval}>
         <FaStepForward />
       </button>
