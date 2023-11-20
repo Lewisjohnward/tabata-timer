@@ -5,7 +5,7 @@ import useFilter from "@/hooks/useFilter";
 import AddIcon from "@/components/addIcon";
 import Header from "@/components/header";
 import Workout from "@/components/workout";
-import { useHeaderColor } from "@/hooks/useUpdateHeaderColor";
+import { useScroll } from "@/hooks/useScroll";
 import { FaArrowUp } from "@/misc/icons";
 import clsx from "clsx";
 type HomeProps = {
@@ -23,11 +23,11 @@ const Home = ({ user, tabata }: HomeProps) => {
 
   const {
     initColor,
-    updateColor,
+    handleScroll,
     returnToTopVisible,
     scrolledToBottom,
     handleScrollToTop,
-  } = useHeaderColor(
+  } = useScroll(
     filter.filteredWorkouts,
     workoutsRef,
     headerRef,
@@ -39,7 +39,7 @@ const Home = ({ user, tabata }: HomeProps) => {
   return (
     <div
       className="relative h-[100dvh] md:h-screen overflow-scroll"
-      onScroll={updateColor}
+      onScroll={handleScroll}
       ref={containerRef}
     >
       <div
