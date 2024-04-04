@@ -1,3 +1,21 @@
-# Tabata Timer!
+# Tabata Timer
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+An online Tabata Timer built with Next.js
+
+## Getting Started
+
+### Prerequisites
+
+```
+Give examples
+```
+
+### Installing
+
+To get a development environment running the server will be on port 3000
+
+```
+make dev
+```
+
+You'll need to create a .env.local with Supabase API keys too
